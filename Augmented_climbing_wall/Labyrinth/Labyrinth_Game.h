@@ -17,24 +17,26 @@ namespace Labyrinth
 	{
 
 	public:
-		static void Start(myServer &server);
-		static sf::RenderWindow& GetWindow();
+		Game(sf::RenderWindow &window);
+
+		void Start(myServer &server);
+		sf::RenderWindow& GetWindow();
 		static CBodyBasics & getKinectApplication();
-		const static int SCREEN_WIDTH = 1900;
-		const static int SCREEN_HEIGHT = 1200;
-		static void countIncriment();
+		const int SCREEN_WIDTH = 1920;
+		const int SCREEN_HEIGHT = 1080;
+		void countIncriment();
 
 	private:
-		static bool IsExiting();
-		static void GameLoop(myServer &server);
-		//static void ShowSplashScreen();
-		static void ShowMenu();
-		//static void ShowCustomScreen();
-		static void Init();
-		static void reInit();
-		static int getRandomNumber(int min, int max);
-		static void levelInit();
-		static std::vector<VisibleGameObject> levels;
+		bool IsExiting();
+		void GameLoop(myServer &server);
+		//void ShowSplashScreen();
+		void ShowMenu();
+		//void ShowCustomScreen();
+		void Init();
+		void reInit();
+		int getRandomNumber(int min, int max);
+		void levelInit();
+		std::vector<VisibleGameObject> levels;
 
 		enum GameState {
 			Uninitialized, ShowingSplash, Paused,
@@ -46,14 +48,14 @@ namespace Labyrinth
 			LEVEL_1, LEVEL_2, LEVEL_3, LEVEL_4, CIRCLELvL, LAST
 		};
 
-		static sf::Clock serverDelayClock;
+		sf::Clock serverDelayClock;
 
-		static GameState _gameState;
-		static sf::RenderWindow _mainWindow;
-		static GameObjectManager _gameObjectManager;
-		//static int smashCount;
-		static SelectedLevel _selectedLevel;
-		static bool kinectControl;
+		GameState _gameState;
+		sf::RenderWindow &_mainWindow;
+		GameObjectManager _gameObjectManager;
+		//int smashCount;
+		SelectedLevel _selectedLevel;
+		bool kinectControl;
 		static CBodyBasics _kinectApplication;
 	};
 }

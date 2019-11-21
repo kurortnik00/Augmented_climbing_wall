@@ -1,6 +1,7 @@
 #include "Smash_It\Smash_It_Game.h"
 #include "TimeClimb\TimeClimb_Game.h"
 #include "Labyrinth\Labyrinth_Game.h"
+#include "mainWindow.h"
 //#include "aerohockey/starter.h"
 #include "server.h"
 
@@ -11,8 +12,6 @@ int main()
 	myServer *server = new myServer();
 	server->InitServer();
 
-	sf::RenderWindow blackWindow;
-	//blackWindow.create(sf::VideoMode(1900, 1080), "window");
 
 	enum dataType
 	{
@@ -26,17 +25,25 @@ int main()
 		case(myServer::EXIT):
 			break;
 		case(myServer::PLAY):
-			blackWindow.close();
+			MainWindow::getWindow().setMouseCursorVisible(true);
 			switch (server->getData()[game])
 			{
 			case(myServer::SMASH_IT):
+			{
 				std::cout << "SMASh_it started \n";
-				Smash_It::Game::Start(*server);
+		
+				Smash_It::Game smash_It(MainWindow::getWindow());
+				smash_It.Start(*server);
 				break;
+			}
 			case(myServer::LABYRINTH):
+			{
 				std::cout << "LABYRINTH started \n";
-				Labyrinth::Game::Start(*server);
+
+				Labyrinth::Game labyrinth(MainWindow::getWindow());
+				labyrinth.Start(*server);
 				break;
+			}
 			case(myServer::TIME_CLIMB):
 				std::cout << "TIME_CLIMB started \n";
 				TimeClimb::Game::Start(*server);
@@ -56,7 +63,10 @@ int main()
 		case(myServer::SCORE_BOARD):
 			break;
 		case(myServer::GAME_SELECTION):	
-			if (!blackWindow.isOpen()) blackWindow.create(sf::VideoMode(1900, 1080), "window");
+			MainWindow::getWindow().clear(sf::Color(0, 0, 0));
+			MainWindow::getWindow().setMouseCursorVisible(false);
+			MainWindow::getWindow().display();
+
 			break;
 		}
 		

@@ -18,38 +18,41 @@ namespace Smash_It
 	{
 
 	public:
-		static void Start(myServer &server);
-		static sf::RenderWindow& GetWindow();
-		const static int SCREEN_WIDTH = 1024;
-		const static int SCREEN_HEIGHT = 768;
-		static void countIncriment();
+
+		Game(sf::RenderWindow& window);
+
+		void Start(myServer &server);
+		sf::RenderWindow& GetWindow();
+		const int SCREEN_WIDTH = 1024;
+		const int SCREEN_HEIGHT = 768;
+		void countIncriment();
 
 	private:
-		static bool IsExiting();
-		static void GameLoop(myServer &server);
-		//static void ShowSplashScreen();
-		static void ShowMenu(myServer &server);
-		//static void ShowCustomScreen();
-		static void Init(int targ_count);
-		static void reInit(int targ_count);
-		static int  targetCount;
-		static int getRandomNumber(int min, int max);
-		static void TOP_List_Update();
-		static void GameOver_Screen();
+		bool IsExiting();
+		void GameLoop(myServer &server);
+		//void ShowSplashScreen();
+		void ShowMenu(myServer &server);
+		//void ShowCustomScreen();
+		void Init(int targ_count);
+		void reInit(int targ_count);
+		int  targetCount;
+		int getRandomNumber(int min, int max);
+		void TOP_List_Update();
+		void GameOver_Screen();
 
 		enum GameState {
 			Uninitialized, ShowingSplash, Paused,
 			ShowingMenu, Playing, Exiting, GameOver
 		};
 
-		static sf::Clock serverDelayClock;
+		sf::Clock serverDelayClock;
 
-		static GameState _gameState;
-		static sf::RenderWindow _mainWindow;
-		static Smash_It::GameObjectManager _gameObjectManager;
-		static int smashCount;
-		static std::set<std::pair<float, std::string>> TOP_List;
-		static bool kinectControl;
+		GameState _gameState;
+		sf::RenderWindow & _mainWindow;
+		Smash_It::GameObjectManager _gameObjectManager;
+		int smashCount;
+		std::set<std::pair<float, std::string>> TOP_List;
+		bool kinectControl;
 
 	};
 }

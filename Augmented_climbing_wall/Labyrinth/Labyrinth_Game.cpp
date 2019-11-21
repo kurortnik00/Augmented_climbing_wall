@@ -1,14 +1,18 @@
 #include "Labyrinth_Game.h"
 
 
-
+Labyrinth::Game::Game(sf::RenderWindow &window)
+	:_mainWindow(window)
+{
+	Labyrinth::Game::_gameState = Uninitialized;
+	Labyrinth::Game::_selectedLevel = LEVEL_1;
+	Labyrinth::Game::kinectControl = false;
+}
 
 void Labyrinth::Game::Start(myServer &server)	//инициализация объектов
 {
 	if (_gameState != Uninitialized) return;
 
-	_mainWindow.create(sf::VideoMode(1900, 1000), "Labyrinth");
-	
 
 	Game::Init();
 	_kinectApplication.Run();
@@ -33,7 +37,6 @@ void Labyrinth::Game::Start(myServer &server)	//инициализация объектов
 
 	}
 
-	_mainWindow.close();
 	_gameState = Uninitialized;
 	_gameObjectManager.RemoveAll();
 }
@@ -222,14 +225,7 @@ int Labyrinth::Game::getRandomNumber(int min, int max)
 	return static_cast<int>(rand() * fraction * (max - min + 1) + min);
 }
 
-std::vector<Labyrinth::VisibleGameObject> Labyrinth::Game::levels;
-Labyrinth::GameObjectManager Labyrinth::Game::_gameObjectManager;
-Labyrinth::Game::GameState Labyrinth::Game::_gameState = Uninitialized;
-sf::RenderWindow Labyrinth::Game::_mainWindow;
-Labyrinth::Game::SelectedLevel Labyrinth::Game::_selectedLevel = LEVEL_1;
-bool Labyrinth::Game::kinectControl = false;
 CBodyBasics Labyrinth::Game::_kinectApplication;
-sf::Clock Labyrinth::Game::serverDelayClock;
 
 
 

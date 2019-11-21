@@ -148,6 +148,7 @@
     <ClCompile Include="Labyrinth\Labyrinth_Timer.cpp" />
     <ClCompile Include="Labyrinth\Labyrinth_VisibleGameObject.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="mainWindow.cpp" />
     <ClCompile Include="myKeyboard.cpp" />
     <ClCompile Include="server.cpp" />
     <ClCompile Include="Smash_It\Smash_It_Game.cpp" />
@@ -192,6 +193,7 @@
     <ClInclude Include="Labyrinth\Labyrinth_MainMenu.h" />
     <ClInclude Include="Labyrinth\Labyrinth_Timer.h" />
     <ClInclude Include="Labyrinth\Labyrinth_VisibleGameObject.h" />
+    <ClInclude Include="mainWindow.h" />
     <ClInclude Include="myKeyboard.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="server.h" />

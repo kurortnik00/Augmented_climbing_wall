@@ -1,5 +1,6 @@
 #include "Level.h"
 #include "Labyrinth_Game.h"
+#include "../mainWindow.h"
 
 
 Level::Level() 
@@ -198,12 +199,12 @@ void Level::linesUpdate(std::vector<Line>& lines)
 	{
 		if (!VisibleGameObject::getKinectControll()) {
 			for (int i = 0; i < lines.size(); i++) {
-				if ((abs(Level::lineEquation(lines[i]._startPoint, lines[i]._endPoint, sf::Vector2f(sf::Mouse::getPosition(Labyrinth::Game::GetWindow()).x, sf::Mouse::getPosition(Labyrinth::Game::GetWindow()).y))) <= 2000)
+				if ((abs(Level::lineEquation(lines[i]._startPoint, lines[i]._endPoint, sf::Vector2f(sf::Mouse::getPosition(MainWindow::getWindow()).x, sf::Mouse::getPosition(MainWindow::getWindow()).y))) <= 2000)
 					//add for not action where line ends, canculate the distance betwin end line end mause pose, if dist > lineLength ==> false
-					&& (dist2(sf::Vector2f(sf::Mouse::getPosition(Labyrinth::Game::GetWindow()).x, sf::Mouse::getPosition(Labyrinth::Game::GetWindow()).y), lines[i]._center) < lines[i].size.x * lines[i].size.x / 4))
+					&& (dist2(sf::Vector2f(sf::Mouse::getPosition(MainWindow::getWindow()).x, sf::Mouse::getPosition(MainWindow::getWindow()).y), lines[i]._center) < lines[i].size.x * lines[i].size.x / 4))
 
 				{
-					if (!lines[i]._unActive) Level::lose(sf::Vector2f(sf::Mouse::getPosition(Labyrinth::Game::GetWindow()).x, sf::Mouse::getPosition(Labyrinth::Game::GetWindow()).y));
+					if (!lines[i]._unActive) Level::lose(sf::Vector2f(sf::Mouse::getPosition(MainWindow::getWindow()).x, sf::Mouse::getPosition(MainWindow::getWindow()).y));
 
 				}
 			}
@@ -363,7 +364,7 @@ void Level::buttonsUpdate(std::vector<Button>& buttons)
 		if (!VisibleGameObject::getKinectControll())
 		{
 			
-			if (dist2(sf::Vector2f(sf::Mouse::getPosition(Labyrinth::Game::GetWindow()).x, sf::Mouse::getPosition(Labyrinth::Game::GetWindow()).y), buttons[START_BUTTON]._center)  < buttons[START_BUTTON]._radius*buttons[START_BUTTON]._radius)
+			if (dist2(sf::Vector2f(sf::Mouse::getPosition(MainWindow::getWindow()).x, sf::Mouse::getPosition(MainWindow::getWindow()).y), buttons[START_BUTTON]._center)  < buttons[START_BUTTON]._radius*buttons[START_BUTTON]._radius)
 			{
 				buttons[START_BUTTON]._hasClicked = true;
 				buttons[START_BUTTON]._unDrowable = true;
@@ -413,7 +414,7 @@ void Level::buttonsUpdate(std::vector<Button>& buttons)
 		if (!VisibleGameObject::getKinectControll()) {
 			for (int i = 0; i < buttons.size(); i++)
 			{
-				if (dist2(sf::Vector2f(sf::Mouse::getPosition(Labyrinth::Game::GetWindow()).x, sf::Mouse::getPosition(Labyrinth::Game::GetWindow()).y), buttons[i]._center) < buttons[i]._radius*buttons[i]._radius)
+				if (dist2(sf::Vector2f(sf::Mouse::getPosition(MainWindow::getWindow()).x, sf::Mouse::getPosition(MainWindow::getWindow()).y), buttons[i]._center) < buttons[i]._radius*buttons[i]._radius)
 				{
 
 					buttons[i]._hasClicked = true;

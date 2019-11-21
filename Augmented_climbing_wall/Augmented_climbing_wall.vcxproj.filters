@@ -192,6 +192,9 @@
     <ClCompile Include="aerohockey\starter.cpp">
       <Filter>Исходные файлы\aerohockey</Filter>
     </ClCompile>
+    <ClCompile Include="mainWindow.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="myKeyboard.h">
@@ -325,6 +328,9 @@
     </ClInclude>
     <ClInclude Include="aerohockey\starter.h">
       <Filter>Файлы заголовков\aerohockey</Filter>
+    </ClInclude>
+    <ClInclude Include="mainWindow.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,5 +1,31 @@
 #include "server.h"
 
+/*
+masege format from client:
+1st byte - the menu state contains one of this integers:
+	0 - exit	(not used)
+	1 - playing
+	3 - show scoreBoard
+	4 - game selection
+2nd byte - the current game:
+	0 - Smash_It
+	1 - Time_Climb
+	2 - Labyrinth
+	3 - Aerohockey
+	4 - Territory
+3rd byte - the action button pressed
+	0 - Nothing
+	1 - back
+	2 - TopScore (relevant to Smash_It, Time_Climb, Labyrinth)
+	3 - set_Positions (relevant to Time_Climb)
+4rd byte - the current LvL in Labyrinth game
+	0 - 1st lvl
+	0 - 2st lvl
+	0 - 3st lvl
+	0 - 4st lvl
+	0 - 5st lvl (circle lvl)
+*/
+
 myServer::myServer()
 {
 }
@@ -113,55 +139,3 @@ void myServer::endServer()
 }
 
 
-
-
-//int __cdecl main(void)
-//{
-//
-//	// Receive until the peer shuts down the connection
-//	do {
-//
-//		iResult = recv(ClientSocket, recvbuf, recvbuflen, 0);
-//		if (iResult > 0) {
-//			printf("Bytes received: %d\n", iResult);
-//
-//			int k = (int)recvbuf[0] - '0';
-//			k = k * k;
-//			std::cout << k;
-//
-//			// Echo the buffer back to the sender
-//			iSendResult = send(ClientSocket, recvbuf, iResult, 0);
-//			if (iSendResult == SOCKET_ERROR) {
-//				printf("send failed with error: %d\n", WSAGetLastError());
-//				closesocket(ClientSocket);
-//				WSACleanup();
-//				return 1;
-//			}
-//			printf("Bytes sent: %d\n", iSendResult);
-//		}
-//		else if (iResult == 0)
-//			printf("Connection closing...\n");
-//		else {
-//			printf("recv failed with error: %d\n", WSAGetLastError());
-//			closesocket(ClientSocket);
-//			WSACleanup();
-//			return 1;
-//		}
-//
-//	} while (iResult > 0);
-//
-//	// shutdown the connection since we're done
-//	iResult = shutdown(ClientSocket, SD_SEND);
-//	if (iResult == SOCKET_ERROR) {
-//		printf("shutdown failed with error: %d\n", WSAGetLastError());
-//		closesocket(ClientSocket);
-//		WSACleanup();
-//		return 1;
-//	}
-//
-//	// cleanup
-//	closesocket(ClientSocket);
-//	WSACleanup();
-//
-//	return 0;
-//}

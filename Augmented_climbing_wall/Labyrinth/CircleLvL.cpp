@@ -1,5 +1,6 @@
 #include "circleLvL.h"
 #include "Labyrinth_Game.h"
+#include "../mainWindow.h"
 
 
 #define PI 3.14159265 
@@ -116,7 +117,7 @@ void CircleLvL::Update(sf::Event& event) {
 			_angl += _angVelocity;
 
 			_center = _center + _velocity;
-			if ((_center.x + _radius > Labyrinth::Game::SCREEN_WIDTH) || (_center.y + _radius > Labyrinth::Game::SCREEN_HEIGHT)) _velocity = -_velocity;
+			if ((_center.x + _radius > MainWindow::SCREEN_WIDTH) || (_center.y + _radius > MainWindow::SCREEN_HEIGHT)) _velocity = -_velocity;
 				//coordinateTransf(_angVelocity, _center, _centerOfRotation);		//canculation of new position of _center (the center of KILL_ring)
 
 			//rotation of kill line 
@@ -143,9 +144,9 @@ void CircleLvL::Update(sf::Event& event) {
 		//responsible of losing state
 		//win check in "winButton"
 		if (!VisibleGameObject::getKinectControll()) {
-			if ((dist2(sf::Vector2f(sf::Mouse::getPosition(Labyrinth::Game::GetWindow()).x, sf::Mouse::getPosition(Labyrinth::Game::GetWindow()).y), _center) > _radius*_radius))
+			if ((dist2(sf::Vector2f(sf::Mouse::getPosition(MainWindow::getWindow()).x, sf::Mouse::getPosition(MainWindow::getWindow()).y), _center) > _radius*_radius))
 			{
-				Level::lose(sf::Vector2f(sf::Mouse::getPosition(Labyrinth::Game::GetWindow()).x, sf::Mouse::getPosition(Labyrinth::Game::GetWindow()).y));
+				Level::lose(sf::Vector2f(sf::Mouse::getPosition(MainWindow::getWindow()).x, sf::Mouse::getPosition(MainWindow::getWindow()).y));
 			}
 			
 		}

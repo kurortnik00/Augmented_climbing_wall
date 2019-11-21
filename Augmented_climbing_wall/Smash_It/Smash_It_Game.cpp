@@ -1,11 +1,20 @@
 #include "Smash_It_Game.h"
 
- 
+Smash_It::Game::Game(sf::RenderWindow &window)
+	:_mainWindow(window)
+{
+	Smash_It::Game::_gameState = Uninitialized;
+	Smash_It::Game::targetCount = 7;				//max targets = 14 if you wana more change Init()
+	Smash_It::Game::TOP_List = { {6, "ASd"} , {5, "zzz"} , {1, "qq"} , {4, "44"} };
+	Smash_It::Game::kinectControl = false;
+}
+
+
 void Smash_It::Game::Start(myServer &server)	//инициализация объектов
 {
 	if (_gameState != Uninitialized) return;
 
-	_mainWindow.create(sf::VideoMode(1900, 1080), "Pang!");
+	//_mainWindow.create(sf::VideoMode(1920, 1080), "Smash_It", sf::Style::Fullscreen);
 
 	Game::Init(targetCount);
 	srand(static_cast<unsigned int>(time(0)));
@@ -31,7 +40,6 @@ void Smash_It::Game::Start(myServer &server)	//инициализация объектов
 		
 	}
 
-	_mainWindow.close();
 	_gameState = Uninitialized;
 	_gameObjectManager.RemoveAll();
 }
@@ -236,13 +244,13 @@ void Smash_It::Game::GameOver_Screen()
 	_gameState = Game::ShowingMenu;
 }
 
-Smash_It::GameObjectManager Smash_It::Game::_gameObjectManager;
-Smash_It::Game::GameState Smash_It::Game::_gameState = Uninitialized;
-sf::RenderWindow Smash_It::Game::_mainWindow;
-int Smash_It::Game::targetCount = 7;				//max targets = 14 if you wana more change Init()
-std::set<std::pair<float, std::string>> Smash_It::Game::TOP_List = { {6, "ASd"} , {5, "zzz"} , {1, "qq"} , {4, "44"} };
-bool Smash_It::Game::kinectControl = false;
-sf::Clock Smash_It::Game::serverDelayClock;
+//Smash_It::GameObjectManager Smash_It::Game::_gameObjectManager;
+//Smash_It::Game::GameState Smash_It::Game::_gameState = Uninitialized;
+//sf::RenderWindow Smash_It::Game::_mainWindow;
+//int Smash_It::Game::targetCount = 7;				//max targets = 14 if you wana more change Init()
+//std::set<std::pair<float, std::string>> Smash_It::Game::TOP_List = { {6, "ASd"} , {5, "zzz"} , {1, "qq"} , {4, "44"} };
+//bool Smash_It::Game::kinectControl = false;
+//sf::Clock Smash_It::Game::serverDelayClock;
 
 
 
