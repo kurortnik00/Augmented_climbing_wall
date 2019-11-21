@@ -1,0 +1,32 @@
+#pragma once
+#include "../stdafx.h"
+#include "TimeClimb_VisibleGameObject.h"
+
+namespace TimeClimb
+{
+	class Timer : public VisibleGameObject
+	{
+	public:
+		Timer();
+		~Timer();
+
+		void Load(std::string filename);
+		void Draw(sf::RenderWindow & renderWindow);
+		void Restart();
+		sf::Time GetTime();
+		void setFinished(bool res);		//переводит finished в true
+		bool getFinished();
+		void reInit();
+		float getFinishedTime();
+
+
+	private:
+		sf::Clock gameTimeClock;
+		sf::Time t1;
+		sf::Font font;
+		sf::Text text;
+		bool finished;
+		float finishedTime;
+	};
+
+}

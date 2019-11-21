@@ -1,0 +1,330 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Исходные файлы">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Файлы заголовков">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Файлы ресурсов">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Исходные файлы\Smash_It">
+      <UniqueIdentifier>{383b30bd-1e63-4cde-81d4-c231887ce123}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Smash_It">
+      <UniqueIdentifier>{c7e87eb6-96e7-4b0e-abe6-83aa2be2a20d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Time_Climb">
+      <UniqueIdentifier>{f5e9afb0-4ad5-4fa1-a3c5-1b6aeea491c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Time_Climb">
+      <UniqueIdentifier>{fe94e244-70a0-4f0b-9650-e7b5bffb4196}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Labyrinth">
+      <UniqueIdentifier>{40a731e2-2944-4da3-a1ef-cd52ae1b4368}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Labyrinth">
+      <UniqueIdentifier>{d015fc55-f52d-4676-884b-31c206ad9fc6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\aerohockey">
+      <UniqueIdentifier>{8b0dd9f6-e11a-404a-a83b-b5b2ac6ec95e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\aerohockey\control">
+      <UniqueIdentifier>{1e2b17b9-edd8-4bde-bd05-9eac722e8889}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\aerohockey">
+      <UniqueIdentifier>{4733ffd2-4afa-4bd0-ab3a-46494199d2a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\aerohockey\control">
+      <UniqueIdentifier>{f44c9c8b-1cd3-46fa-9c3c-bb6b8ba03484}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\aerohockey\esylogging">
+      <UniqueIdentifier>{4710eecf-6c8b-4a2b-ad91-a12ce9d18702}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\aerohockey\esylogging">
+      <UniqueIdentifier>{d5d786e6-4e17-4ab7-a5e3-2403f2ba61a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\aerohockey\objects">
+      <UniqueIdentifier>{7649526a-6847-4d00-8575-492e0d6d9d9b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\aerohockey\objects">
+      <UniqueIdentifier>{e755cc0f-0f03-47a3-8f2a-7f92ca12c846}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\aerohockey\states">
+      <UniqueIdentifier>{1176a58f-e619-40d1-bfe9-dab74b20d305}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\aerohockey\states">
+      <UniqueIdentifier>{3ec0f0c0-d3ac-46d9-90f8-3d5229db0c11}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="BodyBasics.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="myKeyboard.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="server.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Smash_It\Smash_It_Game.cpp">
+      <Filter>Исходные файлы\Smash_It</Filter>
+    </ClCompile>
+    <ClCompile Include="Smash_It\Smash_It_GameObjectManager.cpp">
+      <Filter>Исходные файлы\Smash_It</Filter>
+    </ClCompile>
+    <ClCompile Include="Smash_It\Smash_It_MainMenu.cpp">
+      <Filter>Исходные файлы\Smash_It</Filter>
+    </ClCompile>
+    <ClCompile Include="Smash_It\Smash_It_SmashCounter.cpp">
+      <Filter>Исходные файлы\Smash_It</Filter>
+    </ClCompile>
+    <ClCompile Include="Smash_It\Smash_It_Target.cpp">
+      <Filter>Исходные файлы\Smash_It</Filter>
+    </ClCompile>
+    <ClCompile Include="Smash_It\Smash_It_Timer.cpp">
+      <Filter>Исходные файлы\Smash_It</Filter>
+    </ClCompile>
+    <ClCompile Include="Smash_It\Smash_It_VisibleGameObject.cpp">
+      <Filter>Исходные файлы\Smash_It</Filter>
+    </ClCompile>
+    <ClCompile Include="TimeClimb\TimeClimb_CustomScreen.cpp">
+      <Filter>Исходные файлы\Time_Climb</Filter>
+    </ClCompile>
+    <ClCompile Include="TimeClimb\TimeClimb_Game.cpp">
+      <Filter>Исходные файлы\Time_Climb</Filter>
+    </ClCompile>
+    <ClCompile Include="TimeClimb\TimeClimb_GameObjectManager.cpp">
+      <Filter>Исходные файлы\Time_Climb</Filter>
+    </ClCompile>
+    <ClCompile Include="TimeClimb\TimeClimb_MainMenu.cpp">
+      <Filter>Исходные файлы\Time_Climb</Filter>
+    </ClCompile>
+    <ClCompile Include="TimeClimb\TimeClimb_Target.cpp">
+      <Filter>Исходные файлы\Time_Climb</Filter>
+    </ClCompile>
+    <ClCompile Include="TimeClimb\TimeClimb_Timer.cpp">
+      <Filter>Исходные файлы\Time_Climb</Filter>
+    </ClCompile>
+    <ClCompile Include="TimeClimb\TimeClimb_VisibleGameObject.cpp">
+      <Filter>Исходные файлы\Time_Climb</Filter>
+    </ClCompile>
+    <ClCompile Include="Labyrinth\CircleLvL.cpp">
+      <Filter>Исходные файлы\Labyrinth</Filter>
+    </ClCompile>
+    <ClCompile Include="Labyrinth\level.cpp">
+      <Filter>Исходные файлы\Labyrinth</Filter>
+    </ClCompile>
+    <ClCompile Include="Labyrinth\level_1.cpp">
+      <Filter>Исходные файлы\Labyrinth</Filter>
+    </ClCompile>
+    <ClCompile Include="Labyrinth\level_2.cpp">
+      <Filter>Исходные файлы\Labyrinth</Filter>
+    </ClCompile>
+    <ClCompile Include="Labyrinth\level_3.cpp">
+      <Filter>Исходные файлы\Labyrinth</Filter>
+    </ClCompile>
+    <ClCompile Include="Labyrinth\level_4.cpp">
+      <Filter>Исходные файлы\Labyrinth</Filter>
+    </ClCompile>
+    <ClCompile Include="Labyrinth\Labyrinth_Game.cpp">
+      <Filter>Исходные файлы\Labyrinth</Filter>
+    </ClCompile>
+    <ClCompile Include="Labyrinth\Labyrinth_GameObjectManager.cpp">
+      <Filter>Исходные файлы\Labyrinth</Filter>
+    </ClCompile>
+    <ClCompile Include="Labyrinth\Labyrinth_MainMenu.cpp">
+      <Filter>Исходные файлы\Labyrinth</Filter>
+    </ClCompile>
+    <ClCompile Include="Labyrinth\Labyrinth_Timer.cpp">
+      <Filter>Исходные файлы\Labyrinth</Filter>
+    </ClCompile>
+    <ClCompile Include="Labyrinth\Labyrinth_VisibleGameObject.cpp">
+      <Filter>Исходные файлы\Labyrinth</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\aerohockey\aerohockey\control\kinect\body_tracker.cpp">
+      <Filter>Исходные файлы\aerohockey\control</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\aerohockey\aerohockey\easylogging\easylogging++.cc">
+      <Filter>Исходные файлы\aerohockey\esylogging</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\aerohockey\aerohockey\objects\board.cpp">
+      <Filter>Исходные файлы\aerohockey\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\aerohockey\aerohockey\objects\paddle.cpp">
+      <Filter>Исходные файлы\aerohockey\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\aerohockey\aerohockey\objects\player.cpp">
+      <Filter>Исходные файлы\aerohockey\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\aerohockey\aerohockey\objects\puck.cpp">
+      <Filter>Исходные файлы\aerohockey\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\aerohockey\aerohockey\objects\ready_button.cpp">
+      <Filter>Исходные файлы\aerohockey\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\aerohockey\aerohockey\objects\world.cpp">
+      <Filter>Исходные файлы\aerohockey\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\aerohockey\aerohockey\states\game.cpp">
+      <Filter>Исходные файлы\aerohockey\states</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\aerohockey\aerohockey\states\manager.cpp">
+      <Filter>Исходные файлы\aerohockey\states</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\aerohockey\aerohockey\states\preparation.cpp">
+      <Filter>Исходные файлы\aerohockey\states</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\aerohockey\aerohockey\states\result.cpp">
+      <Filter>Исходные файлы\aerohockey\states</Filter>
+    </ClCompile>
+    <ClCompile Include="aerohockey\util.cpp">
+      <Filter>Исходные файлы\aerohockey</Filter>
+    </ClCompile>
+    <ClCompile Include="aerohockey\starter.cpp">
+      <Filter>Исходные файлы\aerohockey</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="myKeyboard.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="server.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="BodyBasics.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Smash_It\Smash_It_Game.h">
+      <Filter>Файлы заголовков\Smash_It</Filter>
+    </ClInclude>
+    <ClInclude Include="Smash_It\Smash_It_GameObjectManager.h">
+      <Filter>Файлы заголовков\Smash_It</Filter>
+    </ClInclude>
+    <ClInclude Include="Smash_It\Smash_It_MainMenu.h">
+      <Filter>Файлы заголовков\Smash_It</Filter>
+    </ClInclude>
+    <ClInclude Include="Smash_It\Smash_It_SmashCounter.h">
+      <Filter>Файлы заголовков\Smash_It</Filter>
+    </ClInclude>
+    <ClInclude Include="Smash_It\Smash_It_Target.h">
+      <Filter>Файлы заголовков\Smash_It</Filter>
+    </ClInclude>
+    <ClInclude Include="Smash_It\Smash_It_Timer.h">
+      <Filter>Файлы заголовков\Smash_It</Filter>
+    </ClInclude>
+    <ClInclude Include="Smash_It\Smash_It_VisibleGameObject.h">
+      <Filter>Файлы заголовков\Smash_It</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeClimb\TimeClimb_CustomScreen.h">
+      <Filter>Файлы заголовков\Time_Climb</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeClimb\TimeClimb_Game.h">
+      <Filter>Файлы заголовков\Time_Climb</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeClimb\TimeClimb_GameObjectManager.h">
+      <Filter>Файлы заголовков\Time_Climb</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeClimb\TimeClimb_MainMenu.h">
+      <Filter>Файлы заголовков\Time_Climb</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeClimb\TimeClimb_Target.h">
+      <Filter>Файлы заголовков\Time_Climb</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeClimb\TimeClimb_Timer.h">
+      <Filter>Файлы заголовков\Time_Climb</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeClimb\TimeClimb_VisibleGameObject.h">
+      <Filter>Файлы заголовков\Time_Climb</Filter>
+    </ClInclude>
+    <ClInclude Include="Labyrinth\circleLvL.h">
+      <Filter>Файлы заголовков\Labyrinth</Filter>
+    </ClInclude>
+    <ClInclude Include="Labyrinth\level.h">
+      <Filter>Файлы заголовков\Labyrinth</Filter>
+    </ClInclude>
+    <ClInclude Include="Labyrinth\level_1.h">
+      <Filter>Файлы заголовков\Labyrinth</Filter>
+    </ClInclude>
+    <ClInclude Include="Labyrinth\level_2.h">
+      <Filter>Файлы заголовков\Labyrinth</Filter>
+    </ClInclude>
+    <ClInclude Include="Labyrinth\level_3.h">
+      <Filter>Файлы заголовков\Labyrinth</Filter>
+    </ClInclude>
+    <ClInclude Include="Labyrinth\level_4.h">
+      <Filter>Файлы заголовков\Labyrinth</Filter>
+    </ClInclude>
+    <ClInclude Include="Labyrinth\Labyrinth_Game.h">
+      <Filter>Файлы заголовков\Labyrinth</Filter>
+    </ClInclude>
+    <ClInclude Include="Labyrinth\Labyrinth_GameObjectManager.h">
+      <Filter>Файлы заголовков\Labyrinth</Filter>
+    </ClInclude>
+    <ClInclude Include="Labyrinth\Labyrinth_MainMenu.h">
+      <Filter>Файлы заголовков\Labyrinth</Filter>
+    </ClInclude>
+    <ClInclude Include="Labyrinth\Labyrinth_Timer.h">
+      <Filter>Файлы заголовков\Labyrinth</Filter>
+    </ClInclude>
+    <ClInclude Include="Labyrinth\Labyrinth_VisibleGameObject.h">
+      <Filter>Файлы заголовков\Labyrinth</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\aerohockey\aerohockey\control\kinect\body_tracker.h">
+      <Filter>Файлы заголовков\aerohockey\control</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\aerohockey\aerohockey\control\kinect\resource.h">
+      <Filter>Файлы заголовков\aerohockey\control</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\aerohockey\aerohockey\control\kinect\stdafx.h">
+      <Filter>Файлы заголовков\aerohockey\control</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\aerohockey\aerohockey\easylogging\easylogging++.h">
+      <Filter>Файлы заголовков\aerohockey\esylogging</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\aerohockey\aerohockey\objects\board.hpp">
+      <Filter>Файлы заголовков\aerohockey\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\aerohockey\aerohockey\objects\paddle.hpp">
+      <Filter>Файлы заголовков\aerohockey\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\aerohockey\aerohockey\objects\player.hpp">
+      <Filter>Файлы заголовков\aerohockey\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\aerohockey\aerohockey\objects\puck.hpp">
+      <Filter>Файлы заголовков\aerohockey\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\aerohockey\aerohockey\objects\ready_button.hpp">
+      <Filter>Файлы заголовков\aerohockey\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\aerohockey\aerohockey\objects\world.hpp">
+      <Filter>Файлы заголовков\aerohockey\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\aerohockey\aerohockey\states\manager.hpp">
+      <Filter>Файлы заголовков\aerohockey\states</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\aerohockey\aerohockey\states\state.hpp">
+      <Filter>Файлы заголовков\aerohockey\states</Filter>
+    </ClInclude>
+    <ClInclude Include="aerohockey\util.hpp">
+      <Filter>Файлы заголовков\aerohockey</Filter>
+    </ClInclude>
+    <ClInclude Include="aerohockey\starter.h">
+      <Filter>Файлы заголовков\aerohockey</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
