@@ -41,13 +41,17 @@ int main()
 				std::cout << "LABYRINTH started \n";
 
 				Labyrinth::Game labyrinth(MainWindow::getWindow());
-				labyrinth.Start(*server);
+				labyrinth.Start(*server, server->getData()[LvL]);
 				break;
 			}
 			case(myServer::TIME_CLIMB):
+			{
 				std::cout << "TIME_CLIMB started \n";
-				TimeClimb::Game::Start(*server);
+
+				TimeClimb::Game timeClimb(MainWindow::getWindow());
+				timeClimb.Start(*server);
 				break;
+			}
 			case(myServer::AEROHOCKEY):
 				std::cout << "AEROHOCKEY started \n";
 				break;

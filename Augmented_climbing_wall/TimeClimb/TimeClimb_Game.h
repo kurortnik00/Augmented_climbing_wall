@@ -17,22 +17,25 @@ namespace TimeClimb
 	{
 
 	public:
-		static void Start(myServer &server);
-		static sf::RenderWindow& GetWindow();
-		const static int SCREEN_WIDTH = 1024;
-		const static int SCREEN_HEIGHT = 768;
+
+		Game(sf::RenderWindow &window);
+
+		void Start(myServer &server);
+		sf::RenderWindow& GetWindow();
+		const int SCREEN_WIDTH = 1024;
+		const int SCREEN_HEIGHT = 768;
 
 	private:
-		static bool IsExiting();
-		static void GameLoop(myServer &server);
-		//static void ShowSplashScreen();
-		static void ShowMenu();
-		static void ShowCustomScreen();
-		static void Init(int targ_count);
-		static void reInit(int targ_count);
-		static int targetCount;
-		static void TOP_List_Update();
-		static void GameOver_Screen();
+		bool IsExiting();
+		void GameLoop(myServer &server);
+		//void ShowSplashScreen();
+		void ShowMenu(myServer& server);
+		void ShowCustomScreen();
+		void Init(int targ_count);
+		void reInit(int targ_count);
+		int targetCount;
+		void TOP_List_Update();
+		void GameOver_Screen();
 
 
 		enum GameState {
@@ -40,12 +43,12 @@ namespace TimeClimb
 			ShowingMenu, Playing, Exiting, Custom, GameOver
 		};
 
-		static sf::Clock serverDelayClock;
+		sf::Clock serverDelayClock;
 
-		static GameState _gameState;
-		static sf::RenderWindow _mainWindow;
-		static TimeClimb::GameObjectManager _gameObjectManager;
-		static std::set<std::pair<float, std::string>> TOP_List;
-		static bool kinectControl;
+		GameState _gameState;
+		sf::RenderWindow &_mainWindow;
+		TimeClimb::GameObjectManager _gameObjectManager;
+		std::set<std::pair<float, std::string>> TOP_List;
+		bool kinectControl;
 	};
 }

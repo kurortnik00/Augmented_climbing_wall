@@ -1,11 +1,18 @@
 #include "TimeClimb_Game.h"
 
 
+TimeClimb::Game::Game(sf::RenderWindow &window)
+	:_mainWindow(window)
+{
+	TimeClimb::Game::_gameState = Uninitialized;
+	TimeClimb::Game::targetCount = 3;
+	TimeClimb::Game::TOP_List = { {6, "ASd"} , {5, "zzz"} , {1, "qq"} , {4, "44"} };
+	TimeClimb::Game::kinectControl = false;
+}
+
 void TimeClimb::Game::Start(myServer &server)	//инициализация объектов
 {
 	if (_gameState != Uninitialized) return;
-
-	_mainWindow.create(sf::VideoMode(1200, 800), "Pang!");
 
 	Game::Init(targetCount);
 
@@ -30,7 +37,6 @@ void TimeClimb::Game::Start(myServer &server)	//инициализация объектов
 
 	}
 
-	_mainWindow.close();
 	_gameState = Uninitialized;
 	_gameObjectManager.RemoveAll();
 }
@@ -58,7 +64,7 @@ void TimeClimb::Game::GameLoop(myServer &server)
 		
 		case Game::ShowingMenu:
 		{
-			ShowMenu();		
+			ShowMenu(server);
 			break;
 		}
 		/*case Game::ShowingSplash:
@@ -131,10 +137,10 @@ void TimeClimb::Game::ShowCustomScreen()
 	_gameState = Game::ShowingMenu;
 }
 
-void TimeClimb::Game::ShowMenu()
+void TimeClimb::Game::ShowMenu(myServer& server)
 {
 	MainMenu mainMenu;
-	MainMenu::MenuResult result = mainMenu.Show(_mainWindow, TOP_List);   //Возврацает значение нажатой "кнопки", т.е. что делать дальше: Играть или выйти из игры
+	MainMenu::MenuResult result = mainMenu.Show(_mainWindow, TOP_List, server);   //Возврацает значение нажатой "кнопки", т.е. что делать дальше: Играть или выйти из игры
 																//Внутри бесконечный цикл прерываемый по нажатию одной из "кнопок" или закрытию окна
 																	
 
@@ -231,12 +237,5 @@ void TimeClimb::Game::GameOver_Screen()
 	_gameState = Game::ShowingMenu;
 }
 
-TimeClimb::GameObjectManager TimeClimb::Game::_gameObjectManager;
-TimeClimb::Game::GameState TimeClimb::Game::_gameState = Uninitialized;
-sf::RenderWindow TimeClimb::Game::_mainWindow;
-int TimeClimb::Game::targetCount = 3;
-std::set<std::pair<float, std::string>> TimeClimb::Game::TOP_List = { {6, "ASd"} , {5, "zzz"} , {1, "qq"} , {4, "44"} };
-bool TimeClimb::Game::kinectControl = false;
-sf::Clock TimeClimb::Game::serverDelayClock;
 
 

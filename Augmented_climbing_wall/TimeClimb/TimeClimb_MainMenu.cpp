@@ -20,7 +20,7 @@ TimeClimb::MainMenu::MenuItem::MenuItem(sf::Vector2f position, MenuResult action
 
 }
 
-TimeClimb::MainMenu::MenuResult TimeClimb::MainMenu::Show(sf::RenderWindow& window, std::set<std::pair<float, std::string>>& TOP_List)
+TimeClimb::MainMenu::MenuResult TimeClimb::MainMenu::Show(sf::RenderWindow& window, std::set<std::pair<float, std::string>>& TOP_List, myServer& server)
 {
 	//MainMenu::velocity = sf::Vector2f(0, 0.01);
 	//Load menu image from file
@@ -56,7 +56,7 @@ TimeClimb::MainMenu::MenuResult TimeClimb::MainMenu::Show(sf::RenderWindow& wind
 
 	Draw(window);
 
-	MenuResult clicResult = GetMenuResponse(window);
+	MenuResult clicResult = GetMenuResponse(window, server);
 
 	if (clicResult == Score_board)
 	{
@@ -147,7 +147,7 @@ TimeClimb::MainMenu::MenuResult TimeClimb::MainMenu::HandleClick(sf::RenderWindo
 	return Nothing;
 }
 
-TimeClimb::MainMenu::MenuResult  TimeClimb::MainMenu::GetMenuResponse(sf::RenderWindow& window)
+TimeClimb::MainMenu::MenuResult  TimeClimb::MainMenu::GetMenuResponse(sf::RenderWindow& window, myServer& server)
 {
 	sf::Event menuEvent;
 
@@ -166,6 +166,17 @@ TimeClimb::MainMenu::MenuResult  TimeClimb::MainMenu::GetMenuResponse(sf::Render
 			if (menuEvent.type == sf::Event::Closed)
 			{
 				return Exit;
+			}
+		}
+		//delay for no frizing 
+		if (serverDelayClock.getElapsedTime().asMilliseconds() > 500) {
+			std::vector<int> data = server.getData();
+			//2 - byte contains information about presed buttons (magick number from client)
+			// +=5 need becose with time delation we stack more then one message, and information about prest button will be only in one message
+			for (int i = 2; i < data.size(); i += 5)
+			{
+				if (data[i] == 4) return Exit;  //4 - BACK button presed (magick number from client)
+				serverDelayClock.restart();
 			}
 		}
 	}

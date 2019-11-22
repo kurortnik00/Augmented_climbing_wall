@@ -9,31 +9,56 @@ Labyrinth::Game::Game(sf::RenderWindow &window)
 	Labyrinth::Game::kinectControl = false;
 }
 
-void Labyrinth::Game::Start(myServer &server)	//инициализация объектов
+void Labyrinth::Game::Start(myServer &server, int LvLdata)	//инициализация объектов
 {
 	if (_gameState != Uninitialized) return;
 
+	switch (LvLdata)
+	{
+	case Labyrinth::Game::LEVEL_1:
+		Labyrinth::Game::_selectedLevel = LEVEL_1;
+		break;
+	case Labyrinth::Game::LEVEL_2:
+		Labyrinth::Game::_selectedLevel = LEVEL_2;
+		break;
+	case Labyrinth::Game::LEVEL_3:
+		Labyrinth::Game::_selectedLevel = LEVEL_3;
+		break;
+	case Labyrinth::Game::LEVEL_4:
+		Labyrinth::Game::_selectedLevel = LEVEL_4;
+		break;
+	case Labyrinth::Game::CIRCLELvL:
+		Labyrinth::Game::_selectedLevel = CIRCLELvL;
+		break;
+	case Labyrinth::Game::LAST:
+		break;
+	default:
+		break;
+	}
 
 	Game::Init();
 	_kinectApplication.Run();
 
-	_gameState = Game::ShowingMenu;		//Начинаем с заставки
+	_gameState = Game::Playing;
+
+	levelInit();
 
 	while (!IsExiting())
 	{
-		GameLoop(server);
+		std::vector<int> data;
 		//delay for no frizing 
 		if (serverDelayClock.getElapsedTime().asMilliseconds() > 500) {
-			std::vector<int> data = server.getData();
+			data = server.getData();
 			//2 - byte contains information about presed buttons (magick number from client)
 			// +=5 need becose with time delation we stack more then one message, and information about prest button will be only in one message
-			for (int i = 2; i < data.size(); i += 5)
-			{
-				if (data[i] == 4) _gameState = Game::Exiting;  //4 - BACK button presed (magick number from client)
-				serverDelayClock.restart();
-			}
+			//for (int i = 2; i < data.size(); i += 5)
+			//{
+			//	if (data[i] == 4) _gameState = Game::Exiting;  //4 - BACK button presed (magick number from client)
+			serverDelayClock.restart();
+			//}
 
 		}
+		GameLoop(data);
 
 	}
 
@@ -59,7 +84,7 @@ CBodyBasics& Labyrinth::Game::getKinectApplication()
 	return Game::_kinectApplication;
 }
 
-void Labyrinth::Game::GameLoop(myServer &server)
+void Labyrinth::Game::GameLoop(std::vector<int> data)
 {
 	sf::Event currentEvent;
 	_mainWindow.pollEvent(currentEvent);
@@ -67,26 +92,13 @@ void Labyrinth::Game::GameLoop(myServer &server)
 	switch (_gameState)
 	{
 		
-		case Game::ShowingMenu:
-		{
-			ShowMenu();		
-			break;
-		}
-		/*case Game::ShowingSplash:
-		{
-		
-			ShowSplashScreen();
-			break;
-		}*/
-		//case Game::Custom:
+		//case Game::ShowingMenu:
 		//{
-		//	//ShowCustomScreen();
+		//	ShowMenu();		
 		//	break;
 		//}
 		case Game::Playing:
-		{
-		
-			
+		{	
 			_mainWindow.clear(sf::Color(0, 0, 0));
 			
 			_gameObjectManager.setAllPlased();
@@ -98,14 +110,34 @@ void Labyrinth::Game::GameLoop(myServer &server)
 
 			if (currentEvent.type == sf::Event::Closed) _gameState = Game::Exiting;
 
-			if (currentEvent.type == sf::Event::KeyPressed)
+			//server.getData()[2] - byte of information about presed button
+			if (data.size() > 0)
 			{
-				if (currentEvent.key.code == sf::Keyboard::Escape)		//Выход из сцены игры в меню по клавише ESC
+				for (int i = 2; i < data.size(); i += 5)
 				{
-					_gameState = Game::ShowingMenu;
+					switch (data[i])
+					{
+					case Labyrinth::Game::Nothing:
+						break;
+					case Labyrinth::Game::Exit:
+						_gameState = Game::Exiting;
+						break;
+					case Labyrinth::Game::Play:
+						break;
+					case Labyrinth::Game::PreviousLevel:
+						if (_selectedLevel == LEVEL_1) _selectedLevel = static_cast<SelectedLevel>(LAST - 1);
+						else _selectedLevel = static_cast<SelectedLevel>(_selectedLevel - 1);
+						reInit();
+						break;
+					case Labyrinth::Game::NextLevel:
+						_selectedLevel = static_cast<SelectedLevel>((_selectedLevel + 1) % LAST);
+						reInit();
+						break;
+					default:
+						break;
+					}
 				}
 			}
-			break;
 		}
 	}
 }

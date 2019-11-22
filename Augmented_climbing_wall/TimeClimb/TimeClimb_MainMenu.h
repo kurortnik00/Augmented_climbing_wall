@@ -4,6 +4,7 @@
 #include <iomanip>
 #include <list>
 #include <sstream>
+#include"../server.h"
 
 namespace TimeClimb
 {
@@ -33,17 +34,18 @@ namespace TimeClimb
 		};
 
 
-		MenuResult Show(sf::RenderWindow& window, std::set<std::pair<float, std::string>>& TOP_List);
+		MenuResult Show(sf::RenderWindow& window, std::set<std::pair<float, std::string>>& TOP_List, myServer& server);
 		void Update(sf::RenderWindow& window);
 		float dist2(sf::Vector2f const & p1, sf::Vector2f const & p2);
 		void Draw(sf::RenderWindow& window);
 
 	private:
-		MenuResult GetMenuResponse(sf::RenderWindow& window);
+		MenuResult GetMenuResponse(sf::RenderWindow& window, myServer& server);
 		MenuResult HandleClick(sf::RenderWindow& window, int x, int y);
 		std::list<MenuItem> _menuItems;
 		int k = 0;
 		sf::Sprite sprite;
 		sf::Vector2f velocity;
+		sf::Clock serverDelayClock;
 	};
 }

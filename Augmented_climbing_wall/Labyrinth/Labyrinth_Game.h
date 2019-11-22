@@ -19,7 +19,7 @@ namespace Labyrinth
 	public:
 		Game(sf::RenderWindow &window);
 
-		void Start(myServer &server);
+		void Start(myServer &server, int data);
 		sf::RenderWindow& GetWindow();
 		static CBodyBasics & getKinectApplication();
 		const int SCREEN_WIDTH = 1920;
@@ -28,7 +28,7 @@ namespace Labyrinth
 
 	private:
 		bool IsExiting();
-		void GameLoop(myServer &server);
+		void GameLoop(std::vector<int> data);
 		//void ShowSplashScreen();
 		void ShowMenu();
 		//void ShowCustomScreen();
@@ -47,6 +47,9 @@ namespace Labyrinth
 		enum SelectedLevel {
 			LEVEL_1, LEVEL_2, LEVEL_3, LEVEL_4, CIRCLELvL, LAST
 		};
+
+		enum ButtonResult { 
+			Nothing, Play, NextLevel, PreviousLevel, Exit, TopScore, setPos};
 
 		sf::Clock serverDelayClock;
 
