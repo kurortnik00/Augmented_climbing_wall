@@ -86,7 +86,8 @@ Smash_It::MainMenu::MenuResult Smash_It::MainMenu::Show(sf::RenderWindow& window
 		}
 
 		
-		while (!sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+		bool flag = true;
+		while (flag)
 		{
 			sf::Text topScore("TOP SCORE", font, 150);
 			topScore.setPosition(window.getSize().x / 2 - 400, 100);
@@ -100,6 +101,18 @@ Smash_It::MainMenu::MenuResult Smash_It::MainMenu::Show(sf::RenderWindow& window
 			}
 			
 			window.display();
+
+			//delay for no frizing 
+			if (serverDelayClock.getElapsedTime().asMilliseconds() > 500) {
+				std::vector<int> data = server.getData();
+				//2 - byte contains information about presed buttons (magick number from client)
+				// +=5 need becose with time delation we stack more then one message, and information about prest button will be only in one message
+				for (int i = 2; i < data.size(); i += 5)
+				{
+					if (data[i] == 4) flag = false;
+					serverDelayClock.restart();
+				}
+			}
 
 		}
 
@@ -192,6 +205,7 @@ Smash_It::MainMenu::MenuResult  Smash_It::MainMenu::GetMenuResponse(sf::RenderWi
 			for (int i = 2; i < data.size(); i += 5)
 			{
 				if (data[i] == 4) return Exit;  //4 - BACK button presed (magick number from client)
+				if (data[i] == 5) return Score_board;
 				serverDelayClock.restart();
 			}
 		}
