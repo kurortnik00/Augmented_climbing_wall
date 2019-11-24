@@ -21,7 +21,7 @@ namespace Smash_It
 		void setClickState(bool ans);
 		void reInit();
 		int getRandomNumber(int min, int max);
-		float dist2(sf::Vector2f const & p1, sf::Vector2f const & p2);
+		//float dist2(sf::Vector2f const & p1, sf::Vector2f const & p2);
 		void setKinectControl(bool kinectControl);		//use(set) in Game Init
 		void Draw(sf::RenderWindow & window);
 
@@ -43,8 +43,8 @@ namespace Smash_It
 		float velocityAnimationTime;
 		float animationTime;
 		bool _kinectControl;
-		float kinectTranform_X_Cordinates(float x);
-		float kinectTranform_Y_Cordinates(float y);
+		//float kinectTranform_X_Cordinates(float x);
+		//float kinectTranform_Y_Cordinates(float y);
 
 
 		enum tracking_Type
@@ -52,7 +52,7 @@ namespace Smash_It
 			allJoints, mainPointAvarage, allJointsTimeAvarage, mainPointTimeAvarage
 		};
 
-		void kinectUpdateActions(int joint_Count, tracking_Type tT);
+		//void kinectUpdateActions(int joint_Count, tracking_Type tT);
 		float _trashHold;				//depth from sensor where interaction starts
 		CBodyBasics kinectApplication;
 		sf::Vector2f joint_xy;

@@ -136,6 +136,7 @@
     <ClCompile Include="aerohockey\starter.cpp" />
     <ClCompile Include="aerohockey\util.cpp" />
     <ClCompile Include="BodyBasics.cpp" />
+    <ClCompile Include="Cliker.cpp" />
     <ClCompile Include="Labyrinth\CircleLvL.cpp" />
     <ClCompile Include="Labyrinth\Labyrinth_Game.cpp" />
     <ClCompile Include="Labyrinth\Labyrinth_GameObjectManager.cpp" />
@@ -182,6 +183,7 @@
     <ClInclude Include="aerohockey\starter.h" />
     <ClInclude Include="aerohockey\util.hpp" />
     <ClInclude Include="BodyBasics.h" />
+    <ClInclude Include="Cliker.h" />
     <ClInclude Include="Labyrinth\circleLvL.h" />
     <ClInclude Include="Labyrinth\Labyrinth_Game.h" />
     <ClInclude Include="Labyrinth\Labyrinth_GameObjectManager.h" />

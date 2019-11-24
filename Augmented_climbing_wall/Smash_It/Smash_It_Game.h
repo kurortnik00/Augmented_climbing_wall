@@ -37,8 +37,10 @@ namespace Smash_It
 		void reInit(int targ_count);
 		int  targetCount;
 		int getRandomNumber(int min, int max);
-		void TOP_List_Update();
-		void GameOver_Screen();
+		void TOP_List_Update(myServer& server);
+		void GameOver_Screen(myServer& server);
+
+		std::vector<int> getClientData(myServer& server);
 
 		enum GameState {
 			Uninitialized, ShowingSplash, Paused,

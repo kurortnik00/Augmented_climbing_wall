@@ -4,6 +4,7 @@
 #include "mainWindow.h"
 //#include "aerohockey/starter.h"
 #include "server.h"
+#include "Cliker.h"
 
 
 int main()
@@ -11,6 +12,7 @@ int main()
 	std::cout << "tyt&";
 	myServer *server = new myServer();
 	server->InitServer();
+	Cliker::Init();
 
 
 	enum dataType
@@ -21,12 +23,14 @@ int main()
 	while (true)
 	{
 		switch (server->getData()[gameState])
+		//switch (1)
 		{
 		case(myServer::EXIT):
 			break;
 		case(myServer::PLAY):
 			MainWindow::getWindow().setMouseCursorVisible(true);
 			switch (server->getData()[game])
+			//switch (0)
 			{
 			case(myServer::SMASH_IT):
 			{

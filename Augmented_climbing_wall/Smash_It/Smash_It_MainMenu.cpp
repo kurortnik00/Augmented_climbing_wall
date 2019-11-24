@@ -1,7 +1,9 @@
 #include "Smash_It_MainMenu.h"
+#include "../Cliker.h"
+#include "../BodyBasics.h"
 
 Smash_It::MainMenu::MenuItem::MenuItem(sf::Vector2f position, MenuResult action)
-	:_position(position), text("", font, 120), _action(action)
+	:_position(position), text("", font, 110), _action(action)
 {
 	font.loadFromFile("Smash_It/font/18123.ttf");
 	//text.setFillColor(sf::Color(0, 0, 0));
@@ -39,24 +41,24 @@ Smash_It::MainMenu::MenuResult Smash_It::MainMenu::Show(sf::RenderWindow& window
 
 
 	//Play menu item coordinates
-	MenuItem playButton(sf::Vector2f(300,100), Play);
+	MenuItem playButton(sf::Vector2f(700,100), Play);
 	std::ostringstream play_buttonStr;
-	play_buttonStr << "Play";
+	play_buttonStr << "Start";
 	playButton.text.setString(play_buttonStr.str());
-	playButton.text.setPosition(playButton._center - sf::Vector2f(110, 80));
+	playButton.text.setPosition(playButton._center - sf::Vector2f(130, 80));
 
 	//Exit menu item coordinates
 	//MenuItem exitButton(sf::Vector2f(1750, -200), Exit);
 
-	MenuItem topScore_Button(sf::Vector2f(800, 100), Score_board);
+	/*MenuItem topScore_Button(sf::Vector2f(800, 100), Score_board);
 	std::ostringstream topScore_buttonStr;
 	topScore_buttonStr << "TOP \n list";
 	topScore_Button.text.setString(topScore_buttonStr.str());
-	topScore_Button.text.setPosition(topScore_Button._center - sf::Vector2f(105, 145));
+	topScore_Button.text.setPosition(topScore_Button._center - sf::Vector2f(105, 145));*/
 
 
 	_menuItems.push_back(playButton);
-	_menuItems.push_back(topScore_Button);
+	//_menuItems.push_back(topScore_Button);
 
 	Draw(window);
 	
@@ -85,7 +87,7 @@ Smash_It::MainMenu::MenuResult Smash_It::MainMenu::Show(sf::RenderWindow& window
 			scoresCount++;
 		}
 
-		
+		//Top score screen
 		bool flag = true;
 		while (flag)
 		{
@@ -136,6 +138,31 @@ void Smash_It::MainMenu::Draw(sf::RenderWindow& window)
 		window.draw((*it)._sprite);
 		window.draw((*it).text);
 	}
+
+
+	sf::CircleShape _shape1;
+	float _radius = 30;
+	_shape1.setFillColor(sf::Color(0, 0, 0));
+	_shape1.setRadius(_radius);
+	_shape1.setOutlineThickness(10);
+	_shape1.setOutlineColor(sf::Color(250, 50, 100));
+	float x = Cliker::kinectTranform_X_Cordinates(Cliker::getKinectApplication().arms_legs_pointAveraged_PointsXY(CBodyBasics::RIGHT_ARM).x);
+	float y = Cliker::kinectTranform_Y_Cordinates(Cliker::getKinectApplication().arms_legs_pointAveraged_PointsXY(CBodyBasics::RIGHT_ARM).y);
+	_shape1.setPosition(sf::Vector2f(x, y));
+
+	sf::CircleShape _shape2;
+	_shape2.setFillColor(sf::Color(0, 0, 0));
+	_shape2.setRadius(_radius);
+	_shape2.setOutlineThickness(10);
+	_shape2.setOutlineColor(sf::Color(250, 150, 100));
+	x = Cliker::kinectTranform_X_Cordinates(Cliker::getKinectApplication().arms_legs_pointAveraged_PointsXY(CBodyBasics::LEFT_ARM).x);
+	y = Cliker::kinectTranform_Y_Cordinates(Cliker::getKinectApplication().arms_legs_pointAveraged_PointsXY(CBodyBasics::LEFT_ARM).y);
+	_shape2.setPosition(sf::Vector2f(x, y));
+
+
+	window.draw(_shape1);
+	window.draw(_shape2);
+
 	window.display();
 }
 
@@ -208,6 +235,11 @@ Smash_It::MainMenu::MenuResult  Smash_It::MainMenu::GetMenuResponse(sf::RenderWi
 				if (data[i] == 5) return Score_board;
 				serverDelayClock.restart();
 			}
+		}
+		//it works while we have start button first in _menuItems
+		if (Cliker::getClik(_menuItems.begin()->_center, _menuItems.begin()->_radius, menuEvent)) //event here are useles, THIS function do not atact with mouse clikes
+		{
+			return Play;
 		}
 	}
 }

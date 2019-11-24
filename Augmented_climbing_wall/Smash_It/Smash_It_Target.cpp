@@ -1,6 +1,6 @@
 
 #include "Smash_It_Target.h"
-
+#include "../Cliker.h"
 
 
 Smash_It::Target::Target()
@@ -29,7 +29,7 @@ Smash_It::Target::Target()
 
 	_trashHold = 1;	
 	_kinectControl = true;
-	kinectApplication.Run();
+	//kinectApplication.Run();
 
 	
 
@@ -62,52 +62,16 @@ void Smash_It::Target::Update(sf::Event& event) {
 	tracking_Type tP = mainPointAvarage;
 	//for shapes need change functions in Update
 
-	//_kinectControl set true or false in Game Init
-	if (_kinectControl) {
-
-		int joint_Count = 0;
-
-		switch (tP)
-		{
-		case Target::allJoints:
-			joint_Count = JointType_Count;
-			kinectUpdateActions(joint_Count, tP);
-			break;
-		case Target::mainPointAvarage:
-			joint_Count = 4;
-			kinectUpdateActions(joint_Count, tP);
-			break;
-		case Target::allJointsTimeAvarage:
-			joint_Count = JointType_Count;
-			kinectUpdateActions(joint_Count, tP);
-		case Target::mainPointTimeAvarage:
-			joint_Count = 4;
-			kinectUpdateActions(joint_Count, tP);
-		default:
-			break;
-		}
-		
-	}
 	
-	else {
-		if (event.type == sf::Event::MouseButtonPressed)
-		{
-
-			sf::Vector2f mouseVec(event.mouseButton.x, event.mouseButton.y);
-			if ((dist2(VisibleGameObject::getCenter(), mouseVec) < 8100))
-			{
-				hasClicked = true;
-				animationStart = true;
-				animationClock.restart();
-			}
-
-		}
+	if (Cliker::getClik(VisibleGameObject::getCenter(), 90, event))
+	{
+		hasClicked = true;
+		animationStart = true;
+		animationClock.restart();
 	}
-	
+
 	velocityAnimation();
 	animation();
-
-	
 	
 }
 
@@ -119,8 +83,8 @@ void Smash_It::Target::Draw(sf::RenderWindow & window)
 	_shape1.setRadius(_radius);
 	_shape1.setOutlineThickness(10);
 	_shape1.setOutlineColor(sf::Color(250, 50, 100));
-	float x = kinectTranform_X_Cordinates(kinectApplication.arms_legs_pointAveraged_PointsXY(CBodyBasics::RIGHT_ARM).x);
-	float y = kinectTranform_Y_Cordinates(kinectApplication.arms_legs_pointAveraged_PointsXY(CBodyBasics::RIGHT_ARM).y);
+	float x = Cliker::kinectTranform_X_Cordinates(Cliker::getKinectApplication().arms_legs_pointAveraged_PointsXY(CBodyBasics::RIGHT_ARM).x);
+	float y = Cliker::kinectTranform_Y_Cordinates(Cliker::getKinectApplication().arms_legs_pointAveraged_PointsXY(CBodyBasics::RIGHT_ARM).y);
 	_shape1.setPosition(sf::Vector2f(x, y));
 
 	sf::CircleShape _shape2;
@@ -128,8 +92,8 @@ void Smash_It::Target::Draw(sf::RenderWindow & window)
 	_shape2.setRadius(_radius);
 	_shape2.setOutlineThickness(10);
 	_shape2.setOutlineColor(sf::Color(250, 150, 100));
-	x = kinectTranform_X_Cordinates(kinectApplication.arms_legs_pointAveraged_PointsXY(CBodyBasics::LEFT_ARM).x);
-	y = kinectTranform_Y_Cordinates(kinectApplication.arms_legs_pointAveraged_PointsXY(CBodyBasics::LEFT_ARM).y);
+	x = Cliker::kinectTranform_X_Cordinates(Cliker::getKinectApplication().arms_legs_pointAveraged_PointsXY(CBodyBasics::LEFT_ARM).x);
+	y = Cliker::kinectTranform_Y_Cordinates(Cliker::getKinectApplication().arms_legs_pointAveraged_PointsXY(CBodyBasics::LEFT_ARM).y);
 	_shape2.setPosition(sf::Vector2f(x, y));
 
 	
@@ -160,10 +124,10 @@ int Smash_It::Target::getRandomNumber(int min, int max)
 	return static_cast<int>(rand() * fraction * (max - min + 1) + min);
 }
 
-float Smash_It::Target::dist2(sf::Vector2f const & p1, sf::Vector2f const & p2)
-{
-	return (p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y) * (p1.y - p2.y);
-}
+//float Smash_It::Target::dist2(sf::Vector2f const & p1, sf::Vector2f const & p2)
+//{
+//	return (p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y) * (p1.y - p2.y);
+//}
 
 void Smash_It::Target::animation() {
 	if (!animationStart) {
@@ -240,56 +204,12 @@ void Smash_It::Target::setKinectControl(bool kinectCOontrol) {
 	_kinectControl = kinectCOontrol;
 }
 
-void Smash_It::Target::kinectUpdateActions(int joint_Count, tracking_Type tP)
-{
-	for (int i = 0; i < joint_Count; i++) {
-
-		switch (tP)
-		{
-		case Target::allJoints:
-			joint_xy = sf::Vector2f(kinectApplication.SkeletPointsXY(i).x, kinectApplication.SkeletPointsXY(i).y);
-			joint_z = kinectApplication.DepthSkeletonPoints(i);
-			break;
-		case Target::mainPointAvarage:
-			joint_xy = kinectApplication.arms_legs_pointAveraged_PointsXY(i);
-			joint_z = kinectApplication.arms_legs_pointAveraged_DepthPoints(i);
-			break;
-		case Target::allJointsTimeAvarage:
-			joint_xy = kinectApplication.allJoints_timeAveraged_PointsXY(i);
-			joint_z = kinectApplication.allJoints_timeAveraged_DepthPoints(i);
-			break;
-		case Target::mainPointTimeAvarage:
-			joint_xy = kinectApplication.arms_legs_timeAveraged_PointsXY(i);
-			joint_z = kinectApplication.arms_legs_timeAveraged_DepthPoints(i);
-		default:
-			break;
-		}
-		
-
-		joint_xy.x = kinectTranform_X_Cordinates(joint_xy.x); //translate to pixel
-		joint_xy.y = kinectTranform_Y_Cordinates(joint_xy.y); //same
-
-
-
-	if (joint_z >= _trashHold) {
-			if (animationClock.getElapsedTime().asMilliseconds() > 100) {						//need instad (event.type == sf::Event::MouseButtonPressed) to avoid mass click to target
-				if ((dist2(VisibleGameObject::getCenter(), joint_xy) < 8100))
-				{
-					hasClicked = true;
-					animationStart = true;
-					animationClock.restart();
-				}
-			}
-		}
-	}
-}
-
-float Smash_It::Target::kinectTranform_X_Cordinates(float x)
-{
-	return ((1920 - x * 1920 / 640) - 510)*4.9 / 2.4;
-}
-
-float Smash_It::Target::kinectTranform_Y_Cordinates(float y)
-{
-	return (y * 1200 / 280 - 430) * 4 / 1.4;
-}
+//float Smash_It::Target::kinectTranform_X_Cordinates(float x)
+//{
+//	return ((1920 - x * 1920 / 640) - 510)*4.9 / 2.4;
+//}
+//
+//float Smash_It::Target::kinectTranform_Y_Cordinates(float y)
+//{
+//	return (y * 1200 / 280 - 430) * 4 / 1.4;
+//}

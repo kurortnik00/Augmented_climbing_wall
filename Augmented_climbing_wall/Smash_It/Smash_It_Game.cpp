@@ -25,19 +25,11 @@ void Smash_It::Game::Start(myServer &server)	//инициализация объектов
 	while (!IsExiting())
 	{
 		GameLoop(server);
-		//delay for no frizing 
-		if (serverDelayClock.getElapsedTime().asMilliseconds() > 500) {
-			std::vector<int> data =  server.getData();
-			//2 - byte contains information about presed buttons (magick number from client)
-			// +=5 need becose with time delation we stack more then one message, and information about prest button will be only in one message
-			for (int i = 2; i < data.size(); i += 5)
-			{
-				if (data[i] == 4) _gameState = Game::Exiting;  //4 - BACK button presed (magick number from client)
-				serverDelayClock.restart();
-			}
-			
+		std::vector<int> data = getClientData(server);
+		for (int i = 2; i < data.size(); i += 5)
+		{
+			if (data[i] == 4) _gameState = Game::Exiting;  //4 - BACK button presed (magick number from client)			
 		}
-		
 	}
 
 	_gameState = Uninitialized;
@@ -107,7 +99,7 @@ void Smash_It::Game::GameLoop(myServer &server)
 		}
 		case Game::GameOver:
 		{
-			GameOver_Screen();
+			GameOver_Screen(server);
 		}
 	}
 }
@@ -186,7 +178,7 @@ int Smash_It::Game::getRandomNumber(int min, int max)
 	return static_cast<int>(rand() * fraction * (max - min + 1) + min);
 }
 
-void Smash_It::Game::TOP_List_Update()
+void Smash_It::Game::TOP_List_Update(myServer& server)
 {
 
 	sf::Event currentEvent;	
@@ -197,8 +189,10 @@ void Smash_It::Game::TOP_List_Update()
 	stream << std::fixed << std::setprecision(0) << (int) _gameObjectManager.Get("counter")->getCount();
 	scoreString += stream.str();
 
-	
-	while (!sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+
+
+	bool flag = true;
+	while (flag)
 	{
 		_mainWindow.pollEvent(currentEvent);
 		if (currentEvent.type == sf::Event::KeyPressed)
@@ -224,24 +218,51 @@ void Smash_It::Game::TOP_List_Update()
 		_mainWindow.draw(text);
 		_mainWindow.draw(scoreText);
 		_mainWindow.draw(gameOverText);
+		
+
+
+		std::vector<int> data = getClientData(server);
+		for (int i = 2; i < data.size(); i += 5)
+		{
+			if (data[i] == 4) flag= false;  //4 - BACK button presed (magick number from client)			
+		}
+
+
+		sf::Image image;
+		image.loadFromFile("Smash_It/images/restart.png");
+		sf::Texture texture;
+		texture.loadFromImage(image);
+		sf::Sprite sprite;
+		sprite.setTexture(texture);
+		sprite.setScale(0.5, 0.5);
+
+		_mainWindow.draw(sprite);
+
 		_mainWindow.display();
 	}
-
-
 	if (TOP_List.size() > 4) TOP_List.erase(TOP_List.begin());
-
 	TOP_List.insert(std::make_pair(_gameObjectManager.Get("counter")->getCount(), name));
-	
-	
-
 }
 
 
 
-void Smash_It::Game::GameOver_Screen()
+void Smash_It::Game::GameOver_Screen(myServer& server)
 {
-	TOP_List_Update();
+	TOP_List_Update(server);
 	_gameState = Game::ShowingMenu;
+}
+
+
+std::vector<int> Smash_It::Game::getClientData(myServer& server)
+{
+	//delay for no frizing 
+	if (serverDelayClock.getElapsedTime().asMilliseconds() > 500) {
+		std::vector<int> data = server.getData();
+		//2 - byte contains information about presed buttons (magick number from client)
+		// +=5 need becose with time delation we stack more then one message, and information about prest button will be only in one message
+		serverDelayClock.restart();
+		return data;
+	}
 }
 
 //Smash_It::GameObjectManager Smash_It::Game::_gameObjectManager;
