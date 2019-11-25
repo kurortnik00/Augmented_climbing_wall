@@ -7,6 +7,7 @@
 #include "Smash_It_SmashCounter.h"
 #include "../myKeyboard.h"
 #include "../server.h"
+#include "../Cliker.h"
 #include <random>
 #include <iomanip>
 #include <sstream>
@@ -54,7 +55,9 @@ namespace Smash_It
 		Smash_It::GameObjectManager _gameObjectManager;
 		int smashCount;
 		std::set<std::pair<float, std::string>> TOP_List;
-		bool kinectControl;
+		//bool kinectControl;
+
+		sf::Clock clock;
 
 	};
 }

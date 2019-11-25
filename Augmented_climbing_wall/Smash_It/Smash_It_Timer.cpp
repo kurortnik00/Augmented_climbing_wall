@@ -34,7 +34,7 @@ void Smash_It::Timer::Draw(sf::RenderWindow & renderWindow) {
 		gameTime = finishedTime;
 	}
 	
-	if (gameTime > 100) setFinished(true);    ///should be in Update function
+	if (gameTime > 10) setFinished(true);    ///should be in Update function
 
 	std::ostringstream timerStr;
 	timerStr << gameTime;

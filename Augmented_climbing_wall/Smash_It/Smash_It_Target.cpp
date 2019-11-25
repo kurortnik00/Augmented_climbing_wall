@@ -26,13 +26,6 @@ Smash_It::Target::Target()
 
 	velocityAnimationTime = 0;
 	animationTime = 0;
-
-	_trashHold = 1;	
-	_kinectControl = true;
-	//kinectApplication.Run();
-
-	
-
 }
 
 Smash_It::Target::~Target()
@@ -58,9 +51,6 @@ void Smash_It::Target::setClickState(bool ans)
 }
 
 void Smash_It::Target::Update(sf::Event& event) {
-
-	tracking_Type tP = mainPointAvarage;
-	//for shapes need change functions in Update
 
 	
 	if (Cliker::getClik(VisibleGameObject::getCenter(), 90, event))
@@ -124,10 +114,6 @@ int Smash_It::Target::getRandomNumber(int min, int max)
 	return static_cast<int>(rand() * fraction * (max - min + 1) + min);
 }
 
-//float Smash_It::Target::dist2(sf::Vector2f const & p1, sf::Vector2f const & p2)
-//{
-//	return (p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y) * (p1.y - p2.y);
-//}
 
 void Smash_It::Target::animation() {
 	if (!animationStart) {
@@ -198,18 +184,3 @@ void Smash_It::Target::setRandomFlyStart()				//–¿«Œ¡–¿“‹—ﬂ — Õ¿œ–¿¬À≈Õ»≈Ã — Œ–Œ
 	}
 	velocity.y = constVelocity.y + randVelocity / 10;
 }
-
-//use(set) in Game Init
-void Smash_It::Target::setKinectControl(bool kinectCOontrol) {
-	_kinectControl = kinectCOontrol;
-}
-
-//float Smash_It::Target::kinectTranform_X_Cordinates(float x)
-//{
-//	return ((1920 - x * 1920 / 640) - 510)*4.9 / 2.4;
-//}
-//
-//float Smash_It::Target::kinectTranform_Y_Cordinates(float y)
-//{
-//	return (y * 1200 / 280 - 430) * 4 / 1.4;
-//}

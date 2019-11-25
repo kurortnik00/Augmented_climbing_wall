@@ -6,7 +6,7 @@ Smash_It::Game::Game(sf::RenderWindow &window)
 	Smash_It::Game::_gameState = Uninitialized;
 	Smash_It::Game::targetCount = 7;				//max targets = 14 if you wana more change Init()
 	Smash_It::Game::TOP_List = { {6, "ASd"} , {5, "zzz"} , {1, "qq"} , {4, "44"} };
-	Smash_It::Game::kinectControl = false;
+	//Smash_It::Game::kinectControl = false;
 }
 
 
@@ -141,7 +141,7 @@ void Smash_It::Game::Init(int targ_count) {
 	for (int i = 0; i < targ_count; i++) {
 		Target *tar = new Target();
 		tar->Load(targetFileNames[i]);
-		tar->setKinectControl(kinectControl);
+		//tar->setKinectControl(kinectControl);
 		_gameObjectManager.Add(std::to_string(i), tar);
 	}
 
@@ -188,9 +188,9 @@ void Smash_It::Game::TOP_List_Update(myServer& server)
 	std::stringstream stream;
 	stream << std::fixed << std::setprecision(0) << (int) _gameObjectManager.Get("counter")->getCount();
 	scoreString += stream.str();
+	
 
-
-
+	clock.restart();
 	bool flag = true;
 	while (flag)
 	{
@@ -206,13 +206,13 @@ void Smash_It::Game::TOP_List_Update(myServer& server)
 		font.loadFromFile("Smash_It/font/11583.ttf");
 
 		sf::Text gameOverText("Game Over", font, 150);
-		gameOverText.setPosition(_mainWindow.getSize().x / 2 - 400, 100);
+		gameOverText.setPosition(_mainWindow.getSize().x / 2 - 600, 100);
 
 		sf::Text scoreText(scoreString, font, 150);
-		scoreText.setPosition(_mainWindow.getSize().x / 2 - 400, 250);
+		scoreText.setPosition(_mainWindow.getSize().x / 2 - 600, 250);
 
 		sf::Text text(name, font, 150);
-		text.setPosition(_mainWindow.getSize().x / 2 - 300, 400);
+		text.setPosition(_mainWindow.getSize().x / 2 - 500, 400);
 		
 
 		_mainWindow.draw(text);
@@ -227,16 +227,33 @@ void Smash_It::Game::TOP_List_Update(myServer& server)
 			if (data[i] == 4) flag= false;  //4 - BACK button presed (magick number from client)			
 		}
 
+		
+		if (clock.getElapsedTime().asSeconds() > 3)
+		{
+			sf::Image image;
+			image.loadFromFile("Smash_It/images/restart.png");
+			sf::Texture texture;
+			texture.loadFromImage(image);
+			sf::Sprite sprite;
+			sprite.setTexture(texture);
+			sprite.setScale(0.4, 0.4);
+			sf::Vector2f pos(1200, 200);
+			sprite.setPosition(pos);
+			sf::Vector2f center(pos.x + texture.getSize().x / 4, pos.y + texture.getSize().y / 4);
 
-		sf::Image image;
-		image.loadFromFile("Smash_It/images/restart.png");
-		sf::Texture texture;
-		texture.loadFromImage(image);
-		sf::Sprite sprite;
-		sprite.setTexture(texture);
-		sprite.setScale(0.5, 0.5);
 
-		_mainWindow.draw(sprite);
+			sf::Event event;
+			_mainWindow.pollEvent(event);
+
+			if (Cliker::getClik(center, texture.getSize().x / 4, event))
+			{
+				flag = false;
+			}
+
+			_mainWindow.draw(sprite);
+		}
+
+		
 
 		_mainWindow.display();
 	}

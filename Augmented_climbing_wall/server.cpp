@@ -4,9 +4,9 @@
 masege format from client:
 1st byte - the menu state contains one of this integers:
 	0 - exit	(not used)
-	1 - playing
+	1 - game preporations
 	3 - show scoreBoard
-	4 - game selection
+	4 - ready to play
 2nd byte - the current game:
 	0 - Smash_It
 	1 - Time_Climb
@@ -15,9 +15,13 @@ masege format from client:
 	4 - Territory
 3rd byte - the action button pressed
 	0 - Nothing
-	1 - back
-	2 - TopScore (relevant to Smash_It, Time_Climb, Labyrinth)
-	3 - set_Positions (relevant to Time_Climb)
+	1 - play_GameSelection
+	2 - next
+	3 - previous
+	4 - back
+	5 - TopScore (relevant to Smash_It, Time_Climb, Labyrinth)
+	6 - set_Positions (relevant to Time_Climb)
+	7 - play_ReadyToPlay
 4rd byte - the current LvL in Labyrinth game
 	0 - 1st lvl
 	0 - 2st lvl
