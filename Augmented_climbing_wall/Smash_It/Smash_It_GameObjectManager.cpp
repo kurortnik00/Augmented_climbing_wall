@@ -78,14 +78,16 @@ void Smash_It::GameObjectManager::UpdateAll(sf::Event& event)
 	
 	while (itr != _gameObjects.end())
 	{
+		
 		itr->second->Update(event);
-
+		
 		if (itr->second->getClickState()) {				//Была ли кликнута цель
 			itr->second->setClickState(false);
 			Get("counter")->countIncroment();
-			itr++;
 		}
-		else itr++;
+
+		
+		itr++;
 	}
 }
 

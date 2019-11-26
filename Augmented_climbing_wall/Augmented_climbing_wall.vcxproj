@@ -136,6 +136,7 @@
     <ClCompile Include="aerohockey\starter.cpp" />
     <ClCompile Include="aerohockey\util.cpp" />
     <ClCompile Include="BodyBasics.cpp" />
+    <ClCompile Include="body_tracker.cpp" />
     <ClCompile Include="Cliker.cpp" />
     <ClCompile Include="Labyrinth\CircleLvL.cpp" />
     <ClCompile Include="Labyrinth\Labyrinth_Game.cpp" />
@@ -166,6 +167,7 @@
     <ClCompile Include="TimeClimb\TimeClimb_Target.cpp" />
     <ClCompile Include="TimeClimb\TimeClimb_Timer.cpp" />
     <ClCompile Include="TimeClimb\TimeClimb_VisibleGameObject.cpp" />
+    <ClCompile Include="util.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\aerohockey\aerohockey\control\kinect\body_tracker.h" />
@@ -183,6 +185,7 @@
     <ClInclude Include="aerohockey\starter.h" />
     <ClInclude Include="aerohockey\util.hpp" />
     <ClInclude Include="BodyBasics.h" />
+    <ClInclude Include="body_tracker.h" />
     <ClInclude Include="Cliker.h" />
     <ClInclude Include="Labyrinth\circleLvL.h" />
     <ClInclude Include="Labyrinth\Labyrinth_Game.h" />
@@ -214,6 +217,7 @@
     <ClInclude Include="TimeClimb\TimeClimb_Target.h" />
     <ClInclude Include="TimeClimb\TimeClimb_Timer.h" />
     <ClInclude Include="TimeClimb\TimeClimb_VisibleGameObject.h" />
+    <ClInclude Include="util.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,6 +1,6 @@
 #include "Smash_It_MainMenu.h"
 #include "../Cliker.h"
-#include "../BodyBasics.h"
+#include "../body_tracker.h"
 
 Smash_It::MainMenu::MenuItem::MenuItem(sf::Vector2f position, MenuResult action)
 	:_position(position), text("", font, 110), _action(action)
@@ -146,8 +146,8 @@ void Smash_It::MainMenu::Draw(sf::RenderWindow& window)
 	_shape1.setRadius(_radius);
 	_shape1.setOutlineThickness(10);
 	_shape1.setOutlineColor(sf::Color(250, 50, 100));
-	float x = Cliker::kinectTranform_X_Cordinates(Cliker::getKinectApplication().arms_legs_pointAveraged_PointsXY(CBodyBasics::RIGHT_ARM).x);
-	float y = Cliker::kinectTranform_Y_Cordinates(Cliker::getKinectApplication().arms_legs_pointAveraged_PointsXY(CBodyBasics::RIGHT_ARM).y);
+	float x = Cliker::kinectTranform_X_Cordinates(Cliker::getKinectApplication().getLimbPointsXY(Limbs::Type::RIGHT_HAND, true).x);
+	float y = Cliker::kinectTranform_Y_Cordinates(Cliker::getKinectApplication().getLimbPointsXY(Limbs::Type::RIGHT_HAND, true).y);
 	_shape1.setPosition(sf::Vector2f(x, y));
 
 	sf::CircleShape _shape2;
@@ -155,8 +155,8 @@ void Smash_It::MainMenu::Draw(sf::RenderWindow& window)
 	_shape2.setRadius(_radius);
 	_shape2.setOutlineThickness(10);
 	_shape2.setOutlineColor(sf::Color(250, 150, 100));
-	x = Cliker::kinectTranform_X_Cordinates(Cliker::getKinectApplication().arms_legs_pointAveraged_PointsXY(CBodyBasics::LEFT_ARM).x);
-	y = Cliker::kinectTranform_Y_Cordinates(Cliker::getKinectApplication().arms_legs_pointAveraged_PointsXY(CBodyBasics::LEFT_ARM).y);
+	x = Cliker::kinectTranform_X_Cordinates(Cliker::getKinectApplication().getLimbPointsXY(Limbs::Type::LEFT_HAND, true).x);
+	y = Cliker::kinectTranform_Y_Cordinates(Cliker::getKinectApplication().getLimbPointsXY(Limbs::Type::LEFT_HAND, true).y);
 	_shape2.setPosition(sf::Vector2f(x, y));
 
 

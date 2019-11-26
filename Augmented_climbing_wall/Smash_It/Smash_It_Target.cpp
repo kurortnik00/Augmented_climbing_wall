@@ -55,9 +55,13 @@ void Smash_It::Target::Update(sf::Event& event) {
 	
 	if (Cliker::getClik(VisibleGameObject::getCenter(), 90, event))
 	{
-		hasClicked = true;
-		animationStart = true;
-		animationClock.restart();
+		if (!animationStart)
+		{
+			hasClicked = true;
+			animationStart = true;
+			animationClock.restart();
+		}
+		
 	}
 
 	velocityAnimation();
@@ -73,8 +77,10 @@ void Smash_It::Target::Draw(sf::RenderWindow & window)
 	_shape1.setRadius(_radius);
 	_shape1.setOutlineThickness(10);
 	_shape1.setOutlineColor(sf::Color(250, 50, 100));
-	float x = Cliker::kinectTranform_X_Cordinates(Cliker::getKinectApplication().arms_legs_pointAveraged_PointsXY(CBodyBasics::RIGHT_ARM).x);
-	float y = Cliker::kinectTranform_Y_Cordinates(Cliker::getKinectApplication().arms_legs_pointAveraged_PointsXY(CBodyBasics::RIGHT_ARM).y);
+
+
+	float x = Cliker::kinectTranform_X_Cordinates(Cliker::getKinectApplication().getLimbPointsXY(Limbs::Type::RIGHT_HAND, true).x);
+	float y = Cliker::kinectTranform_Y_Cordinates(Cliker::getKinectApplication().getLimbPointsXY(Limbs::Type::RIGHT_HAND, true).y);
 	_shape1.setPosition(sf::Vector2f(x, y));
 
 	sf::CircleShape _shape2;
@@ -82,8 +88,8 @@ void Smash_It::Target::Draw(sf::RenderWindow & window)
 	_shape2.setRadius(_radius);
 	_shape2.setOutlineThickness(10);
 	_shape2.setOutlineColor(sf::Color(250, 150, 100));
-	x = Cliker::kinectTranform_X_Cordinates(Cliker::getKinectApplication().arms_legs_pointAveraged_PointsXY(CBodyBasics::LEFT_ARM).x);
-	y = Cliker::kinectTranform_Y_Cordinates(Cliker::getKinectApplication().arms_legs_pointAveraged_PointsXY(CBodyBasics::LEFT_ARM).y);
+	x = Cliker::kinectTranform_X_Cordinates(Cliker::getKinectApplication().getLimbPointsXY(Limbs::Type::LEFT_HAND, true).x);
+	y = Cliker::kinectTranform_Y_Cordinates(Cliker::getKinectApplication().getLimbPointsXY(Limbs::Type::LEFT_HAND, true).y);
 	_shape2.setPosition(sf::Vector2f(x, y));
 
 	
@@ -141,9 +147,8 @@ void Smash_It::Target::animation() {
 
 	}
 	VisibleGameObject::GetSprite().setTextureRect(sf::IntRect(spriteX, spriteY, w, h));
-
-	
 }
+
 
 void Smash_It::Target::velocityAnimation()
 {

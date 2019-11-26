@@ -1,6 +1,6 @@
 #pragma once
 #include "stdafx.h"
-#include "BodyBasics.h"
+#include "body_tracker.h"
 #include "Kinect.h"
 
 class Cliker
@@ -12,7 +12,7 @@ public:
 
 	static bool getClik(sf::Vector2f center, float radius, sf::Event& event);
 	static bool getClik(float x, float y, float height, float width);
-	static CBodyBasics &getKinectApplication();
+	static BodyTracker &getKinectApplication();
 	static float kinectTranform_X_Cordinates(float x);
 	static float kinectTranform_Y_Cordinates(float y);
 private:
@@ -31,7 +31,7 @@ private:
 
 	static bool kinectUpdateActions(int joint_Count, tracking_Type tT, sf::Vector2f center, float radius);
 	static float _trashHold;				//depth from sensor where interaction starts
-	static CBodyBasics kinectApplication;
+	static BodyTracker kinectApplication;
 	static sf::Vector2f joint_xy;
 	static float joint_z;
 	static sf::Clock delayClock;
