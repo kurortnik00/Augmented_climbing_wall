@@ -204,6 +204,9 @@
     <ClCompile Include="util.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="Smash_It\testConfig.cpp">
+      <Filter>Исходные файлы\Smash_It</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="myKeyboard.h">
@@ -349,6 +352,9 @@
     </ClInclude>
     <ClInclude Include="util.hpp">
       <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Smash_It\testConfig.h">
+      <Filter>Файлы заголовков\Smash_It</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

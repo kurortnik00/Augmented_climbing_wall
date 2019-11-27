@@ -1,10 +1,11 @@
 #include "Cliker.h"
 
+
 void Cliker::Init()
 {
 	kinectApplication.Run();
 	_trashHold = 1;
-}
+ }
 
 BodyTracker& Cliker::getKinectApplication()
 {
@@ -13,7 +14,7 @@ BodyTracker& Cliker::getKinectApplication()
 
 bool Cliker::getClik(sf::Vector2f center, float radius, sf::Event& event)
 {
-	tracking_Type tP = mainPointAvarage;
+	tracking_Type tP = mainPointTimeAvarage;
 
 	//_kinectControl set true or false in Game Init
 	if (_kinectControl) {
@@ -89,8 +90,8 @@ bool Cliker::kinectUpdateActions(int joint_Count, tracking_Type tP, sf::Vector2f
 			joint_z = kinectApplication.getLimbDepthPoints(static_cast<Limbs::Type>(i), true);
 			break;
 		case Cliker::allJointsTimeAvarage:
-			joint_xy = kinectApplication.getAllJoints_timeAveraged_PointsXY(i, 0);
-			joint_z = kinectApplication.getAllJoints_timeAveraged_DepthPoints(i, 0);
+			joint_xy = kinectApplication.getAllJoints_timeAveraged_PointsXY(i, true);
+			joint_z = kinectApplication.getAllJoints_timeAveraged_DepthPoints(i, true);
 			break;
 		case Cliker::mainPointTimeAvarage:
 			joint_xy = kinectApplication.get_arms_legs_timeAveraged_PointsXY(i, 0);

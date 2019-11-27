@@ -1,12 +1,19 @@
 #include "Smash_It_Game.h"
 
+
+
 Smash_It::Game::Game(sf::RenderWindow &window)
 	:_mainWindow(window)
 {
 	Smash_It::Game::_gameState = Uninitialized;
-	Smash_It::Game::targetCount = 7;				//max targets = 14 if you wana more change Init()
+
+	Config config;
+	config.loadConfig();
+	Smash_It::Game::targetCount = config.smashIt_targets;				//max targets = 14 if you wana more change Init()
+	Smash_It::Game::_font = config.font;
+
+
 	Smash_It::Game::TOP_List = { {6, "ASd"} , {5, "zzz"} , {1, "qq"} , {4, "44"} };
-	//Smash_It::Game::kinectControl = false;
 }
 
 
@@ -140,17 +147,18 @@ void Smash_It::Game::Init(int targ_count) {
 
 	for (int i = 0; i < targ_count; i++) {
 		Target *tar = new Target();
-		tar->Load(targetFileNames[i]);
-		//tar->setKinectControl(kinectControl);
+		int k = i;
+		if (k > 6) k = k%6;
+		tar->Load(targetFileNames[k]);
 		_gameObjectManager.Add(std::to_string(i), tar);
 	}
 
 	Timer *time1 = new Timer();
-	time1->Load("Smash_It/font/11583.ttf");
+	time1->Load(_font);
 	_gameObjectManager.Add("timer1", time1);
 
 	SmashCounter *counter = new SmashCounter();
-	counter->Load("Smash_It/font/11583.ttf");
+	counter->Load(_font);
 	_gameObjectManager.Add("counter", counter);
 
 
@@ -203,7 +211,7 @@ void Smash_It::Game::TOP_List_Update(myServer& server)
 		_mainWindow.clear(sf::Color(0, 0, 0));
 
 		sf::Font font;
-		font.loadFromFile("Smash_It/font/11583.ttf");
+		font.loadFromFile(_font);
 
 		sf::Text gameOverText("Game Over", font, 150);
 		gameOverText.setPosition(_mainWindow.getSize().x / 2 - 600, 100);
@@ -282,13 +290,6 @@ std::vector<int> Smash_It::Game::getClientData(myServer& server)
 	}
 }
 
-//Smash_It::GameObjectManager Smash_It::Game::_gameObjectManager;
-//Smash_It::Game::GameState Smash_It::Game::_gameState = Uninitialized;
-//sf::RenderWindow Smash_It::Game::_mainWindow;
-//int Smash_It::Game::targetCount = 7;				//max targets = 14 if you wana more change Init()
-//std::set<std::pair<float, std::string>> Smash_It::Game::TOP_List = { {6, "ASd"} , {5, "zzz"} , {1, "qq"} , {4, "44"} };
-//bool Smash_It::Game::kinectControl = false;
-//sf::Clock Smash_It::Game::serverDelayClock;
 
 
 

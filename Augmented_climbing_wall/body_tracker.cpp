@@ -327,8 +327,9 @@ float BodyTracker::LimbDepthPoint(int i, Limbs::Type limb)
 
 
 
-sf::Vector2f BodyTracker::getAllJoints_timeAveraged_PointsXY(int limb, int body)
+sf::Vector2f BodyTracker::getAllJoints_timeAveraged_PointsXY(int limb, /*temporary solution*/int bodyy)
 {
+	int body = left_idx;/*temporary solution*/
 	sf::Vector2f timeAveraged_Point[JointType_Count];
 	JointPoints_buffer jointPoints;
 
@@ -338,7 +339,7 @@ sf::Vector2f BodyTracker::getAllJoints_timeAveraged_PointsXY(int limb, int body)
 	}
 
 	buffer.push_back(jointPoints);
-	if (buffer.size() > 5) buffer.erase(buffer.begin());
+	if (buffer.size() > 500) buffer.erase(buffer.begin());
 	int flag = 0;
 	for (auto& i : buffer)
 	{
@@ -369,8 +370,9 @@ sf::Vector2f BodyTracker::getAllJoints_timeAveraged_PointsXY(int limb, int body)
 }
 
 
-float BodyTracker::getAllJoints_timeAveraged_DepthPoints(int limb, int body)
+float BodyTracker::getAllJoints_timeAveraged_DepthPoints(int limb, /*temporary solution*/int bodyy)
 {
+	int body = left_idx;/*temporary solution*/
 	float timeAveraged_DepthPoint[JointType_Count];
 	JointPoints_Depthbuffer jointDepthPoints;
 	for (int i = 0; i < JointType_Count; i++)
@@ -409,9 +411,9 @@ float BodyTracker::getAllJoints_timeAveraged_DepthPoints(int limb, int body)
 
 
 
-sf::Vector2f BodyTracker::get_arms_legs_timeAveraged_PointsXY(int limb, int body)
+sf::Vector2f BodyTracker::get_arms_legs_timeAveraged_PointsXY(int limb, /*temporary solution*/int bodyy)
 {
-
+	int body = left_idx;/*temporary solution*/
 	sf::Vector2f timeAveraged_Point[static_cast<int>(Limbs::Type::Count)];
 
 	LimbsPoints_buffer limbPoints;
@@ -421,7 +423,7 @@ sf::Vector2f BodyTracker::get_arms_legs_timeAveraged_PointsXY(int limb, int body
 	}
 
 	limbs_buffer.push_back(limbPoints);
-	if (limbs_buffer.size() > 5) limbs_buffer.erase(limbs_buffer.begin());
+	if (limbs_buffer.size() > 2000) limbs_buffer.erase(limbs_buffer.begin());
 	int flag = 0;
 	for (auto& i : limbs_buffer)
 	{
@@ -453,8 +455,10 @@ sf::Vector2f BodyTracker::get_arms_legs_timeAveraged_PointsXY(int limb, int body
 
 
 
-float BodyTracker::get_arms_legs_timeAveraged_DepthPoints(int limb, int body)
+float BodyTracker::get_arms_legs_timeAveraged_DepthPoints(int limb, /*temporary solution*/int bodyy)
 {
+
+	int body = left_idx; //temporary solution
 	float timeAveraged_DepthPoint[static_cast<int>(Limbs::Type::Count)];
 
 	LimbsPoints_Depthbuffer limbsDepthPoints;
@@ -463,7 +467,7 @@ float BodyTracker::get_arms_legs_timeAveraged_DepthPoints(int limb, int body)
 		limbsDepthPoints.limbsDepth[i] = LimbDepthPoint(body, static_cast<Limbs::Type>(i));
 	}
 	limbs_depthBuffer.push_back(limbsDepthPoints);
-	if (limbs_depthBuffer.size() > 5) limbs_depthBuffer.erase(limbs_depthBuffer.begin());
+	if (limbs_depthBuffer.size() > 2000) limbs_depthBuffer.erase(limbs_depthBuffer.begin());
 	int flag = 0;
 	for (auto& i : limbs_depthBuffer)
 	{

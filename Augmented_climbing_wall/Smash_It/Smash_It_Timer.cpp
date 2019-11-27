@@ -12,6 +12,11 @@ Smash_It::Timer::Timer() :
 	text.setPosition(20, -20);
 	finished = false;
 	finishedTime = 0;
+
+	Config config;
+	config.loadConfig();
+	maxGameTime = config.maxGameTime;
+	//std::cout << config.maxGameTime;
 }
 
 Smash_It::Timer::~Timer() {
@@ -34,7 +39,7 @@ void Smash_It::Timer::Draw(sf::RenderWindow & renderWindow) {
 		gameTime = finishedTime;
 	}
 	
-	if (gameTime > 10) setFinished(true);    ///should be in Update function
+	if (gameTime > maxGameTime) setFinished(true);    ///should be in Update function
 
 	std::ostringstream timerStr;
 	timerStr << gameTime;

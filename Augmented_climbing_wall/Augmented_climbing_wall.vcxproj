@@ -160,6 +160,7 @@
     <ClCompile Include="Smash_It\Smash_It_Target.cpp" />
     <ClCompile Include="Smash_It\Smash_It_Timer.cpp" />
     <ClCompile Include="Smash_It\Smash_It_VisibleGameObject.cpp" />
+    <ClCompile Include="Smash_It\testConfig.cpp" />
     <ClCompile Include="TimeClimb\TimeClimb_CustomScreen.cpp" />
     <ClCompile Include="TimeClimb\TimeClimb_Game.cpp" />
     <ClCompile Include="TimeClimb\TimeClimb_GameObjectManager.cpp" />
@@ -209,6 +210,7 @@
     <ClInclude Include="Smash_It\Smash_It_Target.h" />
     <ClInclude Include="Smash_It\Smash_It_Timer.h" />
     <ClInclude Include="Smash_It\Smash_It_VisibleGameObject.h" />
+    <ClInclude Include="Smash_It\testConfig.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="TimeClimb\TimeClimb_CustomScreen.h" />
     <ClInclude Include="TimeClimb\TimeClimb_Game.h" />

@@ -83,13 +83,17 @@ void Smash_It::Target::Draw(sf::RenderWindow & window)
 	float y = Cliker::kinectTranform_Y_Cordinates(Cliker::getKinectApplication().getLimbPointsXY(Limbs::Type::RIGHT_HAND, true).y);
 	_shape1.setPosition(sf::Vector2f(x, y));
 
+
+
+	float x1 = Cliker::kinectTranform_X_Cordinates(Cliker::getKinectApplication().getAllJoints_timeAveraged_PointsXY((int)Joints::Type::HANDRIGHT, true).x);
+
 	sf::CircleShape _shape2;
 	_shape2.setFillColor(sf::Color(0, 0, 0));
 	_shape2.setRadius(_radius);
-	_shape2.setOutlineThickness(10);
+	_shape2.setOutlineThickness(10 );
 	_shape2.setOutlineColor(sf::Color(250, 150, 100));
-	x = Cliker::kinectTranform_X_Cordinates(Cliker::getKinectApplication().getLimbPointsXY(Limbs::Type::LEFT_HAND, true).x);
-	y = Cliker::kinectTranform_Y_Cordinates(Cliker::getKinectApplication().getLimbPointsXY(Limbs::Type::LEFT_HAND, true).y);
+	x = Cliker::kinectTranform_X_Cordinates(Cliker::getKinectApplication().get_arms_legs_timeAveraged_PointsXY((int)Limbs::Type::RIGHT_HAND, true).x);
+	y = Cliker::kinectTranform_Y_Cordinates(Cliker::getKinectApplication().get_arms_legs_timeAveraged_PointsXY((int)Limbs::Type::RIGHT_HAND, true).y);
 	_shape2.setPosition(sf::Vector2f(x, y));
 
 	

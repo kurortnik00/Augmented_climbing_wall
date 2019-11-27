@@ -8,6 +8,7 @@
 #include "../myKeyboard.h"
 #include "../server.h"
 #include "../Cliker.h"
+#include "testConfig.h"
 #include <random>
 #include <iomanip>
 #include <sstream>
@@ -54,6 +55,7 @@ namespace Smash_It
 		sf::RenderWindow & _mainWindow;
 		Smash_It::GameObjectManager _gameObjectManager;
 		int smashCount;
+		std::string _font;
 		std::set<std::pair<float, std::string>> TOP_List;
 		//bool kinectControl;
 

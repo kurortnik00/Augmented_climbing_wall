@@ -1,6 +1,7 @@
 #pragma once
 #include "../stdafx.h"
 #include "Smash_It_VisibleGameObject.h"
+#include "testConfig.h"
 
 namespace Smash_It
 {
@@ -27,6 +28,7 @@ namespace Smash_It
 		sf::Text text;
 		bool finished;
 		float finishedTime;
+		int maxGameTime;
 	};
 }
 
