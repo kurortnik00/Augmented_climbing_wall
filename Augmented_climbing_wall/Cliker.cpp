@@ -136,7 +136,7 @@ float Cliker::dist2(sf::Vector2f const& p1, sf::Vector2f const& p2)
 	return (p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y) * (p1.y - p2.y);
 }
 
-bool Cliker::_kinectControl = true;
+bool Cliker::_kinectControl = false;
 float Cliker::_trashHold = 1;
 BodyTracker Cliker::kinectApplication;
 sf::Vector2f Cliker::joint_xy;

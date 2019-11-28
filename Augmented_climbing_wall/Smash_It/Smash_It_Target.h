@@ -40,6 +40,8 @@ namespace Smash_It
 		const sf::Vector2f constVelocity;
 		float velocityAnimationTime;
 		float animationTime;
+		sf::SoundBuffer shootBuffer;//создаём буфер для звука
+		sf::Sound shoot;
 
 
 	};

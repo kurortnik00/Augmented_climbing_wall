@@ -27,6 +27,12 @@ void Smash_It::Game::Start(myServer &server)	//инициализация объектов
 	srand(static_cast<unsigned int>(time(0)));
 
 
+	sf::Music music;//создаем объект музыки
+	music.openFromFile("Smash_It/sounds/merx-market-song.wav");//загружаем файл
+	music.setLoop(true);
+	music.play();//воспроизводим музыку
+
+
 	_gameState = Game::ShowingMenu;		//Начинаем с меню
 
 	while (!IsExiting())
@@ -139,7 +145,7 @@ void Smash_It::Game::ShowMenu(myServer &server)
 }
 
 void Smash_It::Game::Init(int targ_count) {
-	std::string targetFileNames[7] = {							//max targets = 14
+	std::string targetFileNames[7] = {						
 		"Smash_It/images/balloon_green.png", "Smash_It/images/balloon_blue.png", "Smash_It/images/balloon_orange.png", "Smash_It/images/balloon_pinck.png",
 		"Smash_It/images/balloon_purple.png", "Smash_It/images/balloon_red.png", "Smash_It/images/balloon_yellow.png"
 	};

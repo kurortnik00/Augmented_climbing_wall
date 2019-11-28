@@ -26,6 +26,9 @@ Smash_It::Target::Target()
 
 	velocityAnimationTime = 0;
 	animationTime = 0;
+
+	shootBuffer.loadFromFile("Smash_It/sounds/balloon-pop.wav");
+	shoot.setBuffer(shootBuffer);
 }
 
 Smash_It::Target::~Target()
@@ -57,9 +60,11 @@ void Smash_It::Target::Update(sf::Event& event) {
 	{
 		if (!animationStart)
 		{
+			shoot.play();
 			hasClicked = true;
 			animationStart = true;
 			animationClock.restart();
+
 		}
 		
 	}
