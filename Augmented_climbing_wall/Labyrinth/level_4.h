@@ -32,9 +32,6 @@ private:
 	float blinkLineTime;
 
 	bool _isLoaded;
-
-
-	CBodyBasics kinectApplication;
 	int _trashHold;
 
 

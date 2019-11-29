@@ -6,7 +6,6 @@ Labyrinth::Game::Game(sf::RenderWindow &window)
 {
 	Labyrinth::Game::_gameState = Uninitialized;
 	Labyrinth::Game::_selectedLevel = LEVEL_1;
-	Labyrinth::Game::kinectControl = false;
 }
 
 void Labyrinth::Game::Start(myServer &server, int LvLdata)	//инициализация объектов
@@ -37,7 +36,6 @@ void Labyrinth::Game::Start(myServer &server, int LvLdata)	//инициализация объек
 	}
 
 	Game::Init();
-	_kinectApplication.Run();
 
 	_gameState = Game::Playing;
 
@@ -79,10 +77,6 @@ sf::RenderWindow& Labyrinth::Game::GetWindow()
 	return Labyrinth::Game::_mainWindow;
 }
 
-CBodyBasics& Labyrinth::Game::getKinectApplication()
-{
-	return Game::_kinectApplication;
-}
 
 void Labyrinth::Game::GameLoop(std::vector<int> data)
 {
@@ -240,7 +234,6 @@ void Labyrinth::Game::reInit()
 {
 	levelInit();
 	_gameObjectManager.Get("timer1")->reInit();
-	_gameObjectManager.Get("level")->setKinectControl(kinectControl);
 	//_gameObjectManager.Get("winButton")->reInit();
 	//_gameObjectManager.Get("startButton")->reInit();
 }
@@ -257,7 +250,7 @@ int Labyrinth::Game::getRandomNumber(int min, int max)
 	return static_cast<int>(rand() * fraction * (max - min + 1) + min);
 }
 
-CBodyBasics Labyrinth::Game::_kinectApplication;
+
 
 
 

@@ -1,6 +1,5 @@
 #pragma once
 #include "../stdafx.h"
-#include "../BodyBasics.h"
 #include "../server.h"
 #include "Labyrinth_GameObjectManager.h"
 #include "Labyrinth_MainMenu.h"
@@ -21,7 +20,6 @@ namespace Labyrinth
 
 		void Start(myServer &server, int data);
 		sf::RenderWindow& GetWindow();
-		static CBodyBasics & getKinectApplication();
 		const int SCREEN_WIDTH = 1920;
 		const int SCREEN_HEIGHT = 1080;
 		void countIncriment();
@@ -58,7 +56,5 @@ namespace Labyrinth
 		GameObjectManager _gameObjectManager;
 		//int smashCount;
 		SelectedLevel _selectedLevel;
-		bool kinectControl;
-		static CBodyBasics _kinectApplication;
 	};
 }

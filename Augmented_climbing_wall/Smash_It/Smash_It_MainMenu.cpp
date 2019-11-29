@@ -1,6 +1,6 @@
 #include "Smash_It_MainMenu.h"
 #include "../Cliker.h"
-#include "../body_tracker.h"
+//#include "../body_tracker.h"
 
 Smash_It::MainMenu::MenuItem::MenuItem(sf::Vector2f position, MenuResult action)
 	:_position(position), text("", font, 110), _action(action)
@@ -237,7 +237,7 @@ Smash_It::MainMenu::MenuResult  Smash_It::MainMenu::GetMenuResponse(sf::RenderWi
 			}
 		}
 		//it works while we have start button first in _menuItems
-		if (Cliker::getClik(_menuItems.begin()->_center, _menuItems.begin()->_radius, menuEvent)) //event here are useles, THIS function do not atact with mouse clikes
+		if (Cliker::getClik(_menuItems.begin()->_center, _menuItems.begin()->_radius, true)) //event here are useles, THIS function do not atact with mouse clikes
 		{
 			return Play;
 		}

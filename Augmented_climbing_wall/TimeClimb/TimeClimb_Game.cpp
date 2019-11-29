@@ -162,7 +162,7 @@ void TimeClimb::Game::Init(int targ_count) {
 		Target *tar = new Target();
 		tar->Load("TimeClimb/images/target2.png");
 		tar->SetPosition(200 + 200*i, 500);
-		tar->setKinectControl(kinectControl);
+		//tar->setKinectControl(kinectControl);
 		_gameObjectManager.Add(std::to_string(i), tar);
 	}
 

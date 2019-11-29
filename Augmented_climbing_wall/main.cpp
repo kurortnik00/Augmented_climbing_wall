@@ -30,7 +30,7 @@ int main()
 		case(myServer::PLAY):
 			MainWindow::getWindow().setMouseCursorVisible(true);
 			//switch (server->getData()[game])
-			switch (0)
+			switch (2)
 			{
 			case(myServer::SMASH_IT):
 			{
@@ -45,7 +45,8 @@ int main()
 				std::cout << "LABYRINTH started \n";
 
 				Labyrinth::Game labyrinth(MainWindow::getWindow());
-				labyrinth.Start(*server, server->getData()[LvL]);
+				//labyrinth.Start(*server, server->getData()[LvL]);
+				labyrinth.Start(*server, 4);
 				break;
 			}
 			case(myServer::TIME_CLIMB):

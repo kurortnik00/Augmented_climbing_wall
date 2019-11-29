@@ -65,7 +65,7 @@ sf::RenderWindow& Smash_It::Game::GetWindow()
 void Smash_It::Game::GameLoop(myServer &server)
 {
 	sf::Event currentEvent;
-	_mainWindow.pollEvent(currentEvent);
+	//_mainWindow.pollEvent(currentEvent);
 	
 	switch (_gameState)
 	{
@@ -256,10 +256,7 @@ void Smash_It::Game::TOP_List_Update(myServer& server)
 			sf::Vector2f center(pos.x + texture.getSize().x / 4, pos.y + texture.getSize().y / 4);
 
 
-			sf::Event event;
-			_mainWindow.pollEvent(event);
-
-			if (Cliker::getClik(center, texture.getSize().x / 4, event))
+			if (Cliker::getClik(center, texture.getSize().x / 4, true))
 			{
 				flag = false;
 			}

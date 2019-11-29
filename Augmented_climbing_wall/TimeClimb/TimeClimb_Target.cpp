@@ -22,9 +22,9 @@ TimeClimb::Target::Target()
 	animationClock.restart();
 	animationTime = 0;
 
-	_kinectControl = false;
-	_trashHold = 2;
-	kinectApplication.Run();
+	/*_kinectControl = false;
+	_trashHold = 2;*/
+	//kinectApplication.Run();
 
 }
 
@@ -61,47 +61,10 @@ void TimeClimb::Target::setClickState(bool ans)
 
 void TimeClimb::Target::Update(sf::Event& event) {
 
-	tracking_Type tP = mainPointAvarage;
-	//for shapes need change functions in Update
-
-	//_kinectControl set true or false in Game Init
-	if (_kinectControl) {
-
-		int joint_Count = 0;
-
-		switch (tP)
-		{
-		case Target::allJoints:
-			joint_Count = JointType_Count;
-			kinectUpdateActions(joint_Count, tP);
-			break;
-		case Target::mainPointAvarage:
-			joint_Count = 4;
-			kinectUpdateActions(joint_Count, tP);
-			break;
-		case Target::allJointsTimeAvarage:
-			joint_Count = JointType_Count;
-			kinectUpdateActions(joint_Count, tP);
-		case Target::mainPointTimeAvarage:
-			joint_Count = 4;
-			kinectUpdateActions(joint_Count, tP);
-		default:
-			break;
-		}
-	}
-
-
-	else {
-
-
-		if (dist2(sf::Vector2f(event.mouseButton.x, event.mouseButton.y), sf::Vector2f(VisibleGameObject::getCenter())) < 75 * 75
-			&& Unbreakable == false)
-		{
-			if (!hasClicked) {
-				hasClicked = true;
-				animationStart = true;
-			}
-		}
+	if (Cliker::getClik(VisibleGameObject::getCenter(), 90, false))
+	{
+		hasClicked = true;
+		animationStart = true;
 	}
 	animation();
 }
@@ -114,8 +77,8 @@ void TimeClimb::Target::Draw(sf::RenderWindow & window)
 	_shape1.setRadius(_radius);
 	_shape1.setOutlineThickness(10);
 	_shape1.setOutlineColor(sf::Color(250, 50, 100));
-	float x = kinectTranform_X_Cordinates(kinectApplication.arms_legs_pointAveraged_PointsXY(CBodyBasics::RIGHT_ARM).x);
-	float y = kinectTranform_Y_Cordinates(kinectApplication.arms_legs_pointAveraged_PointsXY(CBodyBasics::RIGHT_ARM).y);
+	float x = kinectTranform_X_Cordinates(Cliker::getKinectApplication().get_arms_legs_timeAveraged_PointsXY((int)Limbs::Type::RIGHT_HAND, 0).x);
+	float y = kinectTranform_Y_Cordinates(Cliker::getKinectApplication().get_arms_legs_timeAveraged_PointsXY((int)Limbs::Type::RIGHT_HAND, 0).y);
 	_shape1.setPosition(sf::Vector2f(x, y));
 
 	sf::CircleShape _shape2;
@@ -123,8 +86,8 @@ void TimeClimb::Target::Draw(sf::RenderWindow & window)
 	_shape2.setRadius(_radius);
 	_shape2.setOutlineThickness(10);
 	_shape2.setOutlineColor(sf::Color(250, 150, 100));
-	x = kinectTranform_X_Cordinates(kinectApplication.arms_legs_pointAveraged_PointsXY(CBodyBasics::LEFT_ARM).x);
-	y = kinectTranform_Y_Cordinates(kinectApplication.arms_legs_pointAveraged_PointsXY(CBodyBasics::LEFT_ARM).y);
+	x = kinectTranform_X_Cordinates(Cliker::getKinectApplication().get_arms_legs_timeAveraged_PointsXY((int)Limbs::Type::LEFT_HAND, 0).x);
+	y = kinectTranform_Y_Cordinates(Cliker::getKinectApplication().get_arms_legs_timeAveraged_PointsXY((int)Limbs::Type::LEFT_HAND, 0).y);
 	_shape2.setPosition(sf::Vector2f(x, y));
 
 
@@ -183,61 +146,21 @@ void TimeClimb::Target::animation() {
 
 }
 
-float TimeClimb::Target::dist2(sf::Vector2f const & p1, sf::Vector2f const & p2)
-{
-	return (p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y) * (p1.y - p2.y);
-}
+//float TimeClimb::Target::dist2(sf::Vector2f const & p1, sf::Vector2f const & p2)
+//{
+//	return (p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y) * (p1.y - p2.y);
+//}
 
 
-void TimeClimb::Target::kinectUpdateActions(int joint_Count, tracking_Type tP)
-{
-	for (int i = 0; i < joint_Count; i++) {
+//void TimeClimb::Target::kinectUpdateActions(int joint_Count, tracking_Type tP)
+//{
+//	
+//}
 
-		switch (tP)
-		{
-		case Target::allJoints:
-			joint_xy = sf::Vector2f(kinectApplication.SkeletPointsXY(i).x, kinectApplication.SkeletPointsXY(i).y);
-			joint_z = kinectApplication.DepthSkeletonPoints(i);
-			break;
-		case Target::mainPointAvarage:
-			joint_xy = kinectApplication.arms_legs_pointAveraged_PointsXY(i);
-			joint_z = kinectApplication.arms_legs_pointAveraged_DepthPoints(i);
-			break;
-		case Target::allJointsTimeAvarage:
-			joint_xy = kinectApplication.allJoints_timeAveraged_PointsXY(i);
-			joint_z = kinectApplication.allJoints_timeAveraged_DepthPoints(i);
-			break;
-		case Target::mainPointTimeAvarage:
-			joint_xy = kinectApplication.arms_legs_timeAveraged_PointsXY(i);
-			joint_z = kinectApplication.arms_legs_timeAveraged_DepthPoints(i);
-		default:
-			break;
-		}
-
-
-		joint_xy.x = kinectTranform_X_Cordinates(joint_xy.x); //translate to pixel
-		joint_xy.y = kinectTranform_Y_Cordinates(joint_xy.y); //same
-
-
-
-		if (joint_z >= _trashHold) {
-			if (animationClock.getElapsedTime().asMilliseconds() > 100) {						//need instad (event.type == sf::Event::MouseButtonPressed) to avoid mass click to target
-				if ((dist2(VisibleGameObject::getCenter(), joint_xy) < 8100))
-				{
-					if (!hasClicked) {
-						hasClicked = true;
-						animationStart = true;
-					}
-				}
-			}
-		}
-	}
-}
-
-void TimeClimb::Target::setKinectControl(bool kinectCOontrol) {
-
-	_kinectControl = kinectCOontrol;
-}
+//void TimeClimb::Target::setKinectControl(bool kinectCOontrol) {
+//
+//	_kinectControl = kinectCOontrol;
+//}
 
 float TimeClimb::Target::kinectTranform_X_Cordinates(float x)
 {

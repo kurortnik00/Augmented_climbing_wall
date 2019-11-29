@@ -12,8 +12,12 @@ BodyTracker& Cliker::getKinectApplication()
 	return kinectApplication;
 }
 
-bool Cliker::getClik(sf::Vector2f center, float radius, sf::Event& event)
+bool Cliker::getClik(sf::Vector2f center, float radius, bool buttonPress)
 {
+
+	sf::Event event;
+	MainWindow::getWindow().pollEvent(event);
+
 	tracking_Type tP = mainPointTimeAvarage;
 
 	//_kinectControl set true or false in Game Init
@@ -44,16 +48,29 @@ bool Cliker::getClik(sf::Vector2f center, float radius, sf::Event& event)
 	}
 
 	else {
-		if (event.type == sf::Event::MouseButtonPressed)
+		if (buttonPress)
 		{
+			if (event.type == sf::Event::MouseButtonPressed)
+			{
 
-			sf::Vector2f mouseVec(event.mouseButton.x, event.mouseButton.y);
-			if ((dist2(center, mouseVec) < radius*radius))
+				sf::Vector2f mouseVec(event.mouseButton.x, event.mouseButton.y);
+				if ((dist2(center, mouseVec) < radius * radius))
+				{
+					return true;
+				}
+
+			}
+		}
+		else
+		{
+			sf::Vector2f mouseVec(sf::Mouse::getPosition(MainWindow::getWindow()).x, sf::Mouse::getPosition(MainWindow::getWindow()).y);
+			if ((dist2(center, mouseVec) < radius * radius))
 			{
 				return true;
 			}
-
 		}
+
+		
 	}
 	return false;
 }

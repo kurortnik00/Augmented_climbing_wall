@@ -1,8 +1,10 @@
 #pragma once
 #include "../stdafx.h"
-#include "../BodyBasics.h"
+//#include "../BodyBasics.h"
 //#include "Game.h"
 #include "Labyrinth_VisibleGameObject.h"
+#include "../Cliker.h"
+#include "../mainWindow.h"
 #include <sstream>
 #include <cmath>
 
@@ -97,8 +99,8 @@ private:
 	int animationNumber;
 	float _trashHold;
 
-	float kinectTranform_X_Cordinates(float x);
-	float kinectTranform_Y_Cordinates(float y);
+	//float kinectTranform_X_Cordinates(float x);
+	//float kinectTranform_Y_Cordinates(float y);
 
 
 	//bool _finished;

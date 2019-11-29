@@ -135,7 +135,6 @@
     <ClCompile Include="..\..\aerohockey\aerohockey\states\result.cpp" />
     <ClCompile Include="aerohockey\starter.cpp" />
     <ClCompile Include="aerohockey\util.cpp" />
-    <ClCompile Include="BodyBasics.cpp" />
     <ClCompile Include="body_tracker.cpp" />
     <ClCompile Include="Cliker.cpp" />
     <ClCompile Include="Labyrinth\CircleLvL.cpp" />
@@ -185,7 +184,6 @@
     <ClInclude Include="..\..\aerohockey\aerohockey\states\state.hpp" />
     <ClInclude Include="aerohockey\starter.h" />
     <ClInclude Include="aerohockey\util.hpp" />
-    <ClInclude Include="BodyBasics.h" />
     <ClInclude Include="body_tracker.h" />
     <ClInclude Include="Cliker.h" />
     <ClInclude Include="Labyrinth\circleLvL.h" />

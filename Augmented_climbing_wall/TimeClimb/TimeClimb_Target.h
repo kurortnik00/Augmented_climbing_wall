@@ -3,7 +3,9 @@
 #include "TimeClimb_Target.h"
 #include "TimeClimb_Game.h"
 #include "TimeClimb_VisibleGameObject.h"
-#include "../BodyBasics.h"
+//#include "../BodyBasics.h"
+#include "../Cliker.h"
+
 
 namespace TimeClimb
 {
@@ -23,7 +25,7 @@ namespace TimeClimb
 		void setClickState(bool ans);
 		void reInit();
 		void Draw(sf::RenderWindow & window);
-		void setKinectControl(bool kinectControl);
+		//void setKinectControl(bool kinectControl);
 
 
 	private:
@@ -36,22 +38,22 @@ namespace TimeClimb
 		sf::Clock animationClock;
 		bool animationStart;
 		float animationTime;
-		float dist2(sf::Vector2f const & p1, sf::Vector2f const & p2);
+		//float dist2(sf::Vector2f const & p1, sf::Vector2f const & p2);
 
-		bool _kinectControl;
-		float _trashHold;
-		CBodyBasics kinectApplication;
-		sf::Vector2f joint_xy;
-		float joint_z;
+		//bool _kinectControl;
+		//float _trashHold;
+		//CBodyBasics kinectApplication;
+		//sf::Vector2f joint_xy;
+		//float joint_z;
 
 
 		float kinectTranform_X_Cordinates(float x);
 		float kinectTranform_Y_Cordinates(float y);
-		enum tracking_Type
+		/*enum tracking_Type
 		{
 			allJoints, mainPointAvarage, allJointsTimeAvarage, mainPointTimeAvarage
 		};
-		void kinectUpdateActions(int joint_Count, tracking_Type tT);
+		void kinectUpdateActions(int joint_Count, tracking_Type tT);*/
 
 
 	};

@@ -2,6 +2,7 @@
 #include "stdafx.h"
 #include "body_tracker.h"
 #include "Kinect.h"
+#include "mainWindow.h"
 
 class Cliker
 {
@@ -10,7 +11,7 @@ public:
 	//~Cliker();
 	static void Init();
 
-	static bool getClik(sf::Vector2f center, float radius, sf::Event& event);
+	static bool getClik(sf::Vector2f center, float radius, bool buttonPress);
 	static bool getClik(float x, float y, float height, float width);
 	static BodyTracker &getKinectApplication();
 	static float kinectTranform_X_Cordinates(float x);

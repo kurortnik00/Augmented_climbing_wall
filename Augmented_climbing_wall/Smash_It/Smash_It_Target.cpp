@@ -1,6 +1,6 @@
 
 #include "Smash_It_Target.h"
-#include "../Cliker.h"
+
 
 
 Smash_It::Target::Target()
@@ -56,7 +56,7 @@ void Smash_It::Target::setClickState(bool ans)
 void Smash_It::Target::Update(sf::Event& event) {
 
 	
-	if (Cliker::getClik(VisibleGameObject::getCenter(), 90, event))
+	if (Cliker::getClik(VisibleGameObject::getCenter(), 90, false))
 	{
 		if (!animationStart)
 		{

@@ -3,8 +3,9 @@
 #include "Smash_It_Game.h"
 #include <random>
 #include "Smash_It_VisibleGameObject.h"
-#include "../BodyBasics.h"
+//#include "../BodyBasics.h"
 #include "Kinect.h"
+#include "../Cliker.h"
 
 namespace Smash_It
 {

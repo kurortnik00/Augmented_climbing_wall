@@ -213,11 +213,11 @@ void Level::linesUpdate(std::vector<Line>& lines)
 		{  //NOT TESTED
 			for (int i = 0; i < JointType_Count; i++) {
 				for (int j = 0; j < lines.size(); j++) {
-					sf::Vector2f joint_xy = sf::Vector2f(Labyrinth::Game::getKinectApplication().SkeletPointsXY(i).x, Labyrinth::Game::getKinectApplication().SkeletPointsXY(i).y);
-					float joint_z = Labyrinth::Game::getKinectApplication().DepthSkeletonPoints(i);
+					sf::Vector2f joint_xy = sf::Vector2f(Cliker::getKinectApplication().getAllJoints_timeAveraged_PointsXY(i,0).x, Cliker::getKinectApplication().getAllJoints_timeAveraged_PointsXY(i, 0).y);
+					float joint_z = Cliker::getKinectApplication().getAllJoints_timeAveraged_DepthPoints(i, 0);
 
-					joint_xy.x = kinectTranform_X_Cordinates(joint_xy.x); //translate to pixel
-					joint_xy.y = kinectTranform_Y_Cordinates(joint_xy.y);//same
+					joint_xy.x = Cliker::kinectTranform_X_Cordinates(joint_xy.x); //translate to pixel
+					joint_xy.y = Cliker::kinectTranform_Y_Cordinates(joint_xy.y);//same
 
 
 					if (joint_z >= _trashHold) {
@@ -323,8 +323,8 @@ void Level::drawLines(sf::RenderWindow & renderWindow, std::vector<Line>& lines)
 		_shape1.setRadius(additionalRadius(i));
 		_shape1.setOutlineThickness(10);
 		_shape1.setOutlineColor(sf::Color(250, 50, 100));
-		float x = kinectTranform_X_Cordinates(Labyrinth::Game::getKinectApplication().SkeletPointsXY(i).x);
-		float y = kinectTranform_Y_Cordinates(Labyrinth::Game::getKinectApplication().SkeletPointsXY(i).y);
+		float x = Cliker::kinectTranform_X_Cordinates(Cliker::getKinectApplication().getAllJoints_timeAveraged_PointsXY(i, 0).x);
+		float y = Cliker::kinectTranform_Y_Cordinates(Cliker::getKinectApplication().getAllJoints_timeAveraged_PointsXY(i, 0).y);
 		_shape1.setPosition(sf::Vector2f(x, y) - sf::Vector2f(additionalRadius(i), additionalRadius(i)));
 
 		shape_Vec.push_back(_shape1);
@@ -359,47 +359,23 @@ void Level::setWin(bool win)
 
 void Level::buttonsUpdate(std::vector<Button>& buttons)
 {
+	sf::Event event;
+	MainWindow::getWindow().pollEvent(event);
+
 	if (!VisibleGameObject::getFinished()) {
+
 		
-		if (!VisibleGameObject::getKinectControll())
+		///TODO aditional radius
+		if (Cliker::getClik(buttons[START_BUTTON]._center, buttons[START_BUTTON]._radius, false))
 		{
-			
-			if (dist2(sf::Vector2f(sf::Mouse::getPosition(MainWindow::getWindow()).x, sf::Mouse::getPosition(MainWindow::getWindow()).y), buttons[START_BUTTON]._center)  < buttons[START_BUTTON]._radius*buttons[START_BUTTON]._radius)
-			{
-				buttons[START_BUTTON]._hasClicked = true;
-				buttons[START_BUTTON]._unDrowable = true;
-			}
-			
-		}
-		else
-		{
-			
-			for (int i = 0; i < JointType_Count; i++) {
-					sf::Vector2f joint_xy = sf::Vector2f(Labyrinth::Game::getKinectApplication().SkeletPointsXY(i).x, Labyrinth::Game::getKinectApplication().SkeletPointsXY(i).y);
-					float joint_z = Labyrinth::Game::getKinectApplication().DepthSkeletonPoints(i);
-
-					joint_xy.x = kinectTranform_X_Cordinates(joint_xy.x); //translate to pixel
-					joint_xy.y = kinectTranform_Y_Cordinates(joint_xy.y);//same
-
-
-					if (joint_z >= _trashHold) {
-						
-					//	if (animationClock.getElapsedTime().asMilliseconds() > 100) {						//need instad (event.type == sf::Event::MouseButtonPressed) to avoid mass click to target
-							//std::cout << buttons[START_BUTTON]._center.x << "  " << buttons[START_BUTTON]._center.y << "\n";
-							if (dist2(sf::Vector2f(joint_xy.x, joint_xy.y), buttons[START_BUTTON]._center)  < (buttons[START_BUTTON]._radius + additionalRadius(i))*(buttons[START_BUTTON]._radius+additionalRadius(i)))
-							{
-
-								buttons[START_BUTTON]._hasClicked = true;
-								buttons[START_BUTTON]._unDrowable = true;
-							}
-					//	}
-					}
-				}
-			}
-		if (buttons[START_BUTTON]._hasClicked)
-		{
+			buttons[START_BUTTON]._hasClicked = true;
+			buttons[START_BUTTON]._unDrowable = true;
 			VisibleGameObject::setStart(true);
 		}
+		//if (buttons[START_BUTTON]._hasClicked)
+	//	{
+	//		VisibleGameObject::setStart(true);
+		//}
 	}
 		
 
@@ -411,40 +387,13 @@ void Level::buttonsUpdate(std::vector<Button>& buttons)
 			Level::setWin(true);
 			Level::win(buttons[WIN_BUTTON]._position);
 		}
-		if (!VisibleGameObject::getKinectControll()) {
-			for (int i = 0; i < buttons.size(); i++)
-			{
-				if (dist2(sf::Vector2f(sf::Mouse::getPosition(MainWindow::getWindow()).x, sf::Mouse::getPosition(MainWindow::getWindow()).y), buttons[i]._center) < buttons[i]._radius*buttons[i]._radius)
-				{
 
-					buttons[i]._hasClicked = true;
-					buttons[i]._unDrowable = true;
-				}
-
-			}
-		}
-		else
+		for (int i = 0; i < buttons.size(); i++)
 		{
-			for (int i = 0; i < JointType_Count; i++) {
-				for (int j = 0; j < buttons.size(); j++) {
-					sf::Vector2f joint_xy = sf::Vector2f(Labyrinth::Game::getKinectApplication().SkeletPointsXY(i).x, Labyrinth::Game::getKinectApplication().SkeletPointsXY(i).y);
-					float joint_z = Labyrinth::Game::getKinectApplication().DepthSkeletonPoints(i);
-
-					joint_xy.x = kinectTranform_X_Cordinates(joint_xy.x); //translate to pixel
-					joint_xy.y = kinectTranform_Y_Cordinates(joint_xy.y);//same
-
-
-					if (joint_z >= _trashHold) {
-					//	if (animationClock.getElapsedTime().asMilliseconds() > 100) {						//need instad (event.type == sf::Event::MouseButtonPressed) to avoid mass click to target
-							if (dist2(sf::Vector2f(joint_xy.x, joint_xy.y), buttons[j]._center) < buttons[j]._radius*buttons[j]._radius)
-							{
-
-								buttons[j]._hasClicked = true;
-								buttons[j]._unDrowable = true;
-							}
-					//	}
-					}
-				}
+			if (Cliker::getClik(buttons[i]._center, buttons[i]._radius, false))
+			{
+				buttons[i]._hasClicked = true;
+				buttons[i]._unDrowable = true;
 			}
 		}
 		
@@ -465,16 +414,16 @@ void Level::buttonsUpdate(std::vector<Button>& buttons)
 
 	
 }
-
-float Level::kinectTranform_X_Cordinates(float x)
-{
-	return ((1920 - x * 1920 / 640) - 510)*4.9 / 2.4;
-}
-
-float Level::kinectTranform_Y_Cordinates(float y)
-{
-	return (y * 1200 / 280 - 430) * 4 / 1.4;
-}
+//
+//float Level::kinectTranform_X_Cordinates(float x)
+//{
+//	return ((1920 - x * 1920 / 640) - 510)*4.9 / 2.4;
+//}
+//
+//float Level::kinectTranform_Y_Cordinates(float y)
+//{
+//	return (y * 1200 / 280 - 430) * 4 / 1.4;
+//}
 
 
 float Level::additionalRadius(int joint)

@@ -26,7 +26,6 @@ private:
 	bool _isLoaded;
 
 
-	CBodyBasics kinectApplication;
 	int _trashHold;
 
 	enum ButtonNames
