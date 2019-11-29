@@ -8,6 +8,7 @@ TimeClimb::Game::Game(sf::RenderWindow &window)
 	TimeClimb::Game::targetCount = 3;
 	TimeClimb::Game::TOP_List = { {6, "ASd"} , {5, "zzz"} , {1, "qq"} , {4, "44"} };
 	TimeClimb::Game::kinectControl = false;
+	TimeClimb::Game::_font = "TimeClimb/font/11583.ttf";
 }
 
 void TimeClimb::Game::Start(myServer &server)	//инициализация объектов
@@ -23,18 +24,11 @@ void TimeClimb::Game::Start(myServer &server)	//инициализация объектов
 	{
 		GameLoop(server);
 		//delay for no frizing 
-		if (serverDelayClock.getElapsedTime().asMilliseconds() > 500) {
-			std::vector<int> data = server.getData();
-			//2 - byte contains information about presed buttons (magick number from client)
-			// +=5 need becose with time delation we stack more then one message, and information about prest button will be only in one message
-			for (int i = 2; i < data.size(); i += 5)
-			{
-				if (data[i] == 4) _gameState = Game::Exiting;  //4 - BACK button presed (magick number from client)
-				serverDelayClock.restart();
-			}
-
+		std::vector<int> data = getClientData(server);
+		for (int i = 2; i < data.size(); i += 5)
+		{
+			if (data[i] == 4) _gameState = Game::Exiting;  //4 - BACK button presed (magick number from client)			
 		}
-
 	}
 
 	_gameState = Uninitialized;
@@ -57,7 +51,7 @@ sf::RenderWindow& TimeClimb::Game::GetWindow()
 void TimeClimb::Game::GameLoop(myServer &server)
 {
 	sf::Event currentEvent;
-	_mainWindow.pollEvent(currentEvent);
+	//_mainWindow.pollEvent(currentEvent);
 	
 	switch (_gameState)
 	{
@@ -116,7 +110,7 @@ void TimeClimb::Game::GameLoop(myServer &server)
 		}
 		case Game::GameOver:
 		{
-			GameOver_Screen();
+			GameOver_Screen(server);
 		}
 	}
 }
@@ -180,7 +174,7 @@ void TimeClimb::Game::reInit(int targ_count)
 }
 
 
-void TimeClimb::Game::TOP_List_Update()
+void TimeClimb::Game::TOP_List_Update(myServer& server)
 {
 	sf::Event currentEvent;
 	std::string name = "";
@@ -191,7 +185,9 @@ void TimeClimb::Game::TOP_List_Update()
 	scoreString += stream.str();
 
 
-	while (!sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+	clock.restart();
+	bool flag = true;
+	while (flag)
 	{
 		_mainWindow.pollEvent(currentEvent);
 		if (currentEvent.type == sf::Event::KeyPressed)
@@ -202,24 +198,52 @@ void TimeClimb::Game::TOP_List_Update()
 		_mainWindow.clear(sf::Color(0, 0, 0));
 
 		sf::Font font;
-		font.loadFromFile("TimeClimb/font/11583.ttf");
+		font.loadFromFile(_font);
 
 		sf::Text gameOverText("Game Over", font, 150);
-		gameOverText.setPosition(_mainWindow.getSize().x / 2 - 400, 100);
+		gameOverText.setPosition(_mainWindow.getSize().x / 2 - 600, 100);
 
 		sf::Text scoreText(scoreString, font, 150);
-		scoreText.setPosition(_mainWindow.getSize().x / 2 - 400, 250);
+		scoreText.setPosition(_mainWindow.getSize().x / 2 - 600, 250);
 
 		sf::Text text(name, font, 150);
-		text.setPosition(_mainWindow.getSize().x / 2 - 300, 400);
+		text.setPosition(_mainWindow.getSize().x / 2 - 500, 400);
 
 
 		_mainWindow.draw(text);
 		_mainWindow.draw(scoreText);
 		_mainWindow.draw(gameOverText);
+		std::vector<int> data = getClientData(server);
+		for (int i = 2; i < data.size(); i += 5)
+		{
+			if (data[i] == 4) flag = false;  //4 - BACK button presed (magick number from client)			
+		}
+
+
+		if (clock.getElapsedTime().asSeconds() > 3)
+		{
+			sf::Image image;
+			image.loadFromFile("Smash_It/images/restart.png");
+			sf::Texture texture;
+			texture.loadFromImage(image);
+			sf::Sprite sprite;
+			sprite.setTexture(texture);
+			sprite.setScale(0.4, 0.4);
+			sf::Vector2f pos(1200, 200);
+			sprite.setPosition(pos);
+			sf::Vector2f center(pos.x + texture.getSize().x / 4, pos.y + texture.getSize().y / 4);
+
+
+			if (Cliker::getClik(center, texture.getSize().x / 4, true))
+			{
+				flag = false;
+			}
+
+			_mainWindow.draw(sprite);
+		}
+
 		_mainWindow.display();
 	}
-
 
 	if (TOP_List.size() > 4) TOP_List.erase(TOP_List.begin());
 
@@ -229,11 +253,23 @@ void TimeClimb::Game::TOP_List_Update()
 
 }
 
-
-
-void TimeClimb::Game::GameOver_Screen()
+std::vector<int> TimeClimb::Game::getClientData(myServer& server)
 {
-	TOP_List_Update();
+	//delay for no frizing 
+	if (serverDelayClock.getElapsedTime().asMilliseconds() > 500) {
+		std::vector<int> data = server.getData();
+		//2 - byte contains information about presed buttons (magick number from client)
+		// +=5 need becose with time delation we stack more then one message, and information about prest button will be only in one message
+		serverDelayClock.restart();
+		return data;
+	}
+}
+
+
+
+void TimeClimb::Game::GameOver_Screen(myServer& server)
+{
+	TOP_List_Update(server);
 	_gameState = Game::ShowingMenu;
 }
 

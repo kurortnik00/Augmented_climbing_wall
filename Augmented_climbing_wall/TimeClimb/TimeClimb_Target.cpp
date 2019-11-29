@@ -61,10 +61,13 @@ void TimeClimb::Target::setClickState(bool ans)
 
 void TimeClimb::Target::Update(sf::Event& event) {
 
-	if (Cliker::getClik(VisibleGameObject::getCenter(), 90, false))
+	if (Cliker::getClik(VisibleGameObject::getCenter(), 90, false) && !hasClicked)
 	{
+
 		hasClicked = true;
 		animationStart = true;
+		animationClock.restart();
+
 	}
 	animation();
 }

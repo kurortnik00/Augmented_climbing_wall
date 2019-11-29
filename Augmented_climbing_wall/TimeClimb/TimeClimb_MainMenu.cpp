@@ -44,15 +44,15 @@ TimeClimb::MainMenu::MenuResult TimeClimb::MainMenu::Show(sf::RenderWindow& wind
 	//Exit menu item coordinates
 	//MenuItem exitButton(sf::Vector2f(1750, -200), Exit);
 
-	MenuItem topScore_Button(sf::Vector2f(800, 100), Score_board);
+	/*MenuItem topScore_Button(sf::Vector2f(800, 100), Score_board);
 	std::ostringstream topScore_buttonStr;
 	topScore_buttonStr << "TOP \n list";
 	topScore_Button.text.setString(topScore_buttonStr.str());
-	topScore_Button.text.setPosition(topScore_Button._center - sf::Vector2f(105, 145));
+	topScore_Button.text.setPosition(topScore_Button._center - sf::Vector2f(105, 145));*/
 
 
 	_menuItems.push_back(playButton);
-	_menuItems.push_back(topScore_Button);
+//	_menuItems.push_back(topScore_Button);
 
 	Draw(window);
 
@@ -85,10 +85,12 @@ TimeClimb::MainMenu::MenuResult TimeClimb::MainMenu::Show(sf::RenderWindow& wind
 		}
 
 
-		while (!sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+		bool flag = true;
+		while (flag)
 		{
 			sf::Text topScore("TOP SCORE", font, 150);
 			topScore.setPosition(window.getSize().x / 2 - 400, 100);
+
 
 
 			window.clear(sf::Color(0, 0, 0));
@@ -99,6 +101,18 @@ TimeClimb::MainMenu::MenuResult TimeClimb::MainMenu::Show(sf::RenderWindow& wind
 			}
 
 			window.display();
+
+			//delay for no frizing 
+			if (serverDelayClock.getElapsedTime().asMilliseconds() > 500) {
+				std::vector<int> data = server.getData();
+				//2 - byte contains information about presed buttons (magick number from client)
+				// +=5 need becose with time delation we stack more then one message, and information about prest button will be only in one message
+				for (int i = 2; i < data.size(); i += 5)
+				{
+					if (data[i] == 4) flag = false;
+					serverDelayClock.restart();
+				}
+			}
 
 		}
 
@@ -202,9 +216,14 @@ TimeClimb::MainMenu::MenuResult  TimeClimb::MainMenu::GetMenuResponse(sf::Render
 			for (int i = 2; i < data.size(); i += 5)
 			{
 				if (data[i] == 4) return Exit;  //4 - BACK button presed (magick number from client)
+				if (data[i] == 5) return Score_board;
 				serverDelayClock.restart();
 			}
 		}
+
+		//TODO add start button to rusbery, make start button uncclicable while button on rusbery not pressed (show start button whith targets)
+
+
 		//it works while we have start button first in _menuItems
 		if (Cliker::getClik(_menuItems.begin()->_center, _menuItems.begin()->_radius, true)) //event here are useles, THIS function do not atact with mouse clikes
 		{

@@ -34,8 +34,9 @@ namespace TimeClimb
 		void Init(int targ_count);
 		void reInit(int targ_count);
 		int targetCount;
-		void TOP_List_Update();
-		void GameOver_Screen();
+		void TOP_List_Update(myServer& server);
+		void GameOver_Screen(myServer& server);
+		std::vector<int> getClientData(myServer& server);
 
 
 		enum GameState {
@@ -50,5 +51,7 @@ namespace TimeClimb
 		TimeClimb::GameObjectManager _gameObjectManager;
 		std::set<std::pair<float, std::string>> TOP_List;
 		bool kinectControl;
+		sf::Clock clock;
+		std::string _font;
 	};
 }
