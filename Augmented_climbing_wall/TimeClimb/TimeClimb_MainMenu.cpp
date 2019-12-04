@@ -217,6 +217,7 @@ TimeClimb::MainMenu::MenuResult  TimeClimb::MainMenu::GetMenuResponse(sf::Render
 			{
 				if (data[i] == 4) return Exit;  //4 - BACK button presed (magick number from client)
 				if (data[i] == 5) return Score_board;
+				if (data[i] == 6) return Custom;
 				serverDelayClock.restart();
 			}
 		}

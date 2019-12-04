@@ -6,6 +6,7 @@ TimeClimb::VisibleGameObject::VisibleGameObject()
 	_isLoaded = false;
 	plased = false;
 	finished = false;
+	visible = true;
 }
 
 
@@ -144,12 +145,21 @@ void TimeClimb::VisibleGameObject::reInit() {
 
 }
 
-sf::Vector2f TimeClimb::VisibleGameObject::getCenter() {
-	sf::IntRect rect = _sprite.getTextureRect();
+sf::Vector2f TimeClimb::VisibleGameObject::getCenter() {sf::IntRect rect = _sprite.getTextureRect();
 	return sf::Vector2f(_sprite.getPosition().x + rect.width / 2, _sprite.getPosition().y + rect.height / 2);
 }
 
 float TimeClimb::VisibleGameObject::getFinishedTime()
 {
 	return -1;
+}
+
+bool TimeClimb::VisibleGameObject::getVisible()
+{
+	return visible;
+}
+
+void TimeClimb::VisibleGameObject::setVisible(bool vis)
+{
+	visible = vis;
 }

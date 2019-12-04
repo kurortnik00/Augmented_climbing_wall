@@ -89,6 +89,9 @@ public:
     void                    Update(bool getMask);
 
     byte *					getBodyMask();
+	sf::Uint8*				get_outline_BodyMask();
+	std::vector<sf::Vector2f>* getOutlinePixelVector();
+	sf::Vector2f			getOutlinePixel(int i);
     sf::Vector2f            getLimbPointsXY(Limbs::Type limb, bool left);
     float                   getLimbDepthPoints(Limbs::Type limb, bool left);
     sf::Vector2f			getLimbVelocitiesXY(Limbs::Type limb, bool left);
@@ -131,7 +134,11 @@ private:
     float delta;
 
     // Body mask
-    byte bodyMask[cDepthWidth * cDepthHeight];
+	std::vector<sf::Uint8> bodyTexturePixels;
+
+	std::vector<sf::Uint8> bodyTexturePixels_outline;
+
+	std::vector<sf::Vector2f> outlinePixelVector;
 
     /// <summary>
     /// Initializes the default Kinect sensor

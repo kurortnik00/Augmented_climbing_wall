@@ -18,7 +18,7 @@ void TimeClimb::Game::Start(myServer &server)	//инициализация объектов
 	Game::Init(targetCount);
 
 
-	_gameState = Game::Custom;		//Начинаем с заставки
+	_gameState = Game::ShowingMenu;	
 
 	while (!IsExiting())
 	{
@@ -147,6 +147,9 @@ void TimeClimb::Game::ShowMenu(myServer& server)
 			_gameState = Game::Playing;
 			Game::reInit(targetCount);
 			break;
+		case MainMenu::Custom:
+			_gameState = Game::Custom;
+			Game::reInit(targetCount);
 	}
 }
 

@@ -315,6 +315,9 @@ void Level::drawLines(sf::RenderWindow & renderWindow, std::vector<Line>& lines)
 	std::vector<sf::CircleShape> shape_Vec;
 	float _radius = 10;
 
+
+
+	//kinect joints shapes
 	for (int i = 0; i < JointType_Count; i++)
 	{
 		sf::CircleShape _shape1;

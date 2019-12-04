@@ -46,6 +46,8 @@ namespace TimeClimb
 		//sf::Vector2f joint_xy;
 		//float joint_z;
 
+		sf::Texture bodyTexture;
+		sf::Sprite bodySprite;
 
 		float kinectTranform_X_Cordinates(float x);
 		float kinectTranform_Y_Cordinates(float y);

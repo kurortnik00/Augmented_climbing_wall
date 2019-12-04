@@ -1,7 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include "../control/kinect/body_tracker.h"
+#include "../../body_tracker.h"
 #include "board.hpp"
 #include "player.hpp"
 #include "puck.hpp"

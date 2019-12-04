@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 
-#include "../control/kinect/body_tracker.h"
+#include "../../body_tracker.h"
 #include "paddle.hpp"
 
 struct Player

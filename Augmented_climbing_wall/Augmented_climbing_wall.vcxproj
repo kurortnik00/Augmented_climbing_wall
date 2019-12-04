@@ -121,7 +121,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\aerohockey\aerohockey\control\kinect\body_tracker.cpp" />
     <ClCompile Include="..\..\aerohockey\aerohockey\easylogging\easylogging++.cc" />
     <ClCompile Include="..\..\aerohockey\aerohockey\objects\board.cpp" />
     <ClCompile Include="..\..\aerohockey\aerohockey\objects\paddle.cpp" />
@@ -134,7 +133,6 @@
     <ClCompile Include="..\..\aerohockey\aerohockey\states\preparation.cpp" />
     <ClCompile Include="..\..\aerohockey\aerohockey\states\result.cpp" />
     <ClCompile Include="aerohockey\starter.cpp" />
-    <ClCompile Include="aerohockey\util.cpp" />
     <ClCompile Include="body_tracker.cpp" />
     <ClCompile Include="Cliker.cpp" />
     <ClCompile Include="Labyrinth\CircleLvL.cpp" />
@@ -170,9 +168,6 @@
     <ClCompile Include="util.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\aerohockey\aerohockey\control\kinect\body_tracker.h" />
-    <ClInclude Include="..\..\aerohockey\aerohockey\control\kinect\resource.h" />
-    <ClInclude Include="..\..\aerohockey\aerohockey\control\kinect\stdafx.h" />
     <ClInclude Include="..\..\aerohockey\aerohockey\easylogging\easylogging++.h" />
     <ClInclude Include="..\..\aerohockey\aerohockey\objects\board.hpp" />
     <ClInclude Include="..\..\aerohockey\aerohockey\objects\paddle.hpp" />
@@ -183,7 +178,6 @@
     <ClInclude Include="..\..\aerohockey\aerohockey\states\manager.hpp" />
     <ClInclude Include="..\..\aerohockey\aerohockey\states\state.hpp" />
     <ClInclude Include="aerohockey\starter.h" />
-    <ClInclude Include="aerohockey\util.hpp" />
     <ClInclude Include="body_tracker.h" />
     <ClInclude Include="Cliker.h" />
     <ClInclude Include="Labyrinth\circleLvL.h" />

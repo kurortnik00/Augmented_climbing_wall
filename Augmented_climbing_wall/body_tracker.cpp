@@ -21,7 +21,8 @@ BodyTracker::BodyTracker() :
     m_pBodyFrameReader(NULL),
     m_pBodyIndexFrameReader(NULL)
 {
-
+	bodyTexturePixels.assign(BodyTracker::cDepthWidth * BodyTracker::cDepthHeight * 4, 0);
+	bodyTexturePixels_outline.assign(BodyTracker::cDepthWidth * BodyTracker::cDepthHeight * 4, 0);
 }
 
 
@@ -62,6 +63,7 @@ void BodyTracker::Update(bool getMask)
     }
     IBodyFrame* pBodyFrame = NULL;
     IBodyIndexFrame* pBodyIndexFrame = NULL;
+	IFrameDescription* pBodyIndexFrameDescription = NULL;
 
     HRESULT hr = m_pBodyFrameReader->AcquireLatestFrame(&pBodyFrame);
 
@@ -89,15 +91,91 @@ void BodyTracker::Update(bool getMask)
         }
     }
 
-    if (getMask)
-    {
-        HRESULT hr = m_pBodyIndexFrameReader->AcquireLatestFrame(&pBodyIndexFrame);
+	if (getMask)
+	{
+		HRESULT hr = m_pBodyIndexFrameReader->AcquireLatestFrame(&pBodyIndexFrame);
 
-        if (SUCCEEDED(hr))
-        {
-            pBodyIndexFrame->CopyFrameDataToArray(cDepthWidth * cDepthHeight, bodyMask);
-        }
-    }
+		if (SUCCEEDED(hr))
+		{
+			bool logDescription = false;
+			if (logDescription)
+			{
+				int width, height;
+				unsigned bytesPerPixel, lengthInPixels;
+				float diagonalFieldOfView, horizontalFieldOfView, verticalFieldOfView;
+
+				pBodyIndexFrame->get_FrameDescription(&pBodyIndexFrameDescription);
+				pBodyIndexFrameDescription->get_BytesPerPixel(&bytesPerPixel);
+				pBodyIndexFrameDescription->get_DiagonalFieldOfView(&diagonalFieldOfView);
+				pBodyIndexFrameDescription->get_HorizontalFieldOfView(&horizontalFieldOfView);
+				pBodyIndexFrameDescription->get_VerticalFieldOfView(&verticalFieldOfView);
+				pBodyIndexFrameDescription->get_Width(&width);
+				pBodyIndexFrameDescription->get_Height(&height);
+				pBodyIndexFrameDescription->get_LengthInPixels(&lengthInPixels);
+
+				/*LOG(INFO) << "------ BODY INDEX FRAME DESCRIPTION -----";
+				LOG(INFO) << "Frame size: " << width << " x " << height;
+				LOG(INFO) << "Field of view (degrees): horizontal - " << horizontalFieldOfView
+
+				LOG(INFO) << "------ END BODY INDEX FRAME DESCRIPTION -----";*/
+
+				logDescription = false;
+			}
+
+			byte* buffer;
+			unsigned capacity;
+			pBodyIndexFrame->AccessUnderlyingBuffer(&capacity, &buffer);
+
+			//LOG(INFO) << "UPDATE BODY MASK";
+
+			const byte* bodyMask = const_cast<const byte*>(buffer);
+			outlinePixelVector.erase(outlinePixelVector.begin(), outlinePixelVector.end());
+			for (int i = 0; i < BodyTracker::cDepthWidth; i++)
+			{
+				for (int j = 1; j < BodyTracker::cDepthHeight - 1; j++)
+				{
+					int idx = i * BodyTracker::cDepthHeight + j;
+					if (bodyMask[idx] != 255)
+					{
+						if ((bodyMask[idx - 1] != 255) && (bodyMask[idx + 1] != 255))
+						{
+							/*if (foundBody)
+							{
+								LOG(INFO) « "FOUND BODY";
+								foundBody = false;
+							}*/
+							bodyTexturePixels[idx * 4] = 0;
+							bodyTexturePixels[idx * 4 + 1] = 0;
+							bodyTexturePixels[idx * 4 + 2] = 0;
+							bodyTexturePixels[idx * 4 + 3] = 255;
+
+						}
+						else
+						{
+							sf::Uint8 value = (bodyMask[idx] + 1) * 30;
+							bodyTexturePixels[idx * 4] = value;
+							bodyTexturePixels[idx * 4 + 1] = value;
+							bodyTexturePixels[idx * 4 + 2] = value;
+							bodyTexturePixels[idx * 4 + 3] = 255;
+
+							//TODO 
+							//not work 
+							outlinePixelVector.push_back(sf::Vector2f(j, i));  ///shoud make vector with outlinePixels, and use them in itaraction with buttons and game objects 
+
+						}
+					}
+
+					else
+					{
+						bodyTexturePixels[idx * 4] = 0;
+						bodyTexturePixels[idx * 4 + 1] = 0;
+						bodyTexturePixels[idx * 4 + 2] = 0;
+						bodyTexturePixels[idx * 4 + 3] = 255;
+					}
+				}
+			}
+		}
+	}
 
     SafeRelease(pBodyFrame);
     SafeRelease(pBodyIndexFrame);
@@ -503,9 +581,24 @@ sf::Vector2f BodyTracker::GetProjection (const sf::Vector2f point)
     return projection;
 }
 
-byte * BodyTracker::getBodyMask()
+sf::Uint8* BodyTracker::getBodyMask()
 {
-    return bodyMask;
+	return &bodyTexturePixels[0];
+}
+
+sf::Uint8* BodyTracker::get_outline_BodyMask()
+{
+	return &bodyTexturePixels_outline[0];
+}
+
+std::vector<sf::Vector2f>* BodyTracker::getOutlinePixelVector()
+{
+	return &outlinePixelVector;
+}
+
+sf::Vector2f BodyTracker::getOutlinePixel(int i)
+{
+	return outlinePixelVector[i];
 }
 
 sf::Vector2f BodyTracker::getLimbPointsXY(Limbs::Type limb, bool left)

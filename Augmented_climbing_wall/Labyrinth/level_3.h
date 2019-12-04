@@ -22,6 +22,8 @@ private:
 	std::vector<Line> lines;
 	std::vector<Button> buttons;
 
+	float _angVelocity;
+
 
 	bool _isLoaded;
 

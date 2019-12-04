@@ -11,7 +11,7 @@ int main()
 {
 	std::cout << "tyt&";
 	myServer *server = new myServer();
-	server->InitServer();
+//	server->InitServer();
 	Cliker::Init();
 
 
@@ -22,15 +22,15 @@ int main()
 
 	while (true)
 	{
-		switch (server->getData()[gameState])
-		//switch (1)
+		//switch (server->getData()[gameState])
+		switch (1)
 		{
 		case(myServer::EXIT):
 			break;
 		case(myServer::PLAY):
 			MainWindow::getWindow().setMouseCursorVisible(true);
-			switch (server->getData()[game])
-			//switch (2)
+			//switch (server->getData()[game])
+			switch (1)
 			{
 			case(myServer::SMASH_IT):
 			{
@@ -46,7 +46,7 @@ int main()
 
 				Labyrinth::Game labyrinth(MainWindow::getWindow());
 				//labyrinth.Start(*server, server->getData()[LvL]);
-				labyrinth.Start(*server, 4);
+				labyrinth.Start(*server, 3);
 				break;
 			}
 			case(myServer::TIME_CLIMB):

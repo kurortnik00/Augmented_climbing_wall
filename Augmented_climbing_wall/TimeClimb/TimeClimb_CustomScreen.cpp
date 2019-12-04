@@ -9,7 +9,11 @@ TimeClimb::CustomScreen::~CustomScreen() {
 
 sf::Vector2f TimeClimb::CustomScreen::Show(sf::RenderWindow& window, GameObjectManager& gameObjectManager)				//Проверка куда кликнули мышью
 {
-	
+	gameObjectManager.Get("timer1")->setVisible(false);
+	for (int i = 0; i < 3; i++) {
+		VisibleGameObject* obj = gameObjectManager.Get(std::to_string(i));
+		obj->setPlased(false);
+	}
 
 	_image.loadFromFile("TimeClimb/images/target2.png");
 	_image.createMaskFromColor(sf::Color(255, 255, 255));
@@ -53,6 +57,7 @@ sf::Vector2f TimeClimb::CustomScreen::Show(sf::RenderWindow& window, GameObjectM
 	
 	sf::Vector2f vec1(0, 0);
 
+	gameObjectManager.Get("timer1")->setVisible(true);
 	return vec1;
 }
 

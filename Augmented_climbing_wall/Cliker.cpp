@@ -12,6 +12,8 @@ BodyTracker& Cliker::getKinectApplication()
 	return kinectApplication;
 }
 
+
+//button pressed for action after button clik, if false action after cursor in same position 
 bool Cliker::getClik(sf::Vector2f center, float radius, bool buttonPress)
 {
 
@@ -19,6 +21,7 @@ bool Cliker::getClik(sf::Vector2f center, float radius, bool buttonPress)
 	MainWindow::getWindow().pollEvent(event);
 
 	tracking_Type tP = mainPointTimeAvarage;
+
 
 	//_kinectControl set true or false in Game Init
 	if (_kinectControl) {
@@ -40,7 +43,7 @@ bool Cliker::getClik(sf::Vector2f center, float radius, bool buttonPress)
 			if (kinectUpdateActions(joint_Count, tP, center, radius)) return true;
 		case Cliker::mainPointTimeAvarage:
 			joint_Count = 4;
-			if (kinectUpdateActions(joint_Count, tP, center,radius)) return true;
+			if (kinectUpdateActions(joint_Count, tP, center, radius)) return true;
 		default:
 			break;
 		}
@@ -93,7 +96,7 @@ bool Cliker::Update(sf::Event& event, sf::Vector2f center)
 
 bool Cliker::kinectUpdateActions(int joint_Count, tracking_Type tP, sf::Vector2f center, float radius)
 {
-	kinectApplication.Update(false);
+	kinectApplication.Update(true);
 	for (int i = 0; i < joint_Count; i++) {
 
 		switch (tP)

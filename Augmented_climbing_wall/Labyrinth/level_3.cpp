@@ -1,10 +1,11 @@
 #include "level_3.h"
 
 Level_3::Level_3()
-	:line1(sf::Vector2f(600, 300),0, 440),
-	line2(sf::Vector2f(1500, 300), 180, 440), 
+	:line1(sf::Vector2f(600, 300), 0, 440),
+	line2(sf::Vector2f(1500, 300), 180, 440),
 	startButton(sf::Vector2f(100, 800), 50, "Labyrinth/images/playButton.png", sf::IntRect(0, 0, 156, 156)),
-	winButton(sf::Vector2f(1000, 150), 50, "Labyrinth/images/winButton.png", sf::IntRect(0, 0, 126, 126))
+	winButton(sf::Vector2f(1000, 150), 50, "Labyrinth/images/winButton.png", sf::IntRect(0, 0, 126, 126)),
+	_angVelocity(0.02)
 {
 
 	
@@ -68,7 +69,7 @@ void Level_3::Update(sf::Event& event)
 
 		for (int i = 0; i < lines.size(); i++)
 		{
-			lines[i]._angl += 0.01;
+			lines[i]._angl += _angVelocity;
 		}
 
 	}

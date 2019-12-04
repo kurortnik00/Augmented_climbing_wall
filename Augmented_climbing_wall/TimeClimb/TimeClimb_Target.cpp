@@ -26,6 +26,11 @@ TimeClimb::Target::Target()
 	_trashHold = 2;*/
 	//kinectApplication.Run();
 
+	bodyTexture.create(512, 424);
+	bodySprite.setTexture(bodyTexture);
+	//bodySprite.setScale(width_ / bodyTexture.getSize().x, height_ / bodyTexture.getSize().y);
+	bodySprite.setScale(3.75, 2.4);
+
 }
 
 TimeClimb::Target::~Target()
@@ -61,6 +66,9 @@ void TimeClimb::Target::setClickState(bool ans)
 
 void TimeClimb::Target::Update(sf::Event& event) {
 
+	Cliker::getKinectApplication().Update(true);
+	bodyTexture.update(Cliker::getKinectApplication().getBodyMask());
+
 	if (Cliker::getClik(VisibleGameObject::getCenter(), 90, false) && !hasClicked)
 	{
 
@@ -80,8 +88,8 @@ void TimeClimb::Target::Draw(sf::RenderWindow & window)
 	_shape1.setRadius(_radius);
 	_shape1.setOutlineThickness(10);
 	_shape1.setOutlineColor(sf::Color(250, 50, 100));
-	float x = kinectTranform_X_Cordinates(Cliker::getKinectApplication().get_arms_legs_timeAveraged_PointsXY((int)Limbs::Type::RIGHT_HAND, 0).x);
-	float y = kinectTranform_Y_Cordinates(Cliker::getKinectApplication().get_arms_legs_timeAveraged_PointsXY((int)Limbs::Type::RIGHT_HAND, 0).y);
+	float x = Cliker::kinectTranform_X_Cordinates(Cliker::getKinectApplication().getLimbPointsXY(Limbs::Type::RIGHT_HAND, true).x);
+	float y = Cliker::kinectTranform_Y_Cordinates(Cliker::getKinectApplication().getLimbPointsXY(Limbs::Type::RIGHT_HAND, true).y);
 	_shape1.setPosition(sf::Vector2f(x, y));
 
 	sf::CircleShape _shape2;
@@ -89,19 +97,23 @@ void TimeClimb::Target::Draw(sf::RenderWindow & window)
 	_shape2.setRadius(_radius);
 	_shape2.setOutlineThickness(10);
 	_shape2.setOutlineColor(sf::Color(250, 150, 100));
-	x = kinectTranform_X_Cordinates(Cliker::getKinectApplication().get_arms_legs_timeAveraged_PointsXY((int)Limbs::Type::LEFT_HAND, 0).x);
-	y = kinectTranform_Y_Cordinates(Cliker::getKinectApplication().get_arms_legs_timeAveraged_PointsXY((int)Limbs::Type::LEFT_HAND, 0).y);
+	x = Cliker::kinectTranform_X_Cordinates(Cliker::getKinectApplication().getLimbPointsXY(Limbs::Type::LEFT_HAND, true).x);
+	y = Cliker::kinectTranform_Y_Cordinates(Cliker::getKinectApplication().getLimbPointsXY(Limbs::Type::LEFT_HAND, true).y);
 	_shape2.setPosition(sf::Vector2f(x, y));
 
 
+	
+
+	window.draw(bodySprite);
 	window.draw(_shape1);
 	window.draw(_shape2);
+	
 
 	//std::cout << kinectApplication.arms_legs_timeAveraged_DepthPoints(CBodyBasics::LEFT_ARM) << "   " << kinectApplication.arms_legs_timeAveraged_DepthPoints(CBodyBasics::RIGHT_ARM) << "\n";
 	//std::cout << kinectApplication.DepthSkeletonPoints(HANDLEFT) << "   " << kinectApplication.DepthSkeletonPoints(HANDRIGHT) << "\n";
 
 	VisibleGameObject::Draw(window);
-
+	
 }
 
 void TimeClimb::Target::reInit() {
@@ -114,7 +126,11 @@ void TimeClimb::Target::reInit() {
 	h = 256;
 	VisibleGameObject::GetSprite().setTextureRect(sf::IntRect(spriteX, spriteY, w, h));
 	VisibleGameObject::setFinished(false);
+
+	animationFrame = 0;
 	animationStart = false;
+	animationClock.restart();
+	animationTime = 0;
 }
 
 

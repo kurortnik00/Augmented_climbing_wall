@@ -2,7 +2,7 @@
 
 #include <unordered_map>
 
-#include "../control/kinect/body_tracker.h"
+#include "../../body_tracker.h"
 #include "../objects/world.hpp"
 #include "state.hpp"
 

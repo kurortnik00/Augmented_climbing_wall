@@ -6,11 +6,11 @@
 #define PI 3.14159265 
 
 CircleLvL::CircleLvL()
-	:_startPos(150, 150),
+	:_startPos(60, 60),
 	_angVelocity(0.1),				//Rotation velocity
-	_velocity(0.7, -0.1),				//Center velocity, it moves _center
-	_radius(400),			//_shape radiuse, it responsible of boundering shape. In fact it equils inscribed radius 
-	line1(_center, 0, 440),
+	_velocity(0.7, 0),				//Center velocity, it moves _center
+	_radius(480),			//_shape radiuse, it responsible of boundering shape. In fact it equils inscribed radius 
+	line1(_center, 0, _radius +50),
 	startButton(sf::Vector2f(200, 400), 50, "Labyrinth/images/playButton.png", sf::IntRect(0, 0, 156, 156)),
 	winButton(sf::Vector2f(1500, 200), 50, "Labyrinth/images/winButton.png", sf::IntRect(0, 0, 126, 126))
 {
@@ -90,7 +90,7 @@ void CircleLvL::Update(sf::Event& event) {
 		for (int i = 0; i < spritesArr_teslaCircle.size(); i++) {
 			spritesArr_teslaCircle[i].setTexture(line1.animationTextureArr[animationNumber]);
 
-			double R = 390*1.2; //Радиус описанной окружности
+			double R = _radius*1.2; //Радиус описанной окружности
 			double angle = 0; //Угол наклона правильного многоугольника
 
 			for (int j = 0; j < numberTeslaParticals; j++)
@@ -110,14 +110,15 @@ void CircleLvL::Update(sf::Event& event) {
 	//and runnig until not lost or win (finished)
 	if (!VisibleGameObject::getFinished() && VisibleGameObject::getStart())
 	{
+		
 		animationTime_dinamic = animationClock.getElapsedTime().asMilliseconds();			//the time of velocity animation
 		//this animation rotates and move the KILL_ring
 		if (animationTime_dinamic > 5) {						//the animation speed
-
+			std::cout << _velocity.x;
 			_angl += _angVelocity;
 
 			_center = _center + _velocity;
-			if ((_center.x + _radius > MainWindow::SCREEN_WIDTH) || (_center.y + _radius > MainWindow::SCREEN_HEIGHT)) _velocity = -_velocity;
+			if (_center.x + _radius > MainWindow::SCREEN_WIDTH) _velocity = -_velocity;
 				//coordinateTransf(_angVelocity, _center, _centerOfRotation);		//canculation of new position of _center (the center of KILL_ring)
 
 			//rotation of kill line 

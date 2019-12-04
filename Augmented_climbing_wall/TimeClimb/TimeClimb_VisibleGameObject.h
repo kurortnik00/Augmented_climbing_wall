@@ -32,6 +32,8 @@ namespace TimeClimb
 
 		void setPlased(bool res);
 		bool getPlased();
+		bool getVisible();
+		void setVisible(bool vis);
 
 		virtual sf::Rect<float> GetBoundingRect() const;
 
@@ -46,5 +48,6 @@ namespace TimeClimb
 		bool _isLoaded;
 		bool plased;
 		bool finished;
+		bool visible;
 	};
 }

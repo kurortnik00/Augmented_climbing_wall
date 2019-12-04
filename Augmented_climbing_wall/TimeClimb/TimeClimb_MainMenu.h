@@ -13,7 +13,7 @@ namespace TimeClimb
 	{
 
 	public:
-		enum MenuResult { Nothing, Exit, Play, Score_board };
+		enum MenuResult { Nothing, Exit, Play, Score_board, Custom };
 
 		struct MenuItem
 		{

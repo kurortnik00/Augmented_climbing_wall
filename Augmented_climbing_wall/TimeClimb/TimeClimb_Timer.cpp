@@ -28,16 +28,20 @@ sf::Time TimeClimb::Timer::GetTime() {
 
 void TimeClimb::Timer::Draw(sf::RenderWindow & renderWindow) {
 
-	float gameTime = gameTimeClock.getElapsedTime().asMilliseconds() / 1000.0;
+	if (VisibleGameObject::getVisible())
+	{
+		float gameTime = gameTimeClock.getElapsedTime().asMilliseconds() / 1000.0;
 
-	if (finished) {
-		gameTime = finishedTime;
+		if (finished) {
+			gameTime = finishedTime;
+		}
+
+		std::ostringstream timerStr;
+		timerStr << gameTime;
+		text.setString(timerStr.str());
+		renderWindow.draw(text);
 	}
-
-	std::ostringstream timerStr;
-	timerStr << gameTime;
-	text.setString(timerStr.str());
-	renderWindow.draw(text);
+	
 }
 
 void TimeClimb::Timer::Restart() {

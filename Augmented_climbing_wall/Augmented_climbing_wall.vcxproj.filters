@@ -34,14 +34,8 @@
     <Filter Include="Исходные файлы\aerohockey">
       <UniqueIdentifier>{8b0dd9f6-e11a-404a-a83b-b5b2ac6ec95e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Исходные файлы\aerohockey\control">
-      <UniqueIdentifier>{1e2b17b9-edd8-4bde-bd05-9eac722e8889}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Файлы заголовков\aerohockey">
       <UniqueIdentifier>{4733ffd2-4afa-4bd0-ab3a-46494199d2a3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Файлы заголовков\aerohockey\control">
-      <UniqueIdentifier>{f44c9c8b-1cd3-46fa-9c3c-bb6b8ba03484}</UniqueIdentifier>
     </Filter>
     <Filter Include="Исходные файлы\aerohockey\esylogging">
       <UniqueIdentifier>{4710eecf-6c8b-4a2b-ad91-a12ce9d18702}</UniqueIdentifier>
@@ -147,9 +141,6 @@
     <ClCompile Include="Labyrinth\Labyrinth_VisibleGameObject.cpp">
       <Filter>Исходные файлы\Labyrinth</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\aerohockey\aerohockey\control\kinect\body_tracker.cpp">
-      <Filter>Исходные файлы\aerohockey\control</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\aerohockey\aerohockey\easylogging\easylogging++.cc">
       <Filter>Исходные файлы\aerohockey\esylogging</Filter>
     </ClCompile>
@@ -182,9 +173,6 @@
     </ClCompile>
     <ClCompile Include="..\..\aerohockey\aerohockey\states\result.cpp">
       <Filter>Исходные файлы\aerohockey\states</Filter>
-    </ClCompile>
-    <ClCompile Include="aerohockey\util.cpp">
-      <Filter>Исходные файлы\aerohockey</Filter>
     </ClCompile>
     <ClCompile Include="aerohockey\starter.cpp">
       <Filter>Исходные файлы\aerohockey</Filter>
@@ -293,15 +281,6 @@
     <ClInclude Include="Labyrinth\Labyrinth_VisibleGameObject.h">
       <Filter>Файлы заголовков\Labyrinth</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\aerohockey\aerohockey\control\kinect\body_tracker.h">
-      <Filter>Файлы заголовков\aerohockey\control</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\aerohockey\aerohockey\control\kinect\resource.h">
-      <Filter>Файлы заголовков\aerohockey\control</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\aerohockey\aerohockey\control\kinect\stdafx.h">
-      <Filter>Файлы заголовков\aerohockey\control</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\aerohockey\aerohockey\easylogging\easylogging++.h">
       <Filter>Файлы заголовков\aerohockey\esylogging</Filter>
     </ClInclude>
@@ -328,9 +307,6 @@
     </ClInclude>
     <ClInclude Include="..\..\aerohockey\aerohockey\states\state.hpp">
       <Filter>Файлы заголовков\aerohockey\states</Filter>
-    </ClInclude>
-    <ClInclude Include="aerohockey\util.hpp">
-      <Filter>Файлы заголовков\aerohockey</Filter>
     </ClInclude>
     <ClInclude Include="aerohockey\starter.h">
       <Filter>Файлы заголовков\aerohockey</Filter>
