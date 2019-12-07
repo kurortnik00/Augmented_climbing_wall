@@ -1,12 +1,18 @@
 #pragma once
 #include "../stdafx.h"
 //#include "../BodyBasics.h"
-//#include "Game.h"
+//#include "Labyrinth_Game.h"
 #include "Labyrinth_VisibleGameObject.h"
 #include "../Cliker.h"
 #include "../mainWindow.h"
 #include <sstream>
 #include <cmath>
+#include "Labyrinth_config.h"
+#include "Labyrinth_Timer.h"
+#include "../myKeyboard.h"
+#include <random>
+#include <iomanip>
+#include "../server.h"
 
 #define PI 3.14159265 
 
@@ -30,7 +36,11 @@ public:
 	bool getWin();
 	void winRadiusIncr();
 	void setWin(bool win);
+	void showTopScore();
+	void TOP_List_Update();
+	void TOP_List_Draw();
 
+	static Labyrinth::Config config;
 	
 
 //protected:
@@ -50,6 +60,7 @@ public:
 		sf::Vector2f _center;
 		sf::Vector2f _velocity;
 		bool _unActive;
+		
 		
 	};
 
@@ -80,7 +91,7 @@ public:
 	void drawButtons(sf::RenderWindow & renderWindow, std::vector<Button>& lines);
 	void buttonsUpdate(std::vector<Button>& Buttons);
 
-
+	
 	
 
 private:
@@ -98,6 +109,12 @@ private:
 	float animationTime;
 	int animationNumber;
 	float _trashHold;
+	std::set<std::pair<float, std::string>> TOP_List;
+	//Labyrinth::Timer endGameTimer;
+	sf::Clock clock;
+	sf::Clock serverDelayClock;
+	
+	bool TOPScore_updated;
 
 	//float kinectTranform_X_Cordinates(float x);
 	//float kinectTranform_Y_Cordinates(float y);
@@ -141,5 +158,7 @@ private:
 
 
 	float additionalRadius(int joint);
+
+	static std::string name;
 
 };

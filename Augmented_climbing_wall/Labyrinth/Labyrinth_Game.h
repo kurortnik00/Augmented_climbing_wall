@@ -24,11 +24,13 @@ namespace Labyrinth
 		const int SCREEN_HEIGHT = 1080;
 		void countIncriment();
 
+		
+
 	private:
 		bool IsExiting();
 		void GameLoop(std::vector<int> data);
 		//void ShowSplashScreen();
-		void ShowMenu();
+		void ShowTopScore(std::vector<int> data);
 		//void ShowCustomScreen();
 		void Init();
 		void reInit();
@@ -38,7 +40,7 @@ namespace Labyrinth
 
 		enum GameState {
 			Uninitialized, ShowingSplash, Paused,
-			ShowingMenu, Playing, Exiting, Custom
+			ShowingMenu, Playing, Exiting, show_TOPSCORE
 		};
 
 		//LAST need for itarate all enums, and LAST not apear in itaration, its ounly recicle element
@@ -47,7 +49,7 @@ namespace Labyrinth
 		};
 
 		enum ButtonResult { 
-			Nothing, Play, NextLevel, PreviousLevel, Exit, TopScore, setPos};
+			Nothing, Play, NextLevel, PreviousLevel, Exit, TOPSCORE, setPos};
 
 		sf::Clock serverDelayClock;
 

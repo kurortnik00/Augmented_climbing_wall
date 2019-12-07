@@ -177,3 +177,8 @@ void Labyrinth::VisibleGameObject::setWin(bool win)
 {
 	_win = win;
 }
+
+void Labyrinth::VisibleGameObject::showTopScore()
+{
+
+}

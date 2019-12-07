@@ -10,22 +10,25 @@ namespace Labyrinth
 		Timer();
 		~Timer();
 
-		void Load(std::string filename);
-		void Draw(sf::RenderWindow & renderWindow);
-		void Restart();
-		sf::Time GetTime();
-		void setFinished(bool res);		//переводит finished в true
-		bool getFinished();
-		void reInit();
+		static void Load(std::string filename);
+		static void Draw(sf::RenderWindow & renderWindow);
+		static void Restart();
+		static sf::Time GetTime();
+		static void setFinished(bool res);		//переводит finished в true
+		static bool getFinished();
+		static void reInit();
+		static bool start;
+		static float gameTime;
 
 
 	private:
-		sf::Clock gameTimeClock;
-		sf::Time t1;
-		sf::Font font;
-		sf::Text text;
-		bool finished;
-		float finishedTime;
+		static sf::Clock gameTimeClock;
+		static sf::Time t1;
+		static sf::Font font;
+		static sf::Text text;
+		static bool finished;
+		static 	float finishedTime;
+		
 	};
 }
 

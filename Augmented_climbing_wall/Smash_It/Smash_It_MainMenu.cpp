@@ -67,7 +67,6 @@ Smash_It::MainMenu::MenuResult Smash_It::MainMenu::Show(sf::RenderWindow& window
 	if (clicResult == Score_board)
 	{
 		int scoresCount = 1;
-		//std::set<std::string, float>::const_iterator itr = TOP_List.begin();
 		std::vector<sf::Text> plaersScore;
 		sf::Font font;
 		font.loadFromFile("Smash_It/font/11583.ttf");

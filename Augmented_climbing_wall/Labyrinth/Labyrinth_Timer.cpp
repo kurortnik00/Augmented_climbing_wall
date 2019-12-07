@@ -3,10 +3,8 @@
 
 //Класс для отрисовки таймера и засекания времени
 
-Labyrinth::Timer::Timer() :
-	text("", font, 150)
+Labyrinth::Timer::Timer()
 {
-
 	gameTimeClock.restart();
 	text.setStyle(sf::Text::Bold);
 	text.setPosition(50, 400);
@@ -29,20 +27,24 @@ sf::Time Labyrinth::Timer::GetTime() {
 void Labyrinth::Timer::Draw(sf::RenderWindow & renderWindow) {
 
 
-	float gameTime = gameTimeClock.getElapsedTime().asMilliseconds() / 1000.0;
+	gameTime = gameTimeClock.getElapsedTime().asMilliseconds() / 1000.0;
 
 	if (finished) {
 		gameTime = finishedTime;
 	}
 
-	if (!VisibleGameObject::getStart()) {
+	if (!start) {
 		gameTimeClock.restart();
 		gameTime = gameTimeClock.getElapsedTime().asMilliseconds() / 1000.0;
 	}
-	std::ostringstream timerStr;
-	timerStr << gameTime;
-	text.setString(timerStr.str());
-	renderWindow.draw(text);
+	if (!finished)
+	{
+		std::ostringstream timerStr;
+		timerStr << gameTime;
+		text.setString(timerStr.str());
+		renderWindow.draw(text);
+	}
+	
 }
 
 void Labyrinth::Timer::Restart() {
@@ -66,6 +68,15 @@ void Labyrinth::Timer::reInit() {
 	text.setStyle(sf::Text::Bold);
 	text.setPosition(50, 400);
 	finished = false;
-	VisibleGameObject::setStart(false);
+	start = false;
 }
 	
+
+sf::Clock Labyrinth::Timer::gameTimeClock;
+sf::Time Labyrinth::Timer::t1;
+sf::Font Labyrinth::Timer::font;
+sf::Text Labyrinth::Timer::text("", font, 50);
+bool Labyrinth::Timer::finished;
+float Labyrinth::Timer::finishedTime;
+bool Labyrinth::Timer::start;
+float Labyrinth::Timer::gameTime;

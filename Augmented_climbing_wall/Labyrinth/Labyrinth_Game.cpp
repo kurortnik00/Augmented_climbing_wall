@@ -12,6 +12,7 @@ void Labyrinth::Game::Start(myServer &server, int LvLdata)	//инициализация объек
 {
 	if (_gameState != Uninitialized) return;
 
+
 	switch (LvLdata)
 	{
 	case Labyrinth::Game::LEVEL_1:
@@ -82,15 +83,11 @@ void Labyrinth::Game::GameLoop(std::vector<int> data)
 {
 	sf::Event currentEvent;
 	_mainWindow.pollEvent(currentEvent);
+
+	if (_gameObjectManager.Get("level")->reInit_flag) reInit();
 	
 	switch (_gameState)
 	{
-		
-		//case Game::ShowingMenu:
-		//{
-		//	ShowMenu();		
-		//	break;
-		//}
 		case Game::Playing:
 		{	
 			_mainWindow.clear(sf::Color(0, 0, 0));
@@ -98,9 +95,12 @@ void Labyrinth::Game::GameLoop(std::vector<int> data)
 			_gameObjectManager.setAllPlased();
 			
 			_gameObjectManager.UpdateAll(currentEvent);		//Обновляет все объекты
-			_gameObjectManager.DrawAll(_mainWindow);		//Рисует все объекты
+			//Timer::Update();
+			
 
-			_mainWindow.display();
+			_gameObjectManager.DrawAll(_mainWindow);		//Рисует все объекты
+			Timer::Draw(_mainWindow);
+			
 
 			if (currentEvent.type == sf::Event::Closed) _gameState = Game::Exiting;
 
@@ -127,32 +127,41 @@ void Labyrinth::Game::GameLoop(std::vector<int> data)
 						_selectedLevel = static_cast<SelectedLevel>((_selectedLevel + 1) % LAST);
 						reInit();
 						break;
+					case Labyrinth::Game::TOPSCORE:
+						_gameState = Game::show_TOPSCORE;
 					default:
 						break;
 					}
 				}
 			}
+			break;
 		}
+		case Game::show_TOPSCORE:
+
+			Labyrinth::Game::ShowTopScore(data);
+			break;
+		default:
+			break;	
 	}
+	_mainWindow.display();
 }
 
-//void Game::ShowSplashScreen()
-//{
-//	SplashScreen splashScreen;
-//	splashScreen.Show(_mainWindow);					//Внутри бесконечный цикл прерываемый по нажатию любой клавиши
-//													
-//	_gameState = Game::ShowingMenu;
-//}
 
-
-void Labyrinth::Game::ShowMenu()
+void Labyrinth::Game::ShowTopScore(std::vector<int> data)
 {
-	MainMenu mainMenu;
-	MainMenu::MenuResult result = mainMenu.Show(_mainWindow);   //Возврацает значение нажатой "кнопки", т.е. что делать дальше: Играть или выйти из игры
-																//Внутри бесконечный цикл прерываемый по нажатию одной из "кнопок" или закрытию окна
+	_gameObjectManager.Get("level")->showTopScore();
+															
 																	
+	if (data.size() > 0)
+	{
+		for (int i = 2; i < data.size(); i += 5)
+		{
+			if (data[i] == 4) _gameState = Game::Playing;  //4 - BACK button presed (magick number from client)
+		}
+	}
 
-	switch (result)
+
+	/*switch (result)
 	{
 		case MainMenu::Exit:
 			_gameState = Game::Exiting;
@@ -168,14 +177,15 @@ void Labyrinth::Game::ShowMenu()
 			if (_selectedLevel == LEVEL_1) _selectedLevel = static_cast<SelectedLevel>(LAST - 1);
 			else _selectedLevel = static_cast<SelectedLevel>(_selectedLevel - 1);
 			break;
-	}
+	}*/
 }
 
 void Labyrinth::Game::Init() {
 
-	Timer *time1 = new Timer();
+	/*Timer *time1 = new Timer();
 	time1->Load("Labyrinth/font/11583.ttf");
-	_gameObjectManager.Add("timer1", time1);
+	_gameObjectManager.Add("timer1", time1);*/
+	Timer::Load("Labyrinth/font/11583.ttf");
 
 }
 
@@ -233,9 +243,7 @@ void Labyrinth::Game::levelInit()
 void Labyrinth::Game::reInit()
 {
 	levelInit();
-	_gameObjectManager.Get("timer1")->reInit();
-	//_gameObjectManager.Get("winButton")->reInit();
-	//_gameObjectManager.Get("startButton")->reInit();
+	Timer::reInit();
 }
 
 

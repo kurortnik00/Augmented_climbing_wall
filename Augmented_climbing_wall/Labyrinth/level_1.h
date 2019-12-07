@@ -16,7 +16,6 @@ private:
 	void Load(std::string filename);		//use in Init() function 
 
 	Line line1;
-
 	Button startButton;
 	Button winButton;
 

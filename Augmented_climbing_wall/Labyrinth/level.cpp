@@ -3,7 +3,7 @@
 #include "../mainWindow.h"
 
 
-Level::Level() 
+Level::Level()
 	:_text("", _font, 250)
 {
 	_winShapeRadius = 10;								//the start shape of win animation 
@@ -18,6 +18,11 @@ Level::Level()
 	_font.loadFromFile("Labyrinth/font/11583.ttf");
 	animationNumber = 0;
 	_trashHold = 0;
+	config.loadConfig();
+
+	TOP_List = { {6, "Level"} , {5, "zzz"} , {1, "qq"} , {4, "44"} };
+	TOPScore_updated = false;
+	reInit_flag = false;
 }
 
 Level::~Level()
@@ -31,6 +36,7 @@ void Level::win(sf::Vector2f pos)
 	_gameResult = "You Win!";
 	_winShape.setPosition(pos);
 	_win = true;
+	std::cout << Labyrinth::Timer::GetTime().asMilliseconds();
 	
 }
 
@@ -267,6 +273,8 @@ void Level::win_lose_Draw(sf::RenderWindow & renderWindow, std::vector<Line>& li
 				_text.setString(timerStr.str());
 				renderWindow.draw(_text);
 				_text.setPosition(400, 200);
+				if (!TOPScore_updated) TOP_List_Update();
+				TOP_List_Draw();
 			}
 			else
 			{
@@ -417,16 +425,117 @@ void Level::buttonsUpdate(std::vector<Button>& buttons)
 
 	
 }
-//
-//float Level::kinectTranform_X_Cordinates(float x)
-//{
-//	return ((1920 - x * 1920 / 640) - 510)*4.9 / 2.4;
-//}
-//
-//float Level::kinectTranform_Y_Cordinates(float y)
-//{
-//	return (y * 1200 / 280 - 430) * 4 / 1.4;
-//}
+
+
+void Level::showTopScore()
+{
+	int scoresCount = 1;
+	std::vector<sf::Text> plaersScore;
+	sf::Font font;
+	font.loadFromFile("Smash_It/font/11583.ttf");
+
+
+
+	std::set<std::pair<float, std::string>>::reverse_iterator rit;
+
+	for (rit = TOP_List.rbegin(); rit != TOP_List.rend(); ++rit)
+	{
+
+		std::string plaerScore_str = std::to_string(scoresCount) + ". " + rit->second + "       " + std::to_string((int)rit->first);
+		sf::Text plaerScore(plaerScore_str, font, 150);
+		plaerScore.setPosition(MainWindow::getWindow().getSize().x / 2 - 400, 200 + 100 * scoresCount);
+		plaersScore.push_back(plaerScore);
+
+		scoresCount++;
+	}
+
+	////Top score screen
+	//bool flag = true;
+	//while (flag)
+	//{
+	sf::Text topScore("TOP SCORE", font, 150);
+	topScore.setPosition(MainWindow::getWindow().getSize().x / 2 - 400, 100);
+
+
+	MainWindow::getWindow().clear(sf::Color(0, 0, 0));
+	MainWindow::getWindow().draw(topScore);
+	for (int i = 0; i < plaersScore.size(); i++)
+	{
+		MainWindow::getWindow().draw(plaersScore[i]);
+	}
+
+	//MainWindow::getWindow().display();
+
+	//}
+}
+
+
+void Level::TOP_List_Update()
+{
+	if (TOP_List.size() > 4) TOP_List.erase(TOP_List.begin());
+	TOP_List.insert(std::make_pair(Labyrinth::Timer::GetTime().asMilliseconds()/1000, name));
+	TOPScore_updated = true;
+	clock.restart();
+}
+
+void Level::TOP_List_Draw()
+{
+	name = to_string(Labyrinth::Timer::gameTime);
+
+	std::string scoreString = "Time: ";
+
+	//std::stringstream stream;
+	std::ostringstream timerStr;
+	//sf::Text text;
+	//float gameTime = Labyrinth::Timer::GetTime().asMilliseconds();
+	timerStr << Labyrinth::Timer::gameTime;
+	//text.setString(timerStr.str());
+	//stream << std::fixed << std::setprecision(0) << text;
+	scoreString += timerStr.str();
+
+	
+	
+	sf::Font font;
+	font.loadFromFile("Labyrinth/font/11583.ttf");
+
+	//sf::Text gameOverText("Game Over", font, 150);
+	//gameOverText.setPosition(MainWindow::getWindow().getSize().x / 2 - 600, 100);
+
+	sf::Text scoreText(scoreString, font, 150);
+	scoreText.setPosition(MainWindow::getWindow().getSize().x / 2 - 600, 450);
+
+	sf::Text text(name, font, 150);
+	text.setPosition(MainWindow::getWindow().getSize().x / 2 - 500, 400);
+
+
+	MainWindow::getWindow().draw(text);
+	MainWindow::getWindow().draw(scoreText);
+	//MainWindow::getWindow().draw(gameOverText);
+
+
+
+	//restart button 3 sec after win
+	if (clock.getElapsedTime().asSeconds() > 3)
+	{
+		sf::Image image;
+		image.loadFromFile("Smash_It/images/restart.png");
+		sf::Texture texture;
+		texture.loadFromImage(image);
+		sf::Sprite sprite;
+		sprite.setTexture(texture);
+		sprite.setScale(0.4, 0.4);
+		sf::Vector2f pos(1200, 200);
+		sprite.setPosition(pos);
+		sf::Vector2f center(pos.x + texture.getSize().x / 4, pos.y + texture.getSize().y / 4);
+
+		MainWindow::getWindow().draw(sprite);
+
+		if (Cliker::getClik(center, texture.getSize().x / 4, true))
+		{
+			reInit_flag = true;
+		}
+	}
+}
 
 
 float Level::additionalRadius(int joint)
@@ -512,3 +621,6 @@ float Level::additionalRadius(int joint)
 		break;
 	}
 }
+
+Labyrinth::Config Level::config;
+std::string Level::name = "";

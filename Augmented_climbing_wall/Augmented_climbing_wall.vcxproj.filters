@@ -192,6 +192,9 @@
     <ClCompile Include="Smash_It\testConfig.cpp">
       <Filter>Исходные файлы\Smash_It</Filter>
     </ClCompile>
+    <ClCompile Include="Labyrinth\Labyrinth_config.cpp">
+      <Filter>Исходные файлы\Labyrinth</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="myKeyboard.h">
@@ -325,6 +328,9 @@
     </ClInclude>
     <ClInclude Include="Smash_It\testConfig.h">
       <Filter>Файлы заголовков\Smash_It</Filter>
+    </ClInclude>
+    <ClInclude Include="Labyrinth\Labyrinth_config.h">
+      <Filter>Файлы заголовков\Labyrinth</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

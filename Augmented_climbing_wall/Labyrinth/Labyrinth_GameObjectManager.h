@@ -1,6 +1,7 @@
 #pragma once
 #include "../stdafx.h"
 #include "Labyrinth_VisibleGameObject.h"
+#include "Labyrinth_Timer.h"
 //#include "Game.h"
 
 

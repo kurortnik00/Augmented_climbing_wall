@@ -8,7 +8,6 @@ Level_2::Level_2()
 	startButton(sf::Vector2f(100, 800), 50, "Labyrinth/images/playButton.png", sf::IntRect(0, 0, 156, 156)),
 	winButton(sf::Vector2f(800, 200), 50, "Labyrinth/images/winButton.png", sf::IntRect(0, 0, 126, 126))
 	
-
 {
 	_isLoaded = false;
 	Level_2::Load("Labyrinth/images/2/teslaColor");

@@ -43,6 +43,10 @@ namespace Labyrinth
 		virtual void setKinectControl(bool kinectControl);
 		bool getKinectControll();
 
+		virtual void showTopScore();
+
+		bool reInit_flag;
+
 		enum {
 			SPINEBASE,
 			SPINEMID,

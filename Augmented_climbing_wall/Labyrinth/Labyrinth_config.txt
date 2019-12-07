@@ -1,0 +1,75 @@
+level1_line1_pos_x = 960
+level1_line1_pos_y = 600
+level1_line1_length = 500
+level1_line1_angl = 90
+level1_startButton_x = 5
+level1_startButton_y 5
+level1_winButton_x 5
+level1_winButton_y 5
+
+level2_line1_pos_x 5
+level2_line1_pos_y 5
+level2_line1_length 5
+level2_line1_angl 5
+level2_line2_pos_x 5
+level2_line2_pos_y 5
+level2_line2_length 5
+level2_line2_angl 5
+level2_startButton_x 5
+level2_startButton_y 5
+level2_winButton_x 5
+level2_winButton_y 5
+
+level3_line1_pos_x 5
+level3_line1_pos_y 5
+level3_line1_length 5
+level3_line1_angl 5
+level3_line2_pos_x 5
+level3_line2_pos_y 5
+level3_line2_length 5
+level3_line2_angl 5
+level3_startButton_x 5
+level3_startButton_y 5
+level3_winButton_x 5
+level3_winButton_y 5
+level3_angVel 5
+
+level4_line1_pos_x 5
+level4_line1_pos_y 5
+level4_line1_length 5
+level4_line1_angl 5
+level4_line2_pos_x 5
+level4_line2_pos_y 5
+level4_line2_length 5
+level4_line2_angl 5
+level4_line3_pos_x 5
+level4_line3_pos_y 5
+level4_line3_length 5
+level4_line3_angl 5
+level4_line4_pos_x 5
+level4_line4_pos_y 5
+level4_line4_length 5
+level4_line4_angl 5
+level4_line5_pos_x 5
+level4_line5_pos_y 5
+level4_line5_length 5
+level4_line5_angl 5
+level4_startButton_x 5
+level4_startButton_y 5
+level4_winButton_x 5
+level4_winButton_y 5
+level4_button1_x 5
+level4_button1_y 5
+level4_button2_x 5
+level4_button2_y 5
+level4_timeToSwithOn_blinkLine 2500
+level4_timeToSwithOff_blinkLine 3500
+level4_anglVel 5
+level4_vel 5
+
+level5_vel 5
+level5_radius 5
+level5_pos_x 5
+level5_pos_y 5
+level5_teslaParticls 5
+

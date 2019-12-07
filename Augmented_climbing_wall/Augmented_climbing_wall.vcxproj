@@ -136,6 +136,7 @@
     <ClCompile Include="body_tracker.cpp" />
     <ClCompile Include="Cliker.cpp" />
     <ClCompile Include="Labyrinth\CircleLvL.cpp" />
+    <ClCompile Include="Labyrinth\Labyrinth_config.cpp" />
     <ClCompile Include="Labyrinth\Labyrinth_Game.cpp" />
     <ClCompile Include="Labyrinth\Labyrinth_GameObjectManager.cpp" />
     <ClCompile Include="Labyrinth\level.cpp" />
@@ -181,6 +182,7 @@
     <ClInclude Include="body_tracker.h" />
     <ClInclude Include="Cliker.h" />
     <ClInclude Include="Labyrinth\circleLvL.h" />
+    <ClInclude Include="Labyrinth\Labyrinth_config.h" />
     <ClInclude Include="Labyrinth\Labyrinth_Game.h" />
     <ClInclude Include="Labyrinth\Labyrinth_GameObjectManager.h" />
     <ClInclude Include="Labyrinth\level.h" />

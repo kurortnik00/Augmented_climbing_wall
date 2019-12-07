@@ -1,13 +1,14 @@
 #include "level_1.h"
 
 Level_1::Level_1()
-	:line1(sf::Vector2f(960, 600), 90, 500),
+	:line1(Level::config.level1_line1_pos, Level::config.level1_line1_angl, Level::config.level1_line1_length),
 	startButton(sf::Vector2f(100, 800), 78, "Labyrinth/images/playButton.png", sf::IntRect(0, 0, 156, 156)),
 	winButton(sf::Vector2f(800, 200), 50, "Labyrinth/images/winButton.png", sf::IntRect(0, 0, 126, 126))
 {
+	std::cout << Level::config.level1_line1_pos.x;
 	_isLoaded = false;
 	Level_1::Load("Labyrinth/images/2/teslaColor");
-
+	
 }
 
 Level_1::~Level_1()
