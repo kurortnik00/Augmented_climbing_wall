@@ -2,15 +2,15 @@
 #include "../mainWindow.h"
 
 Level_4::Level_4()
-	:blinkLine(sf::Vector2f(-30, MainWindow::getWindow().getSize().y / 3 + 120), 0, 880),
-	line2(sf::Vector2f(blinkLine.size.x , 0), 90, 440),
-	line3(sf::Vector2f(blinkLine.size.x  + 200, 0), 90, 440),
-	line4(sf::Vector2f(blinkLine.size.x + 200, line3._endPoint.y), 90, 210),
-	line5(sf::Vector2f(blinkLine.size.x  + 200, MainWindow::getWindow().getSize().y), 270, 210),
-	button1(sf::Vector2f(blinkLine.size.x / 2 , 200), 50, "Labyrinth/images/Button.png", sf::IntRect(10,10,115,115)),
-	button2(sf::Vector2f(line4._startPoint.x + 300, (line4._startPoint.y + line5._startPoint.y )/2), 50, "Labyrinth/images/Button.png", sf::IntRect(10, 10, 115, 115)),
-	startButton(sf::Vector2f(100,800), 50, "Labyrinth/images/playButton.png", sf::IntRect(0, 0, 156, 156)),
-	winButton(sf::Vector2f(920,100), 50, "Labyrinth/images/winButton.png", sf::IntRect(0, 0, 126, 126))
+	:blinkLine(Level::config.level4_line1_pos, Level::config.level4_line1_angl, Level::config.level4_line1_length),
+	line2(Level::config.level4_line2_pos, Level::config.level4_line2_angl, Level::config.level4_line2_length),
+	line3(Level::config.level4_line3_pos, Level::config.level4_line3_angl, Level::config.level4_line3_length),
+	line4(Level::config.level4_line4_pos, Level::config.level4_line4_angl, Level::config.level4_line4_length),
+	line5(Level::config.level4_line5_pos, Level::config.level4_line5_angl, Level::config.level4_line5_length),
+	button1(Level::config.level4_button1, Level::config.level4_button1_radius, "Labyrinth/images/Button.png", sf::IntRect(10,10,115,115)),
+	button2(Level::config.level4_button2, Level::config.level4_button2_radius, "Labyrinth/images/Button.png", sf::IntRect(10, 10, 115, 115)),
+	startButton(Level::config.level4_startButton, Level::config.level4_startButton_radius, "Labyrinth/images/playButton.png", sf::IntRect(0, 0, 156, 156)),
+	winButton(Level::config.level4_winButton, Level::config.level1_winButton_radius, "Labyrinth/images/winButton.png", sf::IntRect(0, 0, 126, 126))
 {
 
 	clockForBlinkLine.restart();

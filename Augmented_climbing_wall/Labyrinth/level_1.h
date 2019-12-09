@@ -10,8 +10,6 @@ public:
 	~Level_1();
 	void Draw(sf::RenderWindow & renderWindow);
 	void Update(sf::Event& event);
-	void reInit();
-
 private:
 	void Load(std::string filename);		//use in Init() function 
 
@@ -22,7 +20,5 @@ private:
 	std::vector<Line> lines;
 	std::vector<Button> buttons;
 
-
 	bool _isLoaded;
-
 };

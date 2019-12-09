@@ -1,11 +1,11 @@
 #include "level_3.h"
 
 Level_3::Level_3()
-	:line1(sf::Vector2f(600, 300), 0, 440),
-	line2(sf::Vector2f(1500, 300), 180, 440),
-	startButton(sf::Vector2f(100, 800), 50, "Labyrinth/images/playButton.png", sf::IntRect(0, 0, 156, 156)),
-	winButton(sf::Vector2f(1000, 150), 50, "Labyrinth/images/winButton.png", sf::IntRect(0, 0, 126, 126)),
-	_angVelocity(0.02)
+	:line1(Level::config.level3_line1_pos, Level::config.level3_line1_angl, Level::config.level3_line1_length),
+	line2(Level::config.level3_line2_pos, Level::config.level3_line2_angl, Level::config.level3_line2_length),
+	startButton(Level::config.level3_startButton, Level::config.level3_startButton_radius, "Labyrinth/images/playButton.png", sf::IntRect(0, 0, 156, 156)),
+	winButton(Level::config.level3_winButton, Level::config.level3_startButton_radius, "Labyrinth/images/winButton.png", sf::IntRect(0, 0, 126, 126)),
+	_angVelocity(Level::config.level3_angVel)
 {
 
 	

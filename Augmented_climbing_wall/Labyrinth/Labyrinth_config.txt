@@ -2,74 +2,92 @@ level1_line1_pos_x = 960
 level1_line1_pos_y = 600
 level1_line1_length = 500
 level1_line1_angl = 90
-level1_startButton_x = 5
-level1_startButton_y 5
-level1_winButton_x 5
-level1_winButton_y 5
+level1_startButton_x = 100
+level1_startButton_y = 800
+level1_startButton_radius = 50
+level1_winButton_x = 800
+level1_winButton_y = 200
+level1_winButton_radius = 50
 
-level2_line1_pos_x 5
-level2_line1_pos_y 5
-level2_line1_length 5
-level2_line1_angl 5
-level2_line2_pos_x 5
-level2_line2_pos_y 5
-level2_line2_length 5
-level2_line2_angl 5
-level2_startButton_x 5
-level2_startButton_y 5
-level2_winButton_x 5
-level2_winButton_y 5
+level2_line1_pos_x = 480
+level2_line1_pos_y = 1080
+level2_line1_length = 1100
+level2_line1_angl = 330
+level2_line2_pos_x = -25
+level2_line2_pos_y = 540
+level2_line2_length = 1100
+level2_line2_angl = 330
+level2_startButton_x = 100
+level2_startButton_y = 800
+level2_startButton_radius = 50
+level2_winButton_x = 800
+level2_winButton_y = 200
+level2_winButton_radius = 50
 
-level3_line1_pos_x 5
-level3_line1_pos_y 5
-level3_line1_length 5
-level3_line1_angl 5
-level3_line2_pos_x 5
-level3_line2_pos_y 5
-level3_line2_length 5
-level3_line2_angl 5
-level3_startButton_x 5
-level3_startButton_y 5
-level3_winButton_x 5
-level3_winButton_y 5
-level3_angVel 5
+level3_line1_pos_x = 600
+level3_line1_pos_y = 300
+level3_line1_length = 440
+level3_line1_angl = 0
+level3_line2_pos_x = 1500
+level3_line2_pos_y = 300
+level3_line2_length = 440
+level3_line2_angl = 180
+level3_startButton_x = 100
+level3_startButton_y = 800
+level3_startButton_radius = 50
+level3_winButton_x = 1000
+level3_winButton_y = 150
+level3_winButton_radius = 50
+level3_angVel = 0.02
 
-level4_line1_pos_x 5
-level4_line1_pos_y 5
-level4_line1_length 5
-level4_line1_angl 5
-level4_line2_pos_x 5
-level4_line2_pos_y 5
-level4_line2_length 5
-level4_line2_angl 5
-level4_line3_pos_x 5
-level4_line3_pos_y 5
-level4_line3_length 5
-level4_line3_angl 5
-level4_line4_pos_x 5
-level4_line4_pos_y 5
-level4_line4_length 5
-level4_line4_angl 5
-level4_line5_pos_x 5
-level4_line5_pos_y 5
-level4_line5_length 5
-level4_line5_angl 5
-level4_startButton_x 5
-level4_startButton_y 5
-level4_winButton_x 5
-level4_winButton_y 5
-level4_button1_x 5
-level4_button1_y 5
-level4_button2_x 5
-level4_button2_y 5
-level4_timeToSwithOn_blinkLine 2500
-level4_timeToSwithOff_blinkLine 3500
-level4_anglVel 5
-level4_vel 5
+level4_line1_pos_x = -30
+level4_line1_pos_y = 760
+level4_line1_length = 880
+level4_line1_angl = 0
+level4_line2_pos_x = 880
+level4_line2_pos_y = 0
+level4_line2_length = 440
+level4_line2_angl = 90
+level4_line3_pos_x = 1080
+level4_line3_pos_y = 0
+level4_line3_length = 440
+level4_line3_angl = 90
+level4_line4_pos_x = 1080
+level4_line4_pos_y = 440
+level4_line4_length = 210
+level4_line4_angl = 90
+level4_line5_pos_x = 1080
+level4_line5_pos_y = 1080
+level4_line5_length = 210
+level4_line5_angl = 90
+level4_startButton_x = 100
+level4_startButton_y = 800
+level4_startButton_radius = 50
+level4_winButton_x = 920
+level4_winButton_y = 100
+level4_winButton_radius = 50
+level4_button1_x = 440
+level4_button1_y = 200
+level4_button1_radius = 50
+level4_button2_x = 1380
+level4_button2_y = 760
+level4_button2_radius = 50
+level4_timeToSwithOn_blinkLine = 2500
+level4_timeToSwithOff_blinkLine = 3500
+level4_anglVel = 1
+level4_vel = 0.1
 
-level5_vel 5
-level5_radius 5
-level5_pos_x 5
-level5_pos_y 5
-level5_teslaParticls 5
+level5_vel_x = 0.7
+level5_vel_y = 0
+level5_radius = 480
+level5_pos_x = 60
+level5_pos_y = 60
+level5_teslaParticls = 18
+level5_startButton.x = 200
+level5_startButton.y = 400
+level5_startButton_radius = 50
+level5_winButton.x = 1500
+level5_winButton.y = 200
+level5_winButton_radius = 50
+level5_angVel = 0.1
 

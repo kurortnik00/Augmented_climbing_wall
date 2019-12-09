@@ -2,8 +2,8 @@
 
 Level_1::Level_1()
 	:line1(Level::config.level1_line1_pos, Level::config.level1_line1_angl, Level::config.level1_line1_length),
-	startButton(sf::Vector2f(100, 800), 78, "Labyrinth/images/playButton.png", sf::IntRect(0, 0, 156, 156)),
-	winButton(sf::Vector2f(800, 200), 50, "Labyrinth/images/winButton.png", sf::IntRect(0, 0, 126, 126))
+	startButton(Level::config.level1_startButton, Level::config.level1_startButton_radius, "Labyrinth/images/playButton.png", sf::IntRect(0, 0, 156, 156)),
+	winButton(sf::Vector2f(800, 200), Level::config.level1_winButton_radius, "Labyrinth/images/winButton.png", sf::IntRect(0, 0, 126, 126))
 {
 	std::cout << Level::config.level1_line1_pos.x;
 	_isLoaded = false;
@@ -22,9 +22,7 @@ void Level_1::Load(std::string filename)
 
 	Level::loadTextureArr(filename, 12, line1);
 	Level::setSpritesArr(line1, line1.animationTextureArr[0]);
-	//line1.spritesArr[0].setScale(2, 1);
-
-
+	
 	lines.push_back(line1);
 
 	buttons.push_back(startButton);
@@ -48,27 +46,13 @@ void Level_1::Draw(sf::RenderWindow & renderWindow)
 //the fail map if lose
 	else
 	{
-
 		Level::win_lose_Draw(renderWindow, lines);
-
 	}
-
-
-
-
 }
 
 void Level_1::Update(sf::Event& event)
 {
-
 	Level::lineAnimationUpdate(lines);
 	Level::linesUpdate(lines);
 	Level::buttonsUpdate(buttons);
-
-}
-
-
-void Level_1::reInit()
-{
-
 }

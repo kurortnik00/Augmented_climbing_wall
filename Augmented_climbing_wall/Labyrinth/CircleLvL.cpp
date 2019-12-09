@@ -6,13 +6,13 @@
 #define PI 3.14159265 
 
 CircleLvL::CircleLvL()
-	:_startPos(60, 60),
-	_angVelocity(0.1),				//Rotation velocity
-	_velocity(0.7, 0),				//Center velocity, it moves _center
-	_radius(480),			//_shape radiuse, it responsible of boundering shape. In fact it equils inscribed radius 
+	:_startPos(Level::config.level5_pos),
+	_angVelocity(Level::config.level5_anglVel),				//Rotation velocity
+	_velocity(Level::config.level5_vel),				//Center velocity, it moves _center
+	_radius(Level::config.level5_radius),			//_shape radiuse, it responsible of boundering shape. In fact it equils inscribed radius 
 	line1(_center, 0, _radius +50),
-	startButton(sf::Vector2f(200, 400), 50, "Labyrinth/images/playButton.png", sf::IntRect(0, 0, 156, 156)),
-	winButton(sf::Vector2f(1500, 200), 50, "Labyrinth/images/winButton.png", sf::IntRect(0, 0, 126, 126))
+	startButton(Level::config.level5_startButton, Level::config.level5_startButton_radius, "Labyrinth/images/playButton.png", sf::IntRect(0, 0, 156, 156)),
+	winButton(Level::config.level5_winButton, Level::config.level5_winButton_radius, "Labyrinth/images/winButton.png", sf::IntRect(0, 0, 126, 126))
 {
 	_position = sf::Vector2f(_startPos);
 	_angl = 0;
@@ -21,7 +21,7 @@ CircleLvL::CircleLvL()
 
 
 	animationClock.restart();		//mabe it not necessaty
-	numberTeslaParticals = 18;
+	numberTeslaParticals = Level::config.level5_teslaParticls;
 	CircleLvL::Load("Labyrinth/images/2/teslaColor");
 
 }
