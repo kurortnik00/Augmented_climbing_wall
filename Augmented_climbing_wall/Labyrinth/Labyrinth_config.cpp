@@ -154,8 +154,8 @@ void Labyrinth::Config::loadConfig() {
 			sin >> Config::level4_button2.y;
 		else if (line.find("level4_button2_radius") != -1)
 			sin >> Config::level4_button2_radius;
-		else if (line.find("level4_angVel") != -1)
-			sin >> Config::level4_anglVel;
+		else if (line.find("level4_anglVel") != -1)
+			sin >> Config::level4_anglVel;	
 		else if (line.find("level4_timeToSwithOn_blinkLine") != -1)
 			sin >> Config::level4_timeToSwithOn_blinkLine;
 		else if (line.find("level4_timeToSwithOff_blinkLine") != -1)

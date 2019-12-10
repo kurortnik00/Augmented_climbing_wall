@@ -46,7 +46,7 @@ int main()
 
 				Labyrinth::Game labyrinth(MainWindow::getWindow());
 				//labyrinth.Start(*server, server->getData()[LvL]);
-				labyrinth.Start(*server, 2);
+				labyrinth.Start(*server, 3);
 				break;
 			}
 			case(myServer::TIME_CLIMB):

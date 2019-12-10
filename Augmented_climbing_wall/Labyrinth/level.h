@@ -56,10 +56,15 @@ public:
 		//int _numberTeslaParticals;
 		float _length;
 		std::vector< sf::Texture> animationTextureArr;			//vector of tetures that used in teslaCircle
-		std::vector< sf::Sprite> spritesArr;				//vector of sprites that used in teslaCircle
+		//std::vector< sf::Sprite> spritesArr;				//vector of sprites that used in teslaCircle
+		sf::Sprite sprite;
 		sf::Vector2f _center;
 		sf::Vector2f _velocity;
 		bool _unActive;
+		//EndLine circle 
+		float circleRadius;
+		sf::CircleShape circleShape1;
+		sf::CircleShape circleShape2;
 		
 		
 	};
@@ -113,8 +118,19 @@ private:
 	//Labyrinth::Timer endGameTimer;
 	sf::Clock clock;
 	sf::Clock serverDelayClock;
+	bool win_lose_Draw_first;
 	
 	bool TOPScore_updated;
+	Button restartButton;
+
+	sf::Music music;//создаем объект музыки
+
+	sf::SoundBuffer win_soundBuffer;
+	sf::Sound winSound;
+	sf::SoundBuffer lose_soundBuffer;
+	sf::Sound loseSound;
+	sf::SoundBuffer button_soundBuffer;
+	sf::Sound buttonSound;
 
 	//float kinectTranform_X_Cordinates(float x);
 	//float kinectTranform_Y_Cordinates(float y);

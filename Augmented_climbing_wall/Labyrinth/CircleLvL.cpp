@@ -10,7 +10,7 @@ CircleLvL::CircleLvL()
 	_angVelocity(Level::config.level5_anglVel),				//Rotation velocity
 	_velocity(Level::config.level5_vel),				//Center velocity, it moves _center
 	_radius(Level::config.level5_radius),			//_shape radiuse, it responsible of boundering shape. In fact it equils inscribed radius 
-	line1(_center, 0, _radius +50),
+	line1(_center, 0, _radius +40),
 	startButton(Level::config.level5_startButton, Level::config.level5_startButton_radius, "Labyrinth/images/playButton.png", sf::IntRect(0, 0, 156, 156)),
 	winButton(Level::config.level5_winButton, Level::config.level5_winButton_radius, "Labyrinth/images/winButton.png", sf::IntRect(0, 0, 126, 126))
 {
@@ -72,6 +72,18 @@ void CircleLvL::Draw(sf::RenderWindow & renderWindow)
 	{
 
 		Level::win_lose_Draw(renderWindow, lines);
+		if (Level::getLastAnimation() || !Level::getWin())
+		{
+			if (!Level::getWin())
+			{
+				for (int i = 0; i < spritesArr_teslaCircle.size(); i++) {
+					renderWindow.draw(spritesArr_teslaCircle[i]);
+				}
+			}
+			
+
+		}
+		
 
 	}
 }
@@ -118,7 +130,7 @@ void CircleLvL::Update(sf::Event& event) {
 			_angl += _angVelocity;
 
 			_center = _center + _velocity;
-			if (_center.x + _radius > MainWindow::SCREEN_WIDTH) _velocity = -_velocity;
+			if (_center.x + _radius > MainWindow::SCREEN_WIDTH || _center.x - _radius < 0) _velocity = -_velocity;
 				//coordinateTransf(_angVelocity, _center, _centerOfRotation);		//canculation of new position of _center (the center of KILL_ring)
 
 			//rotation of kill line 

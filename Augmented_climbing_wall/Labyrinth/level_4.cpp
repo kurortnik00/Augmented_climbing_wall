@@ -70,6 +70,8 @@ void Level_4::Draw(sf::RenderWindow & renderWindow)
 	else
 	{
 		Level::win_lose_Draw(renderWindow, lines);
+		lines[VERTICAL_LINE_1]._velocity.x = 0;
+		lines[VERTICAL_LINE_2]._velocity.x = 0;
 		
 	}
 }
@@ -88,11 +90,11 @@ void Level_4::Update(sf::Event& event)
 		for (int i = 0; i < lines.size(); i++)
 		{
 			blinkLineTime = clockForBlinkLine.getElapsedTime().asMilliseconds();
-			if (blinkLineTime > 2500)
+			if (blinkLineTime > Level::config.level4_timeToSwithOn_blinkLine)
 			{
 				lines[BLINC_LINE]._unActive = true;
 
-				if (blinkLineTime > 3500)
+				if (blinkLineTime > Level::config.level4_timeToSwithOff_blinkLine)
 				{
 					clockForBlinkLine.restart();
 					lines[BLINC_LINE]._unActive = false;
@@ -105,14 +107,15 @@ void Level_4::Update(sf::Event& event)
 			}
 			if (buttons[ACTION_BUTTON_1]._hasClicked && lines[EXTENTION_LINE_1]._angl > 0)
 			{
-				lines[EXTENTION_LINE_1]._angl -= 0.01;
-				lines[EXTENTION_LINE_2]._angl += 0.01;
+				//std::cout << Level::config.level4_anglVel << "\n";
+				lines[EXTENTION_LINE_1]._angl -= Level::config.level4_anglVel;
+				lines[EXTENTION_LINE_2]._angl += Level::config.level4_anglVel;
 			}
 			//when touched second action button 
-			if (buttons[ACTION_BUTTON_2]._hasClicked && lines[ACTION_BUTTON_2]._velocity.x == 0)
+			if (buttons[ACTION_BUTTON_2]._hasClicked && lines[VERTICAL_LINE_1]._velocity.x == 0)
 			{
-				lines[VERTICAL_LINE_1]._velocity.x = -0.1;
-				lines[VERTICAL_LINE_2]._velocity.x = 0.1;
+				lines[VERTICAL_LINE_1]._velocity.x = -Level::config.level4_vel;
+				lines[VERTICAL_LINE_2]._velocity.x = Level::config.level4_vel;
 
 			}
 			if (lines[VERTICAL_LINE_1]._startPoint.x <= 0.0 || lines[VERTICAL_LINE_1]._startPoint.x >= 1920.0) lines[VERTICAL_LINE_1]._velocity.x = -lines[VERTICAL_LINE_1]._velocity.x;

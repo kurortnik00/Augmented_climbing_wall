@@ -4,7 +4,9 @@
 
 
 Level::Level()
-	:_text("", _font, 250)
+	:_text("", _font, 250),
+	restartButton(sf::Vector2f(1200, 200), 500*0.4, "Smash_It/images/restart.png", sf::IntRect(0, 0, 1000, 995))
+	
 {
 	_winShapeRadius = 10;								//the start shape of win animation 
 	_loseShapeRadius = 20;								//the shape that shows where you faild
@@ -23,6 +25,26 @@ Level::Level()
 	TOP_List = { {6, "Level"} , {5, "zzz"} , {1, "qq"} , {4, "44"} };
 	TOPScore_updated = false;
 	reInit_flag = false;
+	win_lose_Draw_first = true;
+
+	restartButton._sprite.setScale(0.4, 0.4);
+	restartButton._unDrowable = true;
+
+	
+	music.openFromFile("Labyrinth/sounds/lab-game-teme.wav");//загружаем файл
+	music.setLoop(true);
+	
+
+	win_soundBuffer.loadFromFile("Labyrinth/sounds/lab_win_click.wav");
+	winSound.setBuffer(win_soundBuffer);
+	
+	lose_soundBuffer.loadFromFile("Labyrinth/sounds/lab_game_falt.wav");
+	loseSound.setBuffer(lose_soundBuffer);
+
+	button_soundBuffer.loadFromFile("Labyrinth/sounds/lab_actionButton_presed.wav");
+	buttonSound.setBuffer(button_soundBuffer);
+
+
 }
 
 Level::~Level()
@@ -36,7 +58,7 @@ void Level::win(sf::Vector2f pos)
 	_gameResult = "You Win!";
 	_winShape.setPosition(pos);
 	_win = true;
-	std::cout << Labyrinth::Timer::GetTime().asMilliseconds();
+	winSound.play();
 	
 }
 
@@ -47,6 +69,7 @@ void Level::lose(sf::Vector2f pos)
 	_gameResult = "You Lose!";
 	//place the red shape on faid point (cordinate)
 	_loseShape.setPosition(pos);
+	loseSound.play();
 }
 
 sf::CircleShape Level::getWinShape()
@@ -128,6 +151,20 @@ Level::Line::Line(sf::Vector2f startPoint, float angl, float length)
 	_center = sf::Vector2f((_startPoint.x + _endPoint.x) / 2, (_startPoint.y + _endPoint.y) / 2);
 	_unActive = false;
 	_velocity = sf::Vector2f(0, 0);
+
+
+	circleRadius = 40;
+	circleShape1.setFillColor(sf::Color(0, 0, 0));
+	circleShape1.setRadius(circleRadius);
+	circleShape1.setFillColor(sf::Color(2, 188, 255));
+	circleShape1.setPosition(sf::Vector2f(_endPoint));
+	circleShape1.setOrigin(circleRadius - 8, circleRadius+8);
+
+	circleShape2.setFillColor(sf::Color(0, 0, 0));
+	circleShape2.setRadius(circleRadius);
+	circleShape2.setFillColor(sf::Color(2, 188, 255));
+	circleShape2.setPosition(sf::Vector2f(_startPoint));
+	circleShape2.setOrigin(circleRadius, circleRadius-8);
 }
 
 Level::Button::Button(sf::Vector2f position, float radius, std::string filename, sf::IntRect textureRect)
@@ -161,25 +198,9 @@ void Level::loadTextureArr(std::string filename, int animationCount, Line& line)
 
 void Level::setSpritesArr(Line& line, sf::Texture texture)
 {
-	//for (int i = 0; i < line._numberTeslaParticals; i++) {
-		sf::Sprite _sprite;
-		_sprite.setTexture(texture);
-		line.spritesArr.push_back(_sprite);
-		//if (i == 0)
-		//{
-			line.spritesArr[0].setPosition(line._startPoint);		//init the start position of all sprites
-			line.spritesArr[0].setScale(line.size.x / 210, 1);
-		//}
-		//else
-		//{
-		//	sf::Vector2f oldPos = line.spritesArr[i - 1].getPosition() + sf::Vector2f(210, 0);
-		//	sf::Vector2f centerOfRotation = line.spritesArr[i - 1].getPosition();
-		//	sf::Vector2f newStartPos = Level::coordinateTransf(line._angl, oldPos, centerOfRotation );
-		//	line.spritesArr[i].setPosition(newStartPos);
-	//	}
-	//	line.spritesArr[i].setRotation(line._angl);
-	//	
-	//}
+		line.sprite.setTexture(texture);
+		line.sprite.setPosition(line._startPoint);		//init the start position of all sprites
+		line.sprite.setScale(line.size.x / 210, 1);	
 }
 
 
@@ -192,12 +213,13 @@ void Level::linesUpdate(std::vector<Line>& lines)
 		sf::Vector2f oldPos = lines[i]._startPoint + lines[i].size;
 		lines[i]._endPoint = Level::coordinateTransf(lines[i]._angl, oldPos, lines[i]._startPoint);
 		lines[i]._center = sf::Vector2f((lines[i]._startPoint.x + lines[i]._endPoint.x) / 2, (lines[i]._startPoint.y + lines[i]._endPoint.y) / 2);
-		for (int j = 0; j < lines[i].spritesArr.size(); j++) {
-			lines[i].spritesArr[j].setPosition(lines[i]._startPoint - sf::Vector2f(38 * sin((lines[i]._angl + 180)*PI / 180) + 10 * sin((lines[i]._angl + 180)*PI / 180), 38 * cos(lines[i]._angl*PI / 180)) + sf::Vector2f(210 * j*cos(lines[i]._angl*PI / 180), 210 * j*sin(lines[i]._angl*PI / 180)));
-			//some kosteli and podgonian to make the rigtht ratation and make the same pace with bounding figure
-			lines[i].spritesArr[j].setRotation(lines[i]._angl);
-		}
+		lines[i].sprite.setPosition(lines[i]._startPoint - sf::Vector2f(-10 * cos((lines[i]._angl + 180)*PI / 180) + 38 * sin((lines[i]._angl + 180)*PI / 180), 38 * cos(lines[i]._angl*PI / 180) - 10  * sin((lines[i]._angl + 180) * PI / 180)));
+		//some kosteli and podgonian to make the rigtht ratation and make the same pace with bounding figure
+		lines[i].sprite.setRotation(lines[i]._angl);
 		lines[i]._startPoint += lines[i]._velocity;
+
+		lines[i].circleShape1.setPosition(sf::Vector2f(lines[i]._endPoint));
+		lines[i].circleShape2.setPosition(sf::Vector2f(lines[i]._startPoint));
 	}
 
 
@@ -211,6 +233,8 @@ void Level::linesUpdate(std::vector<Line>& lines)
 
 				{
 					if (!lines[i]._unActive) Level::lose(sf::Vector2f(sf::Mouse::getPosition(MainWindow::getWindow()).x, sf::Mouse::getPosition(MainWindow::getWindow()).y));
+
+
 
 				}
 			}
@@ -250,9 +274,7 @@ void Level::lineAnimationUpdate(std::vector<Line>& lines)
 
 		for (int j = 0; j < lines.size(); j++)
 		{
-			for (int i = 0; i < lines[j].spritesArr.size(); i++) {
-				lines[j].spritesArr[i].setTexture(lines[j].animationTextureArr[animationNumber]);
-			}
+				lines[j].sprite.setTexture(lines[j].animationTextureArr[animationNumber]);
 		}
 		//next animation image
 		animationNumber++;
@@ -263,7 +285,15 @@ void Level::lineAnimationUpdate(std::vector<Line>& lines)
 
 void Level::win_lose_Draw(sf::RenderWindow & renderWindow, std::vector<Line>& lines)
 {
-	
+
+
+	if (win_lose_Draw_first)
+	{
+		clock.restart();	
+		win_lose_Draw_first = false;
+		music.pause();
+	}
+
 	if (Level::getLastAnimation() || !Level::getWin()) {				//lastAnimation == true when plaer win
 		for (int j = 0; j < lines.size(); j++)
 		{
@@ -282,11 +312,9 @@ void Level::win_lose_Draw(sf::RenderWindow & renderWindow, std::vector<Line>& li
 				//Lose state
 				//stop the moving animation 
 				//shows the faill place
-				for (int i = 0; i < lines[j].spritesArr.size(); i++) {
-					if (!lines[j]._unActive) renderWindow.draw(lines[j].spritesArr[i]);
-				}
-				renderWindow.draw(Level::getLoseShape());
+				if (!lines[j]._unActive) renderWindow.draw(lines[j].sprite);
 
+				renderWindow.draw(Level::getLoseShape());
 
 				//text that you failed
 				std::ostringstream timerStr;
@@ -303,6 +331,18 @@ void Level::win_lose_Draw(sf::RenderWindow & renderWindow, std::vector<Line>& li
 
 		renderWindow.draw(Level::getWinShape());			//when win animation, 
 	}
+
+		
+	//restart button 3 sec after win
+	if (clock.getElapsedTime().asSeconds() > 3)
+	{
+		MainWindow::getWindow().draw(restartButton._sprite);
+
+		if (Cliker::getClik(restartButton._center, restartButton._radius, true))
+		{
+			reInit_flag = true;
+		}
+	}
 }
 
 
@@ -312,10 +352,10 @@ void Level::drawLines(sf::RenderWindow & renderWindow, std::vector<Line>& lines)
 	{
 		if (!lines[j]._unActive) {
 			//renderWindow.draw(lines[j]._shape);
+			renderWindow.draw(lines[j].sprite);
 
-			for (int i = 0; i < lines[j].spritesArr.size(); i++) {
-				renderWindow.draw(lines[j].spritesArr[i]);
-			}
+			renderWindow.draw(lines[j].circleShape1);
+			renderWindow.draw(lines[j].circleShape2);
 		}
 
 	}
@@ -347,9 +387,9 @@ void Level::drawLines(sf::RenderWindow & renderWindow, std::vector<Line>& lines)
 		renderWindow.draw(i);
 	}
 
+
 	shape_Vec.clear();
 
-	
 
 	//std::cout << Game::getKinectApplication().arms_legs_timeAveraged_DepthPoints(CBodyBasics::LEFT_ARM) << "   " << Game::getKinectApplication().arms_legs_timeAveraged_DepthPoints(CBodyBasics::RIGHT_ARM) << "\n";
 	//std::cout << kinectApplication.DepthSkeletonPoints(HANDLEFT) << "   " << kinectApplication.DepthSkeletonPoints(HANDRIGHT) << "\n";
@@ -379,14 +419,16 @@ void Level::buttonsUpdate(std::vector<Button>& buttons)
 		///TODO aditional radius
 		if (Cliker::getClik(buttons[START_BUTTON]._center, buttons[START_BUTTON]._radius, false))
 		{
-			buttons[START_BUTTON]._hasClicked = true;
-			buttons[START_BUTTON]._unDrowable = true;
-			VisibleGameObject::setStart(true);
+			if (!buttons[START_BUTTON]._unDrowable)
+			{
+
+				buttons[START_BUTTON]._hasClicked = true;
+				buttons[START_BUTTON]._unDrowable = true;
+				VisibleGameObject::setStart(true);
+				music.play();//воспроизводим музыку
+			}
 		}
-		//if (buttons[START_BUTTON]._hasClicked)
-	//	{
-	//		VisibleGameObject::setStart(true);
-		//}
+
 	}
 		
 
@@ -403,8 +445,12 @@ void Level::buttonsUpdate(std::vector<Button>& buttons)
 		{
 			if (Cliker::getClik(buttons[i]._center, buttons[i]._radius, false))
 			{
-				buttons[i]._hasClicked = true;
-				buttons[i]._unDrowable = true;
+				if (!buttons[i]._unDrowable)
+				{
+					buttons[i]._hasClicked = true;
+					buttons[i]._unDrowable = true;
+					buttonSound.play();
+				}
 			}
 		}
 		
@@ -475,7 +521,6 @@ void Level::TOP_List_Update()
 	if (TOP_List.size() > 4) TOP_List.erase(TOP_List.begin());
 	TOP_List.insert(std::make_pair(Labyrinth::Timer::GetTime().asMilliseconds()/1000, name));
 	TOPScore_updated = true;
-	clock.restart();
 }
 
 void Level::TOP_List_Draw()
@@ -514,27 +559,7 @@ void Level::TOP_List_Draw()
 
 
 
-	//restart button 3 sec after win
-	if (clock.getElapsedTime().asSeconds() > 3)
-	{
-		sf::Image image;
-		image.loadFromFile("Smash_It/images/restart.png");
-		sf::Texture texture;
-		texture.loadFromImage(image);
-		sf::Sprite sprite;
-		sprite.setTexture(texture);
-		sprite.setScale(0.4, 0.4);
-		sf::Vector2f pos(1200, 200);
-		sprite.setPosition(pos);
-		sf::Vector2f center(pos.x + texture.getSize().x / 4, pos.y + texture.getSize().y / 4);
-
-		MainWindow::getWindow().draw(sprite);
-
-		if (Cliker::getClik(center, texture.getSize().x / 4, true))
-		{
-			reInit_flag = true;
-		}
-	}
+	
 }
 
 
