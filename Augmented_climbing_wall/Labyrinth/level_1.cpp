@@ -1,9 +1,10 @@
 #include "level_1.h"
 
-Level_1::Level_1()
+Level_1::Level_1(std::string topScore)
 	:line1(Level::config.level1_line1_pos, Level::config.level1_line1_angl, Level::config.level1_line1_length),
 	startButton(Level::config.level1_startButton, Level::config.level1_startButton_radius, "Labyrinth/images/playButton.png", sf::IntRect(0, 0, 156, 156)),
-	winButton(sf::Vector2f(800, 200), Level::config.level1_winButton_radius, "Labyrinth/images/winButton.png", sf::IntRect(0, 0, 126, 126))
+	winButton(sf::Vector2f(800, 200), Level::config.level1_winButton_radius, "Labyrinth/images/winButton.png", sf::IntRect(0, 0, 126, 126)),
+	Level(topScore)
 {
 	std::cout << Level::config.level1_line1_pos.x;
 	_isLoaded = false;

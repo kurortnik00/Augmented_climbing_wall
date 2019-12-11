@@ -9,7 +9,7 @@
 class CircleLvL : public Level
 {
 public:
-	CircleLvL ();
+	CircleLvL (std::string topScore);
 	~CircleLvL ();
 	
 	void Draw(sf::RenderWindow & renderWindow);

@@ -3,7 +3,7 @@
 #include "../mainWindow.h"
 
 
-Level::Level()
+Level::Level(std::string topScore)
 	:_text("", _font, 250),
 	restartButton(sf::Vector2f(1200, 200), 500*0.4, "Smash_It/images/restart.png", sf::IntRect(0, 0, 1000, 995))
 	
@@ -22,7 +22,23 @@ Level::Level()
 	_trashHold = 0;
 	config.loadConfig();
 
-	TOP_List = { {6, "Level"} , {5, "zzz"} , {1, "qq"} , {4, "44"} };
+	TOP_List = { {6.58, "Test"}};
+	std::string line;
+
+	_topScore = topScore;
+	std::ifstream in(topScore); 
+	if (in.is_open())
+	{
+		while (getline(in, line))
+		{
+			
+			std::string scoreName = line.substr(line.find(" ") + 1);
+			float scoreTime = std::stof(line.substr(0, 4));
+			TOP_List.insert(std::make_pair(scoreTime, scoreName));
+		}
+	}
+	in.close();
+
 	TOPScore_updated = false;
 	reInit_flag = false;
 	win_lose_Draw_first = true;
@@ -482,12 +498,12 @@ void Level::showTopScore()
 
 
 
-	std::set<std::pair<float, std::string>>::reverse_iterator rit;
+	std::set<std::pair<float, std::string>>::iterator it;
 
-	for (rit = TOP_List.rbegin(); rit != TOP_List.rend(); ++rit)
+	for (it = TOP_List.begin(); it != TOP_List.end(); ++it)
 	{
 
-		std::string plaerScore_str = std::to_string(scoresCount) + ". " + rit->second + "       " + std::to_string((int)rit->first);
+		std::string plaerScore_str = std::to_string(scoresCount) + ". " /*+ it->second */ + "       " + std::to_string((float)it->first);
 		sf::Text plaerScore(plaerScore_str, font, 150);
 		plaerScore.setPosition(MainWindow::getWindow().getSize().x / 2 - 400, 200 + 100 * scoresCount);
 		plaersScore.push_back(plaerScore);
@@ -518,8 +534,28 @@ void Level::showTopScore()
 
 void Level::TOP_List_Update()
 {
-	if (TOP_List.size() > 4) TOP_List.erase(TOP_List.begin());
-	TOP_List.insert(std::make_pair(Labyrinth::Timer::GetTime().asMilliseconds()/1000, name));
+
+	std::ofstream out;        
+	out.open(_topScore);
+
+	//if (TOP_List.size() > 4) TOP_List.erase(TOP_List.end());
+	float scoreTime = Labyrinth::Timer::gameTime;
+	std::cout << scoreTime;
+	TOP_List.insert(std::make_pair(scoreTime, name));
+	int topScoreCount = 0;
+	for (auto i : TOP_List)
+	{
+		//std::string s1 = to_string(i.first);
+		std::string s1 = to_string(i.first);
+		std::string s2 = i.second /*+ "ff"*/;
+		if (out.is_open())
+		{
+			out << s1 << " " << s2 << std::endl;
+		}
+		if (topScoreCount > 1000) break;
+		topScoreCount++;
+	}
+	out.close();
 	TOPScore_updated = true;
 }
 

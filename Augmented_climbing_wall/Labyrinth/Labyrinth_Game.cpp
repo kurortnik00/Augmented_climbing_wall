@@ -197,14 +197,14 @@ void Labyrinth::Game::levelInit()
 	{
 	case Game::LEVEL_1:
 	{
-		Level_1 *level_1 = new Level_1();
+		Level_1 *level_1 = new Level_1("Labyrinth/top_score_lvl1.txt");
 		_gameObjectManager.Add("level", level_1);
 	}
 		break;
 
 	case Game::LEVEL_2:
 	{
-		Level_2 *level_2 = new Level_2();
+		Level_2 *level_2 = new Level_2("Labyrinth/top_score_lvl2.txt");
 		_gameObjectManager.Add("level", level_2);
 		
 	}
@@ -212,7 +212,7 @@ void Labyrinth::Game::levelInit()
 
 	case Game::LEVEL_3:
 	{
-		Level_3 *level_3 = new Level_3();
+		Level_3 *level_3 = new Level_3("Labyrinth/top_score_lvl3.txt");
 		_gameObjectManager.Add("level", level_3);
 		
 	}
@@ -220,7 +220,7 @@ void Labyrinth::Game::levelInit()
 
 	case Game::LEVEL_4:
 	{
-		Level_4 *level_4 = new Level_4();
+		Level_4 *level_4 = new Level_4("Labyrinth/top_score_lvl4.txt");
 		_gameObjectManager.Add("level", level_4);
 		
 	}
@@ -228,7 +228,7 @@ void Labyrinth::Game::levelInit()
 
 	case Game::CIRCLELvL:
 	{
-		CircleLvL *circleLvL = new CircleLvL();
+		CircleLvL *circleLvL = new CircleLvL("Labyrinth/top_score_lvl5.txt");
 		_gameObjectManager.Add("level", circleLvL);
 	}
 		break;

@@ -5,7 +5,7 @@
 class Level_4 : public Level
 {
 public:
-	Level_4();
+	Level_4(std::string topScore);
 	~Level_4();
 	void Draw(sf::RenderWindow & renderWindow);
 	void Update(sf::Event& event);

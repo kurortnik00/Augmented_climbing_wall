@@ -19,7 +19,7 @@
 class Level : public Labyrinth::VisibleGameObject
 {
 public:
-	Level();
+	Level(std::string topScore);
 	~Level();
 	void win(sf::Vector2f pos);
 	void lose(sf::Vector2f pos);
@@ -120,6 +120,7 @@ private:
 	sf::Clock serverDelayClock;
 	bool win_lose_Draw_first;
 	
+	string _topScore;
 	bool TOPScore_updated;
 	Button restartButton;
 

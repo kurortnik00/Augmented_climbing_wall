@@ -5,14 +5,15 @@
 
 #define PI 3.14159265 
 
-CircleLvL::CircleLvL()
+CircleLvL::CircleLvL(std::string topScore)
 	:_startPos(Level::config.level5_pos),
 	_angVelocity(Level::config.level5_anglVel),				//Rotation velocity
 	_velocity(Level::config.level5_vel),				//Center velocity, it moves _center
 	_radius(Level::config.level5_radius),			//_shape radiuse, it responsible of boundering shape. In fact it equils inscribed radius 
 	line1(_center, 0, _radius +40),
 	startButton(Level::config.level5_startButton, Level::config.level5_startButton_radius, "Labyrinth/images/playButton.png", sf::IntRect(0, 0, 156, 156)),
-	winButton(Level::config.level5_winButton, Level::config.level5_winButton_radius, "Labyrinth/images/winButton.png", sf::IntRect(0, 0, 126, 126))
+	winButton(Level::config.level5_winButton, Level::config.level5_winButton_radius, "Labyrinth/images/winButton.png", sf::IntRect(0, 0, 126, 126)),
+	Level(topScore)
 {
 	_position = sf::Vector2f(_startPos);
 	_angl = 0;
@@ -126,7 +127,6 @@ void CircleLvL::Update(sf::Event& event) {
 		animationTime_dinamic = animationClock.getElapsedTime().asMilliseconds();			//the time of velocity animation
 		//this animation rotates and move the KILL_ring
 		if (animationTime_dinamic > 5) {						//the animation speed
-			std::cout << _velocity.x;
 			_angl += _angVelocity;
 
 			_center = _center + _velocity;

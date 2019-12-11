@@ -121,18 +121,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\aerohockey\aerohockey\easylogging\easylogging++.cc" />
-    <ClCompile Include="..\..\aerohockey\aerohockey\objects\board.cpp" />
-    <ClCompile Include="..\..\aerohockey\aerohockey\objects\paddle.cpp" />
-    <ClCompile Include="..\..\aerohockey\aerohockey\objects\player.cpp" />
-    <ClCompile Include="..\..\aerohockey\aerohockey\objects\puck.cpp" />
-    <ClCompile Include="..\..\aerohockey\aerohockey\objects\ready_button.cpp" />
-    <ClCompile Include="..\..\aerohockey\aerohockey\objects\world.cpp" />
-    <ClCompile Include="..\..\aerohockey\aerohockey\states\game.cpp" />
-    <ClCompile Include="..\..\aerohockey\aerohockey\states\manager.cpp" />
-    <ClCompile Include="..\..\aerohockey\aerohockey\states\preparation.cpp" />
-    <ClCompile Include="..\..\aerohockey\aerohockey\states\result.cpp" />
-    <ClCompile Include="aerohockey\starter.cpp" />
     <ClCompile Include="body_tracker.cpp" />
     <ClCompile Include="Cliker.cpp" />
     <ClCompile Include="Labyrinth\CircleLvL.cpp" />
@@ -169,16 +157,6 @@
     <ClCompile Include="util.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\aerohockey\aerohockey\easylogging\easylogging++.h" />
-    <ClInclude Include="..\..\aerohockey\aerohockey\objects\board.hpp" />
-    <ClInclude Include="..\..\aerohockey\aerohockey\objects\paddle.hpp" />
-    <ClInclude Include="..\..\aerohockey\aerohockey\objects\player.hpp" />
-    <ClInclude Include="..\..\aerohockey\aerohockey\objects\puck.hpp" />
-    <ClInclude Include="..\..\aerohockey\aerohockey\objects\ready_button.hpp" />
-    <ClInclude Include="..\..\aerohockey\aerohockey\objects\world.hpp" />
-    <ClInclude Include="..\..\aerohockey\aerohockey\states\manager.hpp" />
-    <ClInclude Include="..\..\aerohockey\aerohockey\states\state.hpp" />
-    <ClInclude Include="aerohockey\starter.h" />
     <ClInclude Include="body_tracker.h" />
     <ClInclude Include="Cliker.h" />
     <ClInclude Include="Labyrinth\circleLvL.h" />

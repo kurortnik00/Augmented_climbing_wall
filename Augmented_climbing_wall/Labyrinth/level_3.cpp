@@ -1,11 +1,12 @@
 #include "level_3.h"
 
-Level_3::Level_3()
+Level_3::Level_3(std::string topScore)
 	:line1(Level::config.level3_line1_pos, Level::config.level3_line1_angl, Level::config.level3_line1_length),
 	line2(Level::config.level3_line2_pos, Level::config.level3_line2_angl, Level::config.level3_line2_length),
 	startButton(Level::config.level3_startButton, Level::config.level3_startButton_radius, "Labyrinth/images/playButton.png", sf::IntRect(0, 0, 156, 156)),
 	winButton(Level::config.level3_winButton, Level::config.level3_startButton_radius, "Labyrinth/images/winButton.png", sf::IntRect(0, 0, 126, 126)),
-	_angVelocity(Level::config.level3_angVel)
+	_angVelocity(Level::config.level3_angVel),
+	Level(topScore)
 {
 
 	

@@ -3,12 +3,12 @@
 
 #include <iostream>
 
-#include "easylogging/easylogging++.h"
+//#include "easylogging/easylogging++.h"
 #include "objects/world.hpp"
 #include "states/state.hpp"
 #include "states/manager.hpp"
 
-INITIALIZE_EASYLOGGINGPP
+//INITIALIZE_EASYLOGGINGPP
 
 void starter();
 

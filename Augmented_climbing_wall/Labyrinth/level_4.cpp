@@ -1,7 +1,7 @@
 #include "level_4.h"
 #include "../mainWindow.h"
 
-Level_4::Level_4()
+Level_4::Level_4(std::string topScore)
 	:blinkLine(Level::config.level4_line1_pos, Level::config.level4_line1_angl, Level::config.level4_line1_length),
 	line2(Level::config.level4_line2_pos, Level::config.level4_line2_angl, Level::config.level4_line2_length),
 	line3(Level::config.level4_line3_pos, Level::config.level4_line3_angl, Level::config.level4_line3_length),
@@ -10,7 +10,8 @@ Level_4::Level_4()
 	button1(Level::config.level4_button1, Level::config.level4_button1_radius, "Labyrinth/images/Button.png", sf::IntRect(10,10,115,115)),
 	button2(Level::config.level4_button2, Level::config.level4_button2_radius, "Labyrinth/images/Button.png", sf::IntRect(10, 10, 115, 115)),
 	startButton(Level::config.level4_startButton, Level::config.level4_startButton_radius, "Labyrinth/images/playButton.png", sf::IntRect(0, 0, 156, 156)),
-	winButton(Level::config.level4_winButton, Level::config.level1_winButton_radius, "Labyrinth/images/winButton.png", sf::IntRect(0, 0, 126, 126))
+	winButton(Level::config.level4_winButton, Level::config.level1_winButton_radius, "Labyrinth/images/winButton.png", sf::IntRect(0, 0, 126, 126)),
+	Level(topScore)
 {
 
 	clockForBlinkLine.restart();
