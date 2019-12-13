@@ -2,7 +2,8 @@
 #include "TimeClimb\TimeClimb_Game.h"
 #include "Labyrinth\Labyrinth_Game.h"
 #include "mainWindow.h"
-//#include "aerohockey/starter.h"
+#include "aerohockey/Aerohockey_starter.h"
+#include "territory/Territory_starter.h"
 #include "server.h"
 #include "Cliker.h"
 
@@ -35,7 +36,7 @@ int main()
 			case(myServer::SMASH_IT):
 			{
 				std::cout << "SMASh_it started \n";
-		
+
 				Smash_It::Game smash_It(MainWindow::getWindow());
 				smash_It.Start(*server);
 				break;
@@ -58,13 +59,21 @@ int main()
 				break;
 			}
 			case(myServer::AEROHOCKEY):
+			{
 				std::cout << "AEROHOCKEY started \n";
 
-				//starter();
+				Aerohockey::Starter aerohockey;
+				aerohockey.start(*server);
 				break;
+			}
 			case(myServer::TERRITORY):
+			{
 				std::cout << "TERRITORY started \n";
+
+				Territory::Starter territory;
+				territory.start(*server);
 				break;
+			}
 			default:
 				break;
 			}
