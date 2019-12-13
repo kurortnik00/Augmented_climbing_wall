@@ -96,7 +96,6 @@ void Labyrinth::Game::GameLoop(std::vector<int> data)
 			
 			_gameObjectManager.UpdateAll(currentEvent);		//Обновляет все объекты
 			//Timer::Update();
-
 			
 
 			_gameObjectManager.DrawAll(_mainWindow);		//Рисует все объекты
@@ -111,7 +110,6 @@ void Labyrinth::Game::GameLoop(std::vector<int> data)
 				for (int i = 2; i < data.size(); i += 5)
 				{
 					switch (data[i])
-					//switch(5)
 					{
 					case Labyrinth::Game::Nothing:
 						break;
@@ -119,8 +117,6 @@ void Labyrinth::Game::GameLoop(std::vector<int> data)
 						_gameState = Game::Exiting;
 						break;
 					case Labyrinth::Game::Play:
-						_gameObjectManager.Get("level")->setBrightness(true);
-						Timer::setBrightness();
 						break;
 					case Labyrinth::Game::PreviousLevel:
 						if (_selectedLevel == LEVEL_1) _selectedLevel = static_cast<SelectedLevel>(LAST - 1);

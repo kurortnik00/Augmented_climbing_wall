@@ -44,7 +44,6 @@ namespace Labyrinth
 		bool getKinectControll();
 
 		virtual void showTopScore();
-		virtual void setBrightness(bool _brightnees);
 
 		bool reInit_flag;
 

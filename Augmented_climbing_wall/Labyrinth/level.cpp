@@ -60,8 +60,6 @@ Level::Level(std::string topScore)
 	button_soundBuffer.loadFromFile("Labyrinth/sounds/lab_actionButton_presed.wav");
 	buttonSound.setBuffer(button_soundBuffer);
 
-	brightness = false; //in false -> not full brightness
-
 
 }
 
@@ -174,13 +172,13 @@ Level::Line::Line(sf::Vector2f startPoint, float angl, float length)
 	circleRadius = 40;
 	circleShape1.setFillColor(sf::Color(0, 0, 0));
 	circleShape1.setRadius(circleRadius);
-	circleShape1.setFillColor(sf::Color(2, 188, 255, 100));
+	circleShape1.setFillColor(sf::Color(2, 188, 255));
 	circleShape1.setPosition(sf::Vector2f(_endPoint));
 	circleShape1.setOrigin(circleRadius - 8, circleRadius+8);
 
 	circleShape2.setFillColor(sf::Color(0, 0, 0));
 	circleShape2.setRadius(circleRadius);
-	circleShape2.setFillColor(sf::Color(2, 188, 255, 100));
+	circleShape2.setFillColor(sf::Color(2, 188, 255));
 	circleShape2.setPosition(sf::Vector2f(_startPoint));
 	circleShape2.setOrigin(circleRadius, circleRadius-8);
 }
@@ -194,7 +192,6 @@ Level::Button::Button(sf::Vector2f position, float radius, std::string filename,
 	_sprite.setTexture(_texture);
 	_sprite.setTextureRect(textureRect);
 	_sprite.setPosition(_position);
-	_sprite.setColor(sf::Color(255, 255, 255, 100));
 
 
 	_center = sf::Vector2f(_position.x + _radius, _position.y + _radius);
@@ -220,7 +217,6 @@ void Level::setSpritesArr(Line& line, sf::Texture texture)
 		line.sprite.setTexture(texture);
 		line.sprite.setPosition(line._startPoint);		//init the start position of all sprites
 		line.sprite.setScale(line.size.x / 210, 1);	
-		line.sprite.setColor(sf::Color(255, 255, 255, 100));
 }
 
 
@@ -240,14 +236,6 @@ void Level::linesUpdate(std::vector<Line>& lines)
 
 		lines[i].circleShape1.setPosition(sf::Vector2f(lines[i]._endPoint));
 		lines[i].circleShape2.setPosition(sf::Vector2f(lines[i]._startPoint));
-
-		//make lvl full britnes
-		if (brightness)
-		{
-			lines[i].sprite.setColor(sf::Color(255, 255, 255, 255));
-			lines[i].circleShape1.setFillColor(sf::Color(2, 188, 255, 255));
-			lines[i].circleShape2.setFillColor(sf::Color(2, 188, 255, 255));
-		}
 	}
 
 
@@ -332,7 +320,7 @@ void Level::win_lose_Draw(sf::RenderWindow & renderWindow, std::vector<Line>& li
 				renderWindow.draw(_text);
 				_text.setPosition(400, 200);
 				if (!TOPScore_updated) TOP_List_Update();
-				score_Draw();
+				TOP_List_Draw();
 			}
 			else
 			{
@@ -480,17 +468,8 @@ void Level::buttonsUpdate(std::vector<Button>& buttons)
 					buttonSound.play();
 				}
 			}
-			
 		}
 		
-	}
-	if (brightness)
-	{
-		for (int i = 0; i < buttons.size(); i++)
-		{
-
-			buttons[i]._sprite.setColor(sf::Color(255, 255, 255, 255));
-		}
 	}
 
 	//Run win animation when screan circly go white
@@ -510,47 +489,47 @@ void Level::buttonsUpdate(std::vector<Button>& buttons)
 }
 
 
-//void Level::showTopScore()
-//{
-	//int scoresCount = 1;
-	//std::vector<sf::Text> plaersScore;
-	//sf::Font font;
-	//font.loadFromFile("Smash_It/font/11583.ttf");
+void Level::showTopScore()
+{
+	int scoresCount = 1;
+	std::vector<sf::Text> plaersScore;
+	sf::Font font;
+	font.loadFromFile("Smash_It/font/11583.ttf");
 
 
 
-	//std::set<std::pair<float, std::string>>::iterator it;
+	std::set<std::pair<float, std::string>>::iterator it;
 
-	//for (it = TOP_List.begin(); it != TOP_List.end(); ++it)
+	for (it = TOP_List.begin(); it != TOP_List.end(); ++it)
+	{
+
+		std::string plaerScore_str = std::to_string(scoresCount) + ". " /*+ it->second */ + "       " + std::to_string((float)it->first);
+		sf::Text plaerScore(plaerScore_str, font, 150);
+		plaerScore.setPosition(MainWindow::getWindow().getSize().x / 2 - 400, 200 + 100 * scoresCount);
+		plaersScore.push_back(plaerScore);
+
+		scoresCount++;
+	}
+
+	////Top score screen
+	//bool flag = true;
+	//while (flag)
 	//{
-
-	//	std::string plaerScore_str = std::to_string(scoresCount) + ". " /*+ it->second */ + "       " + std::to_string((float)it->first);
-	//	sf::Text plaerScore(plaerScore_str, font, 150);
-	//	plaerScore.setPosition(MainWindow::getWindow().getSize().x / 2 - 400, 200 + 100 * scoresCount);
-	//	plaersScore.push_back(plaerScore);
-
-	//	scoresCount++;
-	//}
-
-	//////Top score screen
-	////bool flag = true;
-	////while (flag)
-	////{
-	//sf::Text topScore("TOP SCORE", font, 150);
-	//topScore.setPosition(MainWindow::getWindow().getSize().x / 2 - 400, 100);
+	sf::Text topScore("TOP SCORE", font, 150);
+	topScore.setPosition(MainWindow::getWindow().getSize().x / 2 - 400, 100);
 
 
-	//MainWindow::getWindow().clear(sf::Color(0, 0, 0));
-	//MainWindow::getWindow().draw(topScore);
-	//for (int i = 0; i < plaersScore.size(); i++)
-	//{
-	//	MainWindow::getWindow().draw(plaersScore[i]);
-	//}
+	MainWindow::getWindow().clear(sf::Color(0, 0, 0));
+	MainWindow::getWindow().draw(topScore);
+	for (int i = 0; i < plaersScore.size(); i++)
+	{
+		MainWindow::getWindow().draw(plaersScore[i]);
+	}
 
-	////MainWindow::getWindow().display();
+	//MainWindow::getWindow().display();
 
 	//}
-//}
+}
 
 
 void Level::TOP_List_Update()
@@ -580,7 +559,7 @@ void Level::TOP_List_Update()
 	TOPScore_updated = true;
 }
 
-void Level::score_Draw()
+void Level::TOP_List_Draw()
 {
 	name = to_string(Labyrinth::Timer::gameTime);
 
@@ -610,18 +589,13 @@ void Level::score_Draw()
 	text.setPosition(MainWindow::getWindow().getSize().x / 2 - 500, 400);
 
 
-	//MainWindow::getWindow().draw(text);
+	MainWindow::getWindow().draw(text);
 	MainWindow::getWindow().draw(scoreText);
 	//MainWindow::getWindow().draw(gameOverText);
 
 
 
 	
-}
-
-void Level::setBrightness(bool _brightnees)
-{
-	brightness = _brightnees;
 }
 
 

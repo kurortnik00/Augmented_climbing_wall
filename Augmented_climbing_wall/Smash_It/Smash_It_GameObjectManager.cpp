@@ -12,7 +12,6 @@ Smash_It::GameObjectManager::GameObjectManager()
 	logotexture.loadFromImage(image);//передаем в него объект Image (изображения)
 	//создаем объект Sprite(спрайт)
 	logosprite.setTexture(logotexture);//передаём в него объект Texture (текстуры)
-		
 }
 
 Smash_It::GameObjectManager::~GameObjectManager()
