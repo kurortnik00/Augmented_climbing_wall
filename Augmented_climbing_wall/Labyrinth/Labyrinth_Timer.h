@@ -19,6 +19,7 @@ namespace Labyrinth
 		static void reInit();
 		static bool start;
 		static float gameTime;
+		static void setBrightness();
 
 
 	private:

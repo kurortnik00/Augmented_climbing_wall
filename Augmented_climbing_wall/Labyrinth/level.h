@@ -36,9 +36,10 @@ public:
 	bool getWin();
 	void winRadiusIncr();
 	void setWin(bool win);
-	void showTopScore();
+	//void showTopScore();
 	void TOP_List_Update();
-	void TOP_List_Draw();
+	void score_Draw();
+	void setBrightness(bool _brightnees);
 
 	static Labyrinth::Config config;
 	
@@ -123,6 +124,8 @@ private:
 	string _topScore;
 	bool TOPScore_updated;
 	Button restartButton;
+
+	bool brightness;   //if false -> full brightness
 
 	sf::Music music;//создаем объект музыки
 
