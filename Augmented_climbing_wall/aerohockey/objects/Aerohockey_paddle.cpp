@@ -66,7 +66,13 @@ void Paddle::update (BodyTracker & kinect, const Limbs::Type type, bool left, bo
         sf::Vector2f position(0.f, 0.f), velocity(0.f, 0.f);
         if (z > 1)
         {
-            position = kinect.getLimbPointsXY(type, left);
+            position.x = Cliker::kinectTranform_X_Cordinates(kinect.get_arms_legs_timeAveraged_PointsXY((int)type, left).x) +120;
+            position.y = Cliker::kinectTranform_Y_Cordinates(kinect.get_arms_legs_timeAveraged_PointsXY((int)type, left).y);
+			if (type == Limbs::Type::LEFT_FOOT)
+				if (left = true)
+				{
+					position += sf::Vector2f(100, -20);
+				}
             velocity = kinect.getLimbVelocitiesXY(type, left);
         }
         position_ = position;

@@ -274,7 +274,7 @@ void Level::linesUpdate(std::vector<Line>& lines)
 					sf::Vector2f joint_xy = sf::Vector2f(Cliker::getKinectApplication().getAllJoints_timeAveraged_PointsXY(i,0).x, Cliker::getKinectApplication().getAllJoints_timeAveraged_PointsXY(i, 0).y);
 					float joint_z = Cliker::getKinectApplication().getAllJoints_timeAveraged_DepthPoints(i, 0);
 
-					joint_xy.x = Cliker::kinectTranform_X_Cordinates(joint_xy.x); //translate to pixel
+					joint_xy.x = Cliker::kinectTranform_X_Cordinates(joint_xy.x)+100; //translate to pixel
 					joint_xy.y = Cliker::kinectTranform_Y_Cordinates(joint_xy.y);//same
 
 
@@ -402,7 +402,7 @@ void Level::drawLines(sf::RenderWindow & renderWindow, std::vector<Line>& lines)
 		_shape1.setRadius(additionalRadius(i));
 		_shape1.setOutlineThickness(10);
 		_shape1.setOutlineColor(sf::Color(250, 50, 100));
-		float x = Cliker::kinectTranform_X_Cordinates(Cliker::getKinectApplication().getAllJoints_timeAveraged_PointsXY(i, 0).x);
+		float x = Cliker::kinectTranform_X_Cordinates(Cliker::getKinectApplication().getAllJoints_timeAveraged_PointsXY(i, 0).x) + 100;
 		float y = Cliker::kinectTranform_Y_Cordinates(Cliker::getKinectApplication().getAllJoints_timeAveraged_PointsXY(i, 0).y);
 		_shape1.setPosition(sf::Vector2f(x, y) - sf::Vector2f(additionalRadius(i), additionalRadius(i)));
 
@@ -663,7 +663,7 @@ float Level::additionalRadius(int joint)
 		return float(10);
 		break;
 	case Level::HANDRIGHT:
-		return float(300);
+		return float(10);
 		break;
 	case Level::HIPLEFT:
 		return float(10);

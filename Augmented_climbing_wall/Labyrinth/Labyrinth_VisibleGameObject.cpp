@@ -8,7 +8,7 @@ Labyrinth::VisibleGameObject::VisibleGameObject()
 	_finished = false;
 	_start = false;
 	_unDraw = false;
-	_kinectControl = false;
+	_kinectControl = true;
 	_win = false;
 }
 

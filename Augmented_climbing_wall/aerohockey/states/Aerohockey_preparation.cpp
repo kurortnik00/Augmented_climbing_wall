@@ -40,7 +40,7 @@ void StatePreparation::render()
 
 States::Type StatePreparation::switchTo()
 {
-    if (world.left_ready.isActivated() && world.right_ready.isActivated())
+    if (world.left_ready.isActivated() && world.left_ready.isActivated())
     {
         return States::Type::Game;
     }

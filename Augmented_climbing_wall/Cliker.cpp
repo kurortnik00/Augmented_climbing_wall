@@ -20,7 +20,7 @@ bool Cliker::getClik(sf::Vector2f center, float radius, bool buttonPress)
 	sf::Event event;
 	MainWindow::getWindow().pollEvent(event);
 
-	tracking_Type tP = mainPointTimeAvarage;
+	tracking_Type tP = mainPointAvarage;
 
 
 	//_kinectControl set true or false in Game Init
@@ -96,7 +96,7 @@ bool Cliker::Update(sf::Event& event, sf::Vector2f center)
 
 bool Cliker::kinectUpdateActions(int joint_Count, tracking_Type tP, sf::Vector2f center, float radius)
 {
-	kinectApplication.Update(true);
+	kinectApplication.Update(false);
 	for (int i = 0; i < joint_Count; i++) {
 
 		switch (tP)
@@ -124,6 +124,39 @@ bool Cliker::kinectUpdateActions(int joint_Count, tracking_Type tP, sf::Vector2f
 		joint_xy.x = kinectTranform_X_Cordinates(joint_xy.x); //translate to pixel
 		joint_xy.y = kinectTranform_Y_Cordinates(joint_xy.y); //same
 
+		//some podgonian make left points lefter and right points righter
+		switch (tP)
+		{
+		case Cliker::allJoints:
+			break;
+		case Cliker::mainPointAvarage:
+			if (i == (int)Limbs::Type::RIGHT_FOOT || i == (int)Limbs::Type::RIGHT_HAND)
+			{
+				//joint_xy -= sf::Vector2f(20, 20);
+			}
+			else
+			{
+				joint_xy += sf::Vector2f(120, 0);
+				joint_xy.x = joint_xy.x * 1.03;
+				joint_xy.y = joint_xy.y * 1.15;
+			}
+			break;
+		case Cliker::allJointsTimeAvarage:
+			break;
+		case Cliker::mainPointTimeAvarage:
+			if (i == (int)Limbs::Type::RIGHT_HAND || i == (int)Limbs::Type::RIGHT_FOOT)
+			{
+				joint_xy -= sf::Vector2f(0, 0);
+			}
+			else
+			{
+				joint_xy += sf::Vector2f(120, 0);
+				joint_xy.x = joint_xy.x * 1.03;
+				joint_xy.y = joint_xy.y * 1.15;
+			}
+		default:
+			break;
+		}
 
 
 		if (joint_z >= _trashHold) {
@@ -139,16 +172,18 @@ bool Cliker::kinectUpdateActions(int joint_Count, tracking_Type tP, sf::Vector2f
 	return false;
 }
 
+
+
 float Cliker::kinectTranform_X_Cordinates(float x)
 {
 	//return ((1920 - x * 1920 / 640) - 510) * 4.9 / 2.4;
-	return (x - 510) * 4.9 / 2.4;
+	return (x - 350) * 3.9 / 2.55;
 }
 
 float Cliker::kinectTranform_Y_Cordinates(float y)
 {
 	//return (y * 1200 / 280 - 430) * 4 / 1.4;
-	return (y - 430) * 4 / 1.4;
+	return (y - 310) * 3.6 / 1.55;
 }
 
 float Cliker::dist2(sf::Vector2f const& p1, sf::Vector2f const& p2)
@@ -156,7 +191,7 @@ float Cliker::dist2(sf::Vector2f const& p1, sf::Vector2f const& p2)
 	return (p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y) * (p1.y - p2.y);
 }
 
-bool Cliker::_kinectControl = false;
+bool Cliker::_kinectControl = true;
 float Cliker::_trashHold = 1;
 BodyTracker Cliker::kinectApplication;
 sf::Vector2f Cliker::joint_xy;

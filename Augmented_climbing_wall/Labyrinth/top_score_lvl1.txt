@@ -1,7 +1,7 @@
 0.320000 3.448000ffffffff
 0.590000 0.873000
 0.610000 ff
-0.621000 0.593000
+0.620000 0.593000
 0.830000 0.551000ffffffffffffffff
 0.870000 
 0.920000 2.405000ffffffffffff
@@ -16,6 +16,8 @@
 3.010000 1.502000ffffffffffffffffffffffffffff
 3.100000 2.501000ffffffffffffffffffffffff
 3.440000 0.929000ffffffffff
+3.500000 
+5.370000 
 6.580000 Test
 6.580000 Testff
 6.580000 Testffff
@@ -32,3 +34,6 @@
 6.580000 Testffffffffffffffffffffffffff
 6.580000 Testffffffffffffffffffffffffffff
 6.580000 Testffffffffffffffffffffffffffffff
+16.000000 3.509000
+25.900000 16.004000
+26.537001 5.379000

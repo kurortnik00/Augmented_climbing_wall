@@ -501,7 +501,7 @@ sf::Vector2f BodyTracker::get_arms_legs_timeAveraged_PointsXY(int limb, /*tempor
 	}
 
 	limbs_buffer.push_back(limbPoints);
-	if (limbs_buffer.size() > 2000) limbs_buffer.erase(limbs_buffer.begin());
+	if (limbs_buffer.size() > 500) limbs_buffer.erase(limbs_buffer.begin());
 	int flag = 0;
 	for (auto& i : limbs_buffer)
 	{
