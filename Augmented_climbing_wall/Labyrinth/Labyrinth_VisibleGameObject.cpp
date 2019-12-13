@@ -182,3 +182,7 @@ void Labyrinth::VisibleGameObject::showTopScore()
 {
 
 }
+void Labyrinth::VisibleGameObject::setBrightness(bool _brightnees)
+{
+
+}

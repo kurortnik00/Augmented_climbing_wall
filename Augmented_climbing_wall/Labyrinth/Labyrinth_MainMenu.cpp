@@ -24,22 +24,17 @@ void Labyrinth::TopScore::Show(std::set<std::pair<float, std::string>>& TOP_List
 		scoresCount++;
 	}
 
-	////Top score screen
-	//bool flag = true;
-	//while (flag)
-	//{
-		sf::Text topScore("TOP SCORE", font, 150);
-		topScore.setPosition(MainWindow::getWindow().getSize().x / 2 - 400, 100);
+
+	sf::Text topScore("TOP SCORE", font, 150);
+	topScore.setPosition(MainWindow::getWindow().getSize().x / 2 - 400, 100);
 
 
-		MainWindow::getWindow().clear(sf::Color(0, 0, 0));
-		MainWindow::getWindow().draw(topScore);
-		for (int i = 0; i < plaersScore.size(); i++)
-		{
-			MainWindow::getWindow().draw(plaersScore[i]);
-		}
+	MainWindow::getWindow().clear(sf::Color(0, 0, 0));
+	MainWindow::getWindow().draw(topScore);
+	for (int i = 0; i < plaersScore.size(); i++)
+	{
+		MainWindow::getWindow().draw(plaersScore[i]);
+	}
+	MainWindow::getWindow().display();
 
-		MainWindow::getWindow().display();
-
-	//}
 }

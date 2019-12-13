@@ -70,28 +70,18 @@ void Labyrinth::GameObjectManager::UpdateAll(sf::Event& event)
 		itr->second->Update(event);
 
 		if (itr->second->getStart()) {
-			//Get("timer1")->setStart(true);
 			Labyrinth::Timer::start = true;
-			//Get("winButton")->setStart(true);
-			//Get("circleLvL")->setStart(true);
 			Get("level")->setStart(true);
 		}
 
 
 		if (itr->second->getFinished() && !Labyrinth::Timer::getFinished()) {   ///Lose the levl
 			Labyrinth::Timer::setFinished(true);
-			//Get("winButton")->setFinished(true);
-
-			
 		}
 
 		if (itr->second->getWin() && !Labyrinth::Timer::getFinished()) {		//Win the LVL
 			
 			Labyrinth::Timer::setFinished(true);
-			//Get("winButton")->setFinished(true);
-			//Get("circleLvL")->win(Get("winButton")->GetPosition());
-			//Get("level")->win(Get("winButton")->GetPosition());
-			
 		}
 		itr++;
 	}
