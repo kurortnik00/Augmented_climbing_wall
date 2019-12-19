@@ -65,6 +65,30 @@ void CircleLvL::Draw(sf::RenderWindow & renderWindow)
 		}
 		Level::drawLines(renderWindow, lines);
 		Level::drawButtons(renderWindow, buttons);
+
+
+		/*sf::CircleShape _shape1;
+		float radius = 30;
+		_shape1.setFillColor(sf::Color(0, 0, 0));
+		_shape1.setRadius(radius);
+		_shape1.setOutlineThickness(10);
+		_shape1.setOutlineColor(sf::Color(250, 50, 100));
+		float x = Cliker::kinectTranform_X_Cordinates(Cliker::getKinectApplication().getLimbPointsXY(Limbs::Type::RIGHT_HAND, true).x)+50;
+		float y = Cliker::kinectTranform_Y_Cordinates(Cliker::getKinectApplication().getLimbPointsXY(Limbs::Type::RIGHT_HAND, true).y);
+		_shape1.setPosition(sf::Vector2f(x, y));
+
+		sf::CircleShape _shape2;
+		_shape2.setFillColor(sf::Color(0, 0, 0));
+		_shape2.setRadius(radius);
+		_shape2.setOutlineThickness(10);
+		_shape2.setOutlineColor(sf::Color(250, 150, 100));
+		x = Cliker::kinectTranform_X_Cordinates(Cliker::getKinectApplication().getLimbPointsXY(Limbs::Type::LEFT_HAND, true).x)+60;
+		y = Cliker::kinectTranform_Y_Cordinates(Cliker::getKinectApplication().getLimbPointsXY(Limbs::Type::LEFT_HAND, true).y);
+		_shape2.setPosition(sf::Vector2f(x, y));
+
+		MainWindow::getWindow().draw(_shape1);
+		MainWindow::getWindow().draw(_shape2);*/
+
 	}
 	//drow the end of the game 
 	//last animation and score if win
@@ -155,13 +179,37 @@ void CircleLvL::Update(sf::Event& event) {
 
 		//canculate and Update the iteraction with the plaer
 		//responsible of losing state
-		//win check in "winButton"
 		if (!VisibleGameObject::getKinectControll()) {
 			if ((dist2(sf::Vector2f(sf::Mouse::getPosition(MainWindow::getWindow()).x, sf::Mouse::getPosition(MainWindow::getWindow()).y), _center) > _radius*_radius))
 			{
 				Level::lose(sf::Vector2f(sf::Mouse::getPosition(MainWindow::getWindow()).x, sf::Mouse::getPosition(MainWindow::getWindow()).y));
+			}		
+		}
+		else
+		{
+			for (int i = 0; i < 4; i++)
+			{
+				float x = Cliker::kinectTranform_X_Cordinates(Cliker::getKinectApplication().getLimbPointsXY(static_cast<Limbs::Type>(i), true).x);
+				float y = Cliker::kinectTranform_X_Cordinates(Cliker::getKinectApplication().getLimbPointsXY(static_cast<Limbs::Type>(i), true).y); 
+
+
+				if (i == (int)Limbs::Type::RIGHT_HAND || i == (int)Limbs::Type::RIGHT_FOOT)
+				{
+					x += 50;
+					y -= sf::Vector2f(0, 0).y;
+				}
+				else
+				{
+					x += 60;
+					//x = x * 1.1;
+					//y = y * 1.15;
+				}
+
+				if (dist2(sf::Vector2f(x, y), _center) > _radius* _radius*1.5)
+				{
+					Level::lose(sf::Vector2f(x, y));
+				}
 			}
-			
 		}
 		
 	}

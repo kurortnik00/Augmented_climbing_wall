@@ -13,7 +13,7 @@ Smash_It::MainMenu::MenuItem::MenuItem(sf::Vector2f position, MenuResult action)
 	_texture.loadFromImage(image);
 	_sprite.setTexture(_texture);
 	_sprite.setPosition(_position);
-	_sprite.setColor(sf::Color(255, 255, 255, 100));	
+	//_sprite.setColor(sf::Color(255, 255, 255, 100));	
 	animationFrame = 0;
 	_radius = 150;
 	
@@ -25,12 +25,12 @@ Smash_It::MainMenu::MenuItem::MenuItem(sf::Vector2f position, MenuResult action)
 	_stringTexture.loadFromImage(image);
 	_stringSprite.setTexture(_stringTexture);
 	_stringSprite.setPosition(_center + sf::Vector2f(-30, 150));
-	_stringSprite.setColor(sf::Color(255, 255, 255, 100));
+	//_stringSprite.setColor(sf::Color(255, 255, 255, 100));
 }
 
 Smash_It::MainMenu::MenuResult Smash_It::MainMenu::Show(sf::RenderWindow& window, std::set<std::pair<float, std::string>>& TOP_List, myServer &server)
 {
-	MainMenu::velocity = sf::Vector2f(0, 0.01);
+	MainMenu::velocity = sf::Vector2f(0, 0.02);
 	//Load menu image from file
 	sf::Image image;
 	image.loadFromFile("Smash_It/images/back_ground_1.png");
@@ -38,7 +38,7 @@ Smash_It::MainMenu::MenuResult Smash_It::MainMenu::Show(sf::RenderWindow& window
 	texture.loadFromImage(image);//передаем в него объект Image (изображения)
 	//создаем объект Sprite(спрайт)
 	sprite.setTexture(texture);//передаём в него объект Texture (текстуры)
-	sprite.setColor(sf::Color(255, 255, 255, 100));
+	//sprite.setColor(sf::Color(255, 255, 255, 100));
 
 
 
@@ -46,10 +46,12 @@ Smash_It::MainMenu::MenuResult Smash_It::MainMenu::Show(sf::RenderWindow& window
 	//Play menu item coordinates
 	MenuItem playButton(sf::Vector2f(700,100), Play);
 	std::ostringstream play_buttonStr;
-	play_buttonStr << "Start";
-	playButton.text.setString(play_buttonStr.str());
+	//play_buttonStr << "Играть";
+	//playButton.text.setString(play_buttonStr.str());
+	playButton.text.setCharacterSize(85);
+	playButton.text.setString(L"Играть");
 	playButton.text.setPosition(playButton._center - sf::Vector2f(130, 80));
-	playButton.text.setFillColor(sf::Color(255, 255, 255, 100));
+	//playButton.text.setFillColor(sf::Color(255, 255, 255, 100));
 
 	//Exit menu item coordinates
 	//MenuItem exitButton(sf::Vector2f(1750, -200), Exit);
@@ -143,7 +145,7 @@ void Smash_It::MainMenu::Draw(sf::RenderWindow& window)
 	}
 
 
-	sf::CircleShape _shape1;
+	/*sf::CircleShape _shape1;
 	float _radius = 30;
 	_shape1.setFillColor(sf::Color(0, 0, 0));
 	_shape1.setRadius(_radius);
@@ -164,7 +166,7 @@ void Smash_It::MainMenu::Draw(sf::RenderWindow& window)
 
 
 	window.draw(_shape1);
-	window.draw(_shape2);
+	window.draw(_shape2);*/
 
 	window.display();
 }
@@ -237,17 +239,17 @@ Smash_It::MainMenu::MenuResult  Smash_It::MainMenu::GetMenuResponse(sf::RenderWi
 				if (data[i] == 4) return Exit;  //4 - BACK button presed (magick number from client)
 				if (data[i] == 5) return Score_board;
 				
-				if (data[i] == 1) //PLAY button presed (make full brightness)
-				{
-					std::list<MenuItem>::iterator it;
-					for (it = _menuItems.begin(); it != _menuItems.end(); it++)
-					{
-						it->_sprite.setColor(sf::Color(255, 255, 255, 255));
-						it->_stringSprite.setColor(sf::Color(255, 255, 255, 255));
-						it->text.setFillColor(sf::Color(255, 255, 255, 255));
-					}
-					sprite.setColor(sf::Color(255, 255, 255, 255));
-				}
+				//if (data[i] == 1) //PLAY button presed (make full brightness)
+				//{
+				//	std::list<MenuItem>::iterator it;
+				//	for (it = _menuItems.begin(); it != _menuItems.end(); it++)
+				//	{
+				//		it->_sprite.setColor(sf::Color(255, 255, 255, 255));
+				//		it->_stringSprite.setColor(sf::Color(255, 255, 255, 255));
+				//		it->text.setFillColor(sf::Color(255, 255, 255, 255));
+				//	}
+				//	sprite.setColor(sf::Color(255, 255, 255, 255));
+				//}
 				serverDelayClock.restart();
 			}
 		}

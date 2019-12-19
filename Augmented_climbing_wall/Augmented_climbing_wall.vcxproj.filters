@@ -19,9 +19,6 @@
     <Filter Include="Файлы заголовков\Smash_It">
       <UniqueIdentifier>{c7e87eb6-96e7-4b0e-abe6-83aa2be2a20d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Исходные файлы\Time_Climb">
-      <UniqueIdentifier>{f5e9afb0-4ad5-4fa1-a3c5-1b6aeea491c8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Файлы заголовков\Time_Climb">
       <UniqueIdentifier>{fe94e244-70a0-4f0b-9650-e7b5bffb4196}</UniqueIdentifier>
     </Filter>
@@ -78,6 +75,9 @@
     </Filter>
     <Filter Include="Исходные файлы\Territory\objects">
       <UniqueIdentifier>{d1630612-b4da-4f8f-971e-7c448b1e6702}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Time_Climb">
+      <UniqueIdentifier>{f5e9afb0-4ad5-4fa1-a3c5-1b6aeea491c8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -145,9 +145,6 @@
       <Filter>Исходные файлы\Labyrinth</Filter>
     </ClCompile>
     <ClCompile Include="Labyrinth\level_3.cpp">
-      <Filter>Исходные файлы\Labyrinth</Filter>
-    </ClCompile>
-    <ClCompile Include="Labyrinth\level_4.cpp">
       <Filter>Исходные файлы\Labyrinth</Filter>
     </ClCompile>
     <ClCompile Include="Labyrinth\Labyrinth_Game.cpp">
@@ -254,6 +251,9 @@
     </ClCompile>
     <ClCompile Include="util.cpp">
       <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Labyrinth\level_4.cpp">
+      <Filter>Исходные файлы\Labyrinth</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -9,10 +9,10 @@ masege format from client:
 	4 - ready to play
 2nd byte - the current game:
 	0 - Smash_It
-	1 - Time_Climb
-	2 - Labyrinth
-	3 - Aerohockey
-	4 - Territory
+//	1 - Time_Climb
+	1 - Labyrinth
+	2 - Aerohockey
+	//4 - Territory
 3rd byte - the action button pressed
 	0 - Nothing
 	1 - play_GameSelection

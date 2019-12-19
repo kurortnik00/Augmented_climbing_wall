@@ -25,22 +25,23 @@ Scoreboard::Scoreboard(Player * left, Player * right, float gameDuration)
         right_score.setFont(font_);
     }
 
-    left_score_border.setPosition(Config::screen_width / 2 - Config::timer_width / 2 - Config::score_width, 
-        Config::screen_height - Config::board_height);
+	left_score_border.setPosition(Config::screen_width / 2 - Config::timer_width / 2 - Config::score_width, 0);
+   //     Config::screen_height - Config::board_height);
     left_score_border.setSize(sf::Vector2f(Config::score_width, Config::board_height));
     left_score_border.setFillColor(Config::red);
     left_score_border.setOutlineColor(sf::Color::White);
     left_score_border.setOutlineThickness(-2.f);
 
-    right_score_border.setPosition(Config::screen_width / 2 + Config::timer_width / 2, 
-        Config::screen_height - Config::board_height);
-    right_score_border.setSize(sf::Vector2f(Config::score_width, Config::board_height));
+	right_score_border.setPosition(Config::screen_width / 2 + Config::timer_width / 2, 0);
+    //    Config::screen_height - Config::board_height);
+
+	right_score_border.setSize(sf::Vector2f(Config::score_width,Config::board_height));
     right_score_border.setFillColor(Config::green);
     right_score_border.setOutlineColor(sf::Color::White);
     right_score_border.setOutlineThickness(-2.f);
 
-    time_border.setPosition(Config::screen_width / 2 - Config::timer_width / 2, 
-        Config::screen_height - Config::board_height);
+	time_border.setPosition(Config::screen_width / 2 - Config::timer_width / 2, 0);
+   //     Config::screen_height - Config::board_height);
     time_border.setSize(sf::Vector2f(Config::timer_width, Config::board_height));
     time_border.setFillColor(sf::Color::Transparent);
     time_border.setOutlineColor(sf::Color::White);

@@ -16,9 +16,9 @@ void Labyrinth::Timer::Load(std::string filename) {
 	font.loadFromFile(filename);
 	gameTimeClock.restart();
 	text.setStyle(sf::Text::Bold);
-	text.setPosition(50, 400);
-	text.setCharacterSize(150);
-	text.setFillColor(sf::Color(255, 255, 255, 100));
+	text.setPosition(900, -30);
+	text.setCharacterSize(100);
+	text.setFillColor(sf::Color(255, 255, 255));
 	finished = false;
 	finishedTime = 0;
 }
@@ -67,13 +67,13 @@ bool Labyrinth::Timer::getFinished() {
 }
 
 void Labyrinth::Timer::reInit() {
-	text.setCharacterSize(150);
+	text.setCharacterSize(100);
 	gameTimeClock.restart();
 	text.setStyle(sf::Text::Bold);
-	text.setPosition(50, 400);
+	text.setPosition(900, -30);
 	finished = false;
 	start = false;
-	text.setFillColor(sf::Color(255, 255, 255, 100));
+	//text.setFillColor(sf::Color(255, 255, 255, 100));
 }
 
 void Labyrinth::Timer::setBrightness()

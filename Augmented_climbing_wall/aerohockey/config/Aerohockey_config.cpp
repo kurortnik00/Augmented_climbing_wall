@@ -9,11 +9,14 @@ namespace Aerohockey
 		float fps = 120.f;
 		float screen_width = MainWindow::SCREEN_WIDTH;
 		float screen_height = MainWindow::SCREEN_HEIGHT;
-		bool kinectControl = false;
+		//float screen_width = 600;
+		//float screen_height = 400;
+		bool kinectControl = true;
 		sf::Uint32 window_mode = sf::Style::Fullscreen;
+		//sf::Uint32 window_mode = sf::Style::None;
 
 		// Game settings
-		unsigned max_score = 5;
+		unsigned max_score = 10;
 		float game_length = 180.f;
 		float game_start_delay = 2.f;
 		float result_demonstration_time = 5.f;

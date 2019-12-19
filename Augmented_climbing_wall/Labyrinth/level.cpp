@@ -5,7 +5,7 @@
 
 Level::Level(std::string topScore)
 	:_text("", _font, 250),
-	restartButton(sf::Vector2f(1200, 200), 500*0.4, "Smash_It/images/restart.png", sf::IntRect(0, 0, 1000, 995))
+	restartButton(sf::Vector2f(1000, 350), 500*0.15, "Smash_It/images/restart.png", sf::IntRect(0, 0, 1000, 995))
 	
 {
 	_winShapeRadius = 10;								//the start shape of win animation 
@@ -43,7 +43,7 @@ Level::Level(std::string topScore)
 	reInit_flag = false;
 	win_lose_Draw_first = true;
 
-	restartButton._sprite.setScale(0.4, 0.4);
+	restartButton._sprite.setScale(0.15, 0.15);
 	restartButton._unDrowable = true;
 
 	
@@ -172,15 +172,15 @@ Level::Line::Line(sf::Vector2f startPoint, float angl, float length)
 
 
 	circleRadius = 40;
-	circleShape1.setFillColor(sf::Color(0, 0, 0));
+	//circleShape1.setFillColor(sf::Color(0, 0, 0));
 	circleShape1.setRadius(circleRadius);
-	circleShape1.setFillColor(sf::Color(2, 188, 255, 100));
+	circleShape1.setFillColor(sf::Color(2, 188, 255));
 	circleShape1.setPosition(sf::Vector2f(_endPoint));
 	circleShape1.setOrigin(circleRadius - 8, circleRadius+8);
 
-	circleShape2.setFillColor(sf::Color(0, 0, 0));
+	//circleShape2.setFillColor(sf::Color(0, 0, 0));
 	circleShape2.setRadius(circleRadius);
-	circleShape2.setFillColor(sf::Color(2, 188, 255, 100));
+	circleShape2.setFillColor(sf::Color(2, 188, 255));
 	circleShape2.setPosition(sf::Vector2f(_startPoint));
 	circleShape2.setOrigin(circleRadius, circleRadius-8);
 }
@@ -194,7 +194,7 @@ Level::Button::Button(sf::Vector2f position, float radius, std::string filename,
 	_sprite.setTexture(_texture);
 	_sprite.setTextureRect(textureRect);
 	_sprite.setPosition(_position);
-	_sprite.setColor(sf::Color(255, 255, 255, 100));
+	//_sprite.setColor(sf::Color(255, 255, 255, 100));
 
 
 	_center = sf::Vector2f(_position.x + _radius, _position.y + _radius);
@@ -220,7 +220,7 @@ void Level::setSpritesArr(Line& line, sf::Texture texture)
 		line.sprite.setTexture(texture);
 		line.sprite.setPosition(line._startPoint);		//init the start position of all sprites
 		line.sprite.setScale(line.size.x / 210, 1);	
-		line.sprite.setColor(sf::Color(255, 255, 255, 100));
+		//line.sprite.setColor(sf::Color(255, 255, 255, 100));
 }
 
 
@@ -242,12 +242,12 @@ void Level::linesUpdate(std::vector<Line>& lines)
 		lines[i].circleShape2.setPosition(sf::Vector2f(lines[i]._startPoint));
 
 		//make lvl full britnes
-		if (brightness)
+		/*if (brightness)
 		{
 			lines[i].sprite.setColor(sf::Color(255, 255, 255, 255));
 			lines[i].circleShape1.setFillColor(sf::Color(2, 188, 255, 255));
 			lines[i].circleShape2.setFillColor(sf::Color(2, 188, 255, 255));
-		}
+		}*/
 	}
 
 
@@ -261,8 +261,6 @@ void Level::linesUpdate(std::vector<Line>& lines)
 
 				{
 					if (!lines[i]._unActive) Level::lose(sf::Vector2f(sf::Mouse::getPosition(MainWindow::getWindow()).x, sf::Mouse::getPosition(MainWindow::getWindow()).y));
-
-
 
 				}
 			}
@@ -284,7 +282,7 @@ void Level::linesUpdate(std::vector<Line>& lines)
 								&& (dist2(sf::Vector2f(joint_xy.x, joint_xy.y), lines[j]._center) < lines[j].size.x * lines[j].size.x / 4)))
 								
 							{
-								Level::lose(sf::Vector2f(joint_xy.x, joint_xy.y));
+								if (!lines[j]._unActive) Level::lose(sf::Vector2f(joint_xy.x, joint_xy.y));
 							}
 						//}
 					}
@@ -366,9 +364,10 @@ void Level::win_lose_Draw(sf::RenderWindow & renderWindow, std::vector<Line>& li
 	{
 		MainWindow::getWindow().draw(restartButton._sprite);
 
-		if (Cliker::getClik(restartButton._center, restartButton._radius, true))
+		if (Cliker::getClik(restartButton._center, restartButton._radius, false))
 		{
 			reInit_flag = true;
+			renderWindow.clear(sf::Color(0, 0, 0));
 		}
 	}
 }
@@ -394,7 +393,7 @@ void Level::drawLines(sf::RenderWindow & renderWindow, std::vector<Line>& lines)
 
 
 	//kinect joints shapes
-	for (int i = 0; i < JointType_Count; i++)
+	/*for (int i = 0; i < JointType_Count; i++)
 	{
 		sf::CircleShape _shape1;
 		
@@ -416,7 +415,7 @@ void Level::drawLines(sf::RenderWindow & renderWindow, std::vector<Line>& lines)
 	}
 
 
-	shape_Vec.clear();
+	shape_Vec.clear();*/
 
 
 	//std::cout << Game::getKinectApplication().arms_legs_timeAveraged_DepthPoints(CBodyBasics::LEFT_ARM) << "   " << Game::getKinectApplication().arms_legs_timeAveraged_DepthPoints(CBodyBasics::RIGHT_ARM) << "\n";
@@ -428,6 +427,27 @@ void Level::drawButtons(sf::RenderWindow & renderWindow, std::vector<Button>& bu
 	for (int i = 0; i < buttons.size(); i++) {
 		if (!buttons[i]._unDrowable) renderWindow.draw(buttons[i]._sprite);
 	}
+	/*sf::CircleShape _shape1;
+	float radius = 30;
+	_shape1.setFillColor(sf::Color(0, 0, 0));
+	_shape1.setRadius(radius);
+	_shape1.setOutlineThickness(10);
+	_shape1.setOutlineColor(sf::Color(250, 50, 100));
+	float x = Cliker::kinectTranform_X_Cordinates(Cliker::getKinectApplication().getLimbPointsXY(Limbs::Type::RIGHT_HAND, true).x) + 50;
+	float y = Cliker::kinectTranform_Y_Cordinates(Cliker::getKinectApplication().getLimbPointsXY(Limbs::Type::RIGHT_HAND, true).y);
+	_shape1.setPosition(sf::Vector2f(x, y));
+
+	sf::CircleShape _shape2;
+	_shape2.setFillColor(sf::Color(0, 0, 0));
+	_shape2.setRadius(radius);
+	_shape2.setOutlineThickness(10);
+	_shape2.setOutlineColor(sf::Color(250, 150, 100));
+	x = Cliker::kinectTranform_X_Cordinates(Cliker::getKinectApplication().getLimbPointsXY(Limbs::Type::LEFT_HAND, true).x) + 60;
+	y = Cliker::kinectTranform_Y_Cordinates(Cliker::getKinectApplication().getLimbPointsXY(Limbs::Type::LEFT_HAND, true).y);
+	_shape2.setPosition(sf::Vector2f(x, y));*/
+
+	//MainWindow::getWindow().draw(_shape1);
+	//MainWindow::getWindow().draw(_shape2);
 
 }
 
@@ -484,14 +504,14 @@ void Level::buttonsUpdate(std::vector<Button>& buttons)
 		}
 		
 	}
-	if (brightness)
+	/*if (brightness)
 	{
 		for (int i = 0; i < buttons.size(); i++)
 		{
 
 			buttons[i]._sprite.setColor(sf::Color(255, 255, 255, 255));
 		}
-	}
+	}*/
 
 	//Run win animation when screan circly go white
 	//In future better do with variable that depends from screeen values
@@ -585,37 +605,26 @@ void Level::score_Draw()
 	name = to_string(Labyrinth::Timer::gameTime);
 
 	std::string scoreString = "Time: ";
-
-	//std::stringstream stream;
 	std::ostringstream timerStr;
-	//sf::Text text;
-	//float gameTime = Labyrinth::Timer::GetTime().asMilliseconds();
 	timerStr << Labyrinth::Timer::gameTime;
-	//text.setString(timerStr.str());
-	//stream << std::fixed << std::setprecision(0) << text;
 	scoreString += timerStr.str();
 
 	
 	
-	sf::Font font;
-	font.loadFromFile("Labyrinth/font/11583.ttf");
+	//sf::Font font;
+	//font.loadFromFile("Labyrinth/font/11583.ttf");
 
 	//sf::Text gameOverText("Game Over", font, 150);
 	//gameOverText.setPosition(MainWindow::getWindow().getSize().x / 2 - 600, 100);
 
-	sf::Text scoreText(scoreString, font, 150);
-	scoreText.setPosition(MainWindow::getWindow().getSize().x / 2 - 600, 450);
+	sf::Text scoreText(scoreString, _font, 150);
+	scoreText.setPosition(MainWindow::getWindow().getSize().x / 2 - 235, 450);
 
-	sf::Text text(name, font, 150);
+	sf::Text text(name, _font, 150);
 	text.setPosition(MainWindow::getWindow().getSize().x / 2 - 500, 400);
 
-
-	//MainWindow::getWindow().draw(text);
 	MainWindow::getWindow().draw(scoreText);
 	//MainWindow::getWindow().draw(gameOverText);
-
-
-
 	
 }
 

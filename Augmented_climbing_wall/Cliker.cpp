@@ -4,7 +4,7 @@
 void Cliker::Init()
 {
 	kinectApplication.Run();
-	_trashHold = 1;
+	_trashHold = 1.5;
  }
 
 BodyTracker& Cliker::getKinectApplication()
@@ -96,6 +96,7 @@ bool Cliker::Update(sf::Event& event, sf::Vector2f center)
 
 bool Cliker::kinectUpdateActions(int joint_Count, tracking_Type tP, sf::Vector2f center, float radius)
 {
+	sf::Vector2f joint_xy_2;
 	kinectApplication.Update(false);
 	for (int i = 0; i < joint_Count; i++) {
 
@@ -107,6 +108,7 @@ bool Cliker::kinectUpdateActions(int joint_Count, tracking_Type tP, sf::Vector2f
 			break;
 		case Cliker::mainPointAvarage:
 			joint_xy = kinectApplication.getLimbPointsXY(static_cast<Limbs::Type>(i), true);
+			joint_xy_2 = kinectApplication.getLimbPointsXY(static_cast<Limbs::Type>(i), false);
 			joint_z = kinectApplication.getLimbDepthPoints(static_cast<Limbs::Type>(i), true);
 			break;
 		case Cliker::allJointsTimeAvarage:
@@ -123,6 +125,8 @@ bool Cliker::kinectUpdateActions(int joint_Count, tracking_Type tP, sf::Vector2f
 
 		joint_xy.x = kinectTranform_X_Cordinates(joint_xy.x); //translate to pixel
 		joint_xy.y = kinectTranform_Y_Cordinates(joint_xy.y); //same
+		joint_xy_2.x = kinectTranform_X_Cordinates(joint_xy.x); //same
+		joint_xy_2.y = kinectTranform_Y_Cordinates(joint_xy.y); //same
 
 		//some podgonian make left points lefter and right points righter
 		switch (tP)
@@ -139,6 +143,9 @@ bool Cliker::kinectUpdateActions(int joint_Count, tracking_Type tP, sf::Vector2f
 				joint_xy += sf::Vector2f(120, 0);
 				joint_xy.x = joint_xy.x * 1.03;
 				joint_xy.y = joint_xy.y * 1.15;
+				joint_xy_2 += sf::Vector2f(120, 0);
+				joint_xy_2.x = joint_xy.x * 1.03;
+				joint_xy_2.y = joint_xy.y * 1.15;
 			}
 			break;
 		case Cliker::allJointsTimeAvarage:
@@ -146,13 +153,17 @@ bool Cliker::kinectUpdateActions(int joint_Count, tracking_Type tP, sf::Vector2f
 		case Cliker::mainPointTimeAvarage:
 			if (i == (int)Limbs::Type::RIGHT_HAND || i == (int)Limbs::Type::RIGHT_FOOT)
 			{
-				joint_xy -= sf::Vector2f(0, 0);
+				joint_xy_2 -= sf::Vector2f(0, 0);
 			}
 			else
 			{
-				joint_xy += sf::Vector2f(120, 0);
-				joint_xy.x = joint_xy.x * 1.03;
+				joint_xy += sf::Vector2f(160, 0);
+				joint_xy.x = joint_xy.x * 1.1;
 				joint_xy.y = joint_xy.y * 1.15;
+				joint_xy_2 += sf::Vector2f(160, 0);
+				joint_xy_2.x = joint_xy.x * 1.1;
+				joint_xy_2.y = joint_xy.y * 1.15;
+
 			}
 		default:
 			break;
@@ -163,6 +174,11 @@ bool Cliker::kinectUpdateActions(int joint_Count, tracking_Type tP, sf::Vector2f
 			if (delayClock.getElapsedTime().asMilliseconds() > 0) {						//need instad (event.type == sf::Event::MouseButtonPressed) to avoid mass click to target
 				if ((dist2(center, joint_xy) < radius * radius))
 				{	
+					delayClock.restart();
+					return true;
+				}
+				if ((dist2(center, joint_xy_2) < radius * radius))
+				{
 					delayClock.restart();
 					return true;
 				}
@@ -177,13 +193,13 @@ bool Cliker::kinectUpdateActions(int joint_Count, tracking_Type tP, sf::Vector2f
 float Cliker::kinectTranform_X_Cordinates(float x)
 {
 	//return ((1920 - x * 1920 / 640) - 510) * 4.9 / 2.4;
-	return (x - 350) * 3.9 / 2.55;
+	return (x - 360) * 3.9 / 2.55;
 }
 
 float Cliker::kinectTranform_Y_Cordinates(float y)
 {
 	//return (y * 1200 / 280 - 430) * 4 / 1.4;
-	return (y - 310) * 3.6 / 1.55;
+	return (y - 280) * 3.7 / 1.55;
 }
 
 float Cliker::dist2(sf::Vector2f const& p1, sf::Vector2f const& p2)

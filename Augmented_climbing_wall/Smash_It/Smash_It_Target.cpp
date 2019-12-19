@@ -4,7 +4,7 @@
 
 
 Smash_It::Target::Target()
-	:constVelocity(0.8, 1)
+	:constVelocity(1.5, 2)
 {
 	Load("Smash_It/images/balloon_green.png");
 	assert(IsLoaded());
@@ -76,44 +76,44 @@ void Smash_It::Target::Update(sf::Event& event) {
 
 void Smash_It::Target::Draw(sf::RenderWindow & window)
 {
-	sf::CircleShape _shape1;
-	float _radius = 30;
-	_shape1.setFillColor(sf::Color(0, 0, 0));
-	_shape1.setRadius(_radius);
-	_shape1.setOutlineThickness(10);
-	_shape1.setOutlineColor(sf::Color(250, 50, 100));
+	//sf::CircleShape _shape1;
+	//float _radius = 30;
+	//_shape1.setFillColor(sf::Color(0, 0, 0));
+	//_shape1.setRadius(_radius);
+	//_shape1.setOutlineThickness(10);
+	//_shape1.setOutlineColor(sf::Color(250, 50, 100));
 
 
-	float x = Cliker::kinectTranform_X_Cordinates(Cliker::getKinectApplication().getLimbPointsXY(Limbs::Type::RIGHT_FOOT, true).x);
-	float y = Cliker::kinectTranform_Y_Cordinates(Cliker::getKinectApplication().getLimbPointsXY(Limbs::Type::RIGHT_FOOT, true).y);
-	_shape1.setPosition(sf::Vector2f(x, y));
+	//float x = Cliker::kinectTranform_X_Cordinates(Cliker::getKinectApplication().getLimbPointsXY(Limbs::Type::RIGHT_HAND, true).x);
+	//float y = Cliker::kinectTranform_Y_Cordinates(Cliker::getKinectApplication().getLimbPointsXY(Limbs::Type::RIGHT_HAND, true).y);
+	//_shape1.setPosition(sf::Vector2f(x, y));
 
 
 
-	//float x1 = Cliker::kinectTranform_X_Cordinates(Cliker::getKinectApplication().getAllJoints_timeAveraged_PointsXY((int)Joints::Type::HANDRIGHT, true).x);
+	////float x1 = Cliker::kinectTranform_X_Cordinates(Cliker::getKinectApplication().getAllJoints_timeAveraged_PointsXY((int)Joints::Type::HANDRIGHT, true).x);
 
-	sf::CircleShape _shape2;
-	_shape2.setFillColor(sf::Color(0, 0, 0));
-	_shape2.setRadius(_radius);
-	_shape2.setOutlineThickness(10 );
-	_shape2.setOutlineColor(sf::Color(250, 150, 100));
-	x = Cliker::kinectTranform_X_Cordinates(Cliker::getKinectApplication().getLimbPointsXY(Limbs::Type::LEFT_FOOT, true).x) +90;
-	y = Cliker::kinectTranform_Y_Cordinates(Cliker::getKinectApplication().getLimbPointsXY(Limbs::Type::LEFT_FOOT, true).y) -30;
-	_shape2.setPosition(sf::Vector2f(x*1.03, y*1.15));
+	//sf::CircleShape _shape2;
+	//_shape2.setFillColor(sf::Color(0, 0, 0));
+	//_shape2.setRadius(_radius);
+	//_shape2.setOutlineThickness(10 );
+	//_shape2.setOutlineColor(sf::Color(250, 150, 100));
+	//x = Cliker::kinectTranform_X_Cordinates(Cliker::getKinectApplication().getLimbPointsXY(Limbs::Type::LEFT_HAND, true).x) +90;
+	//y = Cliker::kinectTranform_Y_Cordinates(Cliker::getKinectApplication().getLimbPointsXY(Limbs::Type::LEFT_HAND, true).y) -30;
+	//_shape2.setPosition(sf::Vector2f(x*1.03, y*1.15));
 
-	
+	//
 
-	//sf::CircleShape _shape3;
-	//_shape3.setFillColor(sf::Color(0, 0, 0));
-	//_shape3.setRadius(90);
-	//_shape3.setOutlineThickness(10);
-	//_shape3.setOutlineColor(sf::Color(250, 150, 100));
-	//x = VisibleGameObject::GetPosition().x;
-	//y = VisibleGameObject::GetPosition().y;
-	//_shape3.setPosition(x, y);
+	////sf::CircleShape _shape3;
+	////_shape3.setFillColor(sf::Color(0, 0, 0));
+	////_shape3.setRadius(90);
+	////_shape3.setOutlineThickness(10);
+	////_shape3.setOutlineColor(sf::Color(250, 150, 100));
+	////x = VisibleGameObject::GetPosition().x;
+	////y = VisibleGameObject::GetPosition().y;
+	////_shape3.setPosition(x, y);
 
-	window.draw(_shape1);
-	window.draw(_shape2);
+	//window.draw(_shape1);
+	//window.draw(_shape2);
 //	window.draw(_shape3);
 
 	//std::cout << x << "   " << y << "\n";
