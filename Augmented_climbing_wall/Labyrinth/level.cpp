@@ -5,7 +5,7 @@
 
 Level::Level(std::string topScore)
 	:_text("", _font, 250),
-	restartButton(sf::Vector2f(1200, 200), 500*0.4, "Smash_It/images/restart.png", sf::IntRect(0, 0, 1000, 995))
+	restartButton(sf::Vector2f(1000, 350), 500 * 0.15, "Smash_It/images/restart.png", sf::IntRect(0, 0, 1000, 995))
 	
 {
 	_winShapeRadius = 10;								//the start shape of win animation 
@@ -43,7 +43,7 @@ Level::Level(std::string topScore)
 	reInit_flag = false;
 	win_lose_Draw_first = true;
 
-	restartButton._sprite.setScale(0.4, 0.4);
+	restartButton._sprite.setScale(0.15, 0.15);
 	restartButton._unDrowable = true;
 
 	
@@ -284,7 +284,7 @@ void Level::linesUpdate(std::vector<Line>& lines)
 								&& (dist2(sf::Vector2f(joint_xy.x, joint_xy.y), lines[j]._center) < lines[j].size.x * lines[j].size.x / 4)))
 								
 							{
-								Level::lose(sf::Vector2f(joint_xy.x, joint_xy.y));
+								if (!lines[j]._unActive) Level::lose(sf::Vector2f(joint_xy.x, joint_xy.y));
 							}
 						//}
 					}
@@ -366,9 +366,10 @@ void Level::win_lose_Draw(sf::RenderWindow & renderWindow, std::vector<Line>& li
 	{
 		MainWindow::getWindow().draw(restartButton._sprite);
 
-		if (Cliker::getClik(restartButton._center, restartButton._radius, true))
+		if (Cliker::getClik(restartButton._center, restartButton._radius, false))
 		{
 			reInit_flag = true;
+			renderWindow.clear(sf::Color(0, 0, 0));
 		}
 	}
 }
@@ -596,17 +597,14 @@ void Level::score_Draw()
 	scoreString += timerStr.str();
 
 	
-	
-	sf::Font font;
-	font.loadFromFile("Labyrinth/font/11583.ttf");
 
 	//sf::Text gameOverText("Game Over", font, 150);
 	//gameOverText.setPosition(MainWindow::getWindow().getSize().x / 2 - 600, 100);
 
-	sf::Text scoreText(scoreString, font, 150);
-	scoreText.setPosition(MainWindow::getWindow().getSize().x / 2 - 600, 450);
+	sf::Text scoreText(scoreString, _font, 150);
+	scoreText.setPosition(MainWindow::getWindow().getSize().x / 2 - 235, 450);
 
-	sf::Text text(name, font, 150);
+	sf::Text text(name, _font, 150);
 	text.setPosition(MainWindow::getWindow().getSize().x / 2 - 500, 400);
 
 
@@ -663,7 +661,7 @@ float Level::additionalRadius(int joint)
 		return float(10);
 		break;
 	case Level::HANDRIGHT:
-		return float(300);
+		return float(10);
 		break;
 	case Level::HIPLEFT:
 		return float(10);

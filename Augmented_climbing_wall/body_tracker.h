@@ -195,6 +195,6 @@ private:
         {Limbs::Type::RIGHT_HAND, {Joints::Type::HANDRIGHT, Joints::Type::WRISTRIGHT, 
                                    Joints::Type::HANDTIPRIGHT, Joints::Type::THUMBRIGHT}},
         {Limbs::Type::LEFT_FOOT, {Joints::Type::FOOTLEFT, Joints::Type::ANKLELEFT}},
-        {Limbs::Type::LEFT_HAND, {Joints::Type::FOOTRIGHT, Joints::Type::ANKLERIGHT}},
+		{Limbs::Type::RIGHT_FOOT, {Joints::Type::FOOTRIGHT, Joints::Type::ANKLERIGHT}},
     };
 };

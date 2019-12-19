@@ -30,7 +30,7 @@ Smash_It::MainMenu::MenuItem::MenuItem(sf::Vector2f position, MenuResult action)
 
 Smash_It::MainMenu::MenuResult Smash_It::MainMenu::Show(sf::RenderWindow& window, std::set<std::pair<float, std::string>>& TOP_List, myServer &server)
 {
-	MainMenu::velocity = sf::Vector2f(0, 0.01);
+	MainMenu::velocity = sf::Vector2f(0, 0.02);
 	//Load menu image from file
 	sf::Image image;
 	image.loadFromFile("Smash_It/images/back_ground_1.png");
@@ -46,8 +46,8 @@ Smash_It::MainMenu::MenuResult Smash_It::MainMenu::Show(sf::RenderWindow& window
 	//Play menu item coordinates
 	MenuItem playButton(sf::Vector2f(700,100), Play);
 	std::ostringstream play_buttonStr;
-	play_buttonStr << "Start";
-	playButton.text.setString(play_buttonStr.str());
+	playButton.text.setCharacterSize(85);
+	playButton.text.setString(L"Играть");
 	playButton.text.setPosition(playButton._center - sf::Vector2f(130, 80));
 	playButton.text.setFillColor(sf::Color(255, 255, 255, 100));
 

@@ -10,7 +10,7 @@ Level_4::Level_4(std::string topScore)
 	button1(Level::config.level4_button1, Level::config.level4_button1_radius, "Labyrinth/images/Button.png", sf::IntRect(10,10,115,115)),
 	button2(Level::config.level4_button2, Level::config.level4_button2_radius, "Labyrinth/images/Button.png", sf::IntRect(10, 10, 115, 115)),
 	startButton(Level::config.level4_startButton, Level::config.level4_startButton_radius, "Labyrinth/images/playButton.png", sf::IntRect(0, 0, 156, 156)),
-	winButton(Level::config.level4_winButton, Level::config.level1_winButton_radius, "Labyrinth/images/winButton.png", sf::IntRect(0, 0, 126, 126)),
+	winButton(Level::config.level4_winButton, Level::config.level4_winButton_radius, "Labyrinth/images/winButton.png", sf::IntRect(0, 0, 126, 126)),
 	Level(topScore)
 {
 
@@ -121,6 +121,24 @@ void Level_4::Update(sf::Event& event)
 			}
 			if (lines[VERTICAL_LINE_1]._startPoint.x <= 0.0 || lines[VERTICAL_LINE_1]._startPoint.x >= 1920.0) lines[VERTICAL_LINE_1]._velocity.x = -lines[VERTICAL_LINE_1]._velocity.x;
 			if (lines[VERTICAL_LINE_2]._startPoint.x <= 0.0 || lines[VERTICAL_LINE_2]._startPoint.x >= 1920.0) lines[VERTICAL_LINE_2]._velocity.x = -lines[VERTICAL_LINE_2]._velocity.x;
+
+			/*if (Cliker::getClik(buttons[3]._center, buttons[3]._radius, false))
+			{
+				if (!buttons[3]._unDrowable)
+				{
+					buttons[3]._hasClicked = true;
+					buttons[3]._unDrowable = true;
+				}
+			}
+			if (Cliker::getClik(buttons[2]._center, buttons[2]._radius, false))
+			{
+
+				if (!buttons[2]._unDrowable)
+				{
+					buttons[2]._hasClicked = true;
+					buttons[2]._unDrowable = true;
+				}
+			}*/
 		}
 	}
 }

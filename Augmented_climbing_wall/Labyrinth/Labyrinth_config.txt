@@ -9,7 +9,7 @@ level1_winButton_x = 800
 level1_winButton_y = 200
 level1_winButton_radius = 50
 
-level2_line1_pos_x = 480
+level2_line1_pos_x = 580
 level2_line1_pos_y = 1080
 level2_line1_length = 1100
 level2_line1_angl = 330
@@ -68,7 +68,7 @@ level4_winButton_y = 100
 level4_winButton_radius = 50
 level4_button1_x = 440
 level4_button1_y = 200
-level4_button1_radius = 50
+level4_button1_radius = 100
 level4_button2_x = 1380
 level4_button2_y = 760
 level4_button2_radius = 50

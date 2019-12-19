@@ -206,18 +206,21 @@ void Smash_It::Game::TOP_List_Update(myServer& server)
 
 	clock.restart();
 	bool flag = true;
+	sf::Font font;
+	font.loadFromFile(_font);
+	sf::Image image;
+	image.loadFromFile("Smash_It/images/restart.png");
+	sf::Texture texture;
+	texture.loadFromImage(image);
 	while (flag)
 	{
-		_mainWindow.pollEvent(currentEvent);
+		/*_mainWindow.pollEvent(currentEvent);
 		if (currentEvent.type == sf::Event::KeyPressed)
 		{
 			name += MyKeyboard::getChar();
-		}
+		}*/
 		
 		_mainWindow.clear(sf::Color(0, 0, 0));
-
-		sf::Font font;
-		font.loadFromFile(_font);
 
 		sf::Text gameOverText("Game Over", font, 150);
 		gameOverText.setPosition(_mainWindow.getSize().x / 2 - 600, 100);
@@ -250,13 +253,13 @@ void Smash_It::Game::TOP_List_Update(myServer& server)
 			texture.loadFromImage(image);
 			sf::Sprite sprite;
 			sprite.setTexture(texture);
-			sprite.setScale(0.4, 0.4);
-			sf::Vector2f pos(1200, 200);
+			sprite.setScale(0.15, 0.15);
+			sf::Vector2f pos(700, 200);
 			sprite.setPosition(pos);
-			sf::Vector2f center(pos.x + texture.getSize().x / 4, pos.y + texture.getSize().y / 4);
+			sf::Vector2f center(pos.x + texture.getSize().x * 0.075, pos.y + texture.getSize().y * 0.075);
 
 
-			if (Cliker::getClik(center, texture.getSize().x / 4, true))
+			if (Cliker::getClik(center, texture.getSize().x * 0.2, false))
 			{
 				flag = false;
 			}

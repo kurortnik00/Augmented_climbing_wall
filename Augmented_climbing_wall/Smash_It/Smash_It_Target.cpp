@@ -4,7 +4,7 @@
 
 
 Smash_It::Target::Target()
-	:constVelocity(0.8, 1)
+	:constVelocity(1.5, 2)
 {
 	Load("Smash_It/images/balloon_green.png");
 	assert(IsLoaded());
