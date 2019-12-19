@@ -144,14 +144,6 @@ void CircleLvL::Update(sf::Event& event) {
 		if (_angl > 360) _angl -= 360;
 
 
-		//attampt of making the varible rotation point (faild) to hard to canculate
-		/*if (_centerOfRotation.x > 2 * _radius || _centerOfRotation.y > 2 * _radius) {
-			_velocity = -_velocity;
-		}
-		if (_centerOfRotation.x < _radius / 2 || _centerOfRotation.y < _radius / 2) {
-			_velocity = -_velocity;
-		}*/
-
 
 		//canculate and Update the iteraction with the plaer
 		//responsible of losing state

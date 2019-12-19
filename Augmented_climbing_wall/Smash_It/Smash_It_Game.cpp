@@ -21,7 +21,6 @@ void Smash_It::Game::Start(myServer &server)	//инициализация объектов
 {
 	if (_gameState != Uninitialized) return;
 
-	//_mainWindow.create(sf::VideoMode(1920, 1080), "Smash_It", sf::Style::Fullscreen);
 
 	Game::Init(targetCount);
 	srand(static_cast<unsigned int>(time(0)));
@@ -75,12 +74,6 @@ void Smash_It::Game::GameLoop(myServer &server)
 			ShowMenu(server);
 			break;
 		}
-		/*case Game::ShowingSplash:
-		{
-		
-			ShowSplashScreen();
-			break;
-		}*/
 		case Game::Playing:
 		{
 		
@@ -116,15 +109,6 @@ void Smash_It::Game::GameLoop(myServer &server)
 		}
 	}
 }
-
-//void Game::ShowSplashScreen()
-//{
-//	SplashScreen splashScreen;
-//	splashScreen.Show(_mainWindow);					//Внутри бесконечный цикл прерываемый по нажатию любой клавиши
-//													
-//	_gameState = Game::ShowingMenu;
-//}
-
 
 void Smash_It::Game::ShowMenu(myServer &server)
 {
@@ -214,6 +198,7 @@ void Smash_It::Game::TOP_List_Update(myServer& server)
 	texture.loadFromImage(image);
 	while (flag)
 	{
+		//need for write name in top score
 		/*_mainWindow.pollEvent(currentEvent);
 		if (currentEvent.type == sf::Event::KeyPressed)
 		{

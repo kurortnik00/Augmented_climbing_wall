@@ -418,10 +418,6 @@ void Level::drawLines(sf::RenderWindow & renderWindow, std::vector<Line>& lines)
 
 
 	shape_Vec.clear();
-
-
-	//std::cout << Game::getKinectApplication().arms_legs_timeAveraged_DepthPoints(CBodyBasics::LEFT_ARM) << "   " << Game::getKinectApplication().arms_legs_timeAveraged_DepthPoints(CBodyBasics::RIGHT_ARM) << "\n";
-	//std::cout << kinectApplication.DepthSkeletonPoints(HANDLEFT) << "   " << kinectApplication.DepthSkeletonPoints(HANDRIGHT) << "\n";
 }
 
 void Level::drawButtons(sf::RenderWindow & renderWindow, std::vector<Button>& buttons)
@@ -511,6 +507,7 @@ void Level::buttonsUpdate(std::vector<Button>& buttons)
 }
 
 
+//make it work in future
 //void Level::showTopScore()
 //{
 	//int scoresCount = 1;
@@ -567,9 +564,8 @@ void Level::TOP_List_Update()
 	int topScoreCount = 0;
 	for (auto i : TOP_List)
 	{
-		//std::string s1 = to_string(i.first);
 		std::string s1 = to_string(i.first);
-		std::string s2 = i.second /*+ "ff"*/;
+		std::string s2 = i.second;
 		if (out.is_open())
 		{
 			out << s1 << " " << s2 << std::endl;
@@ -587,19 +583,10 @@ void Level::score_Draw()
 
 	std::string scoreString = "Time: ";
 
-	//std::stringstream stream;
+
 	std::ostringstream timerStr;
-	//sf::Text text;
-	//float gameTime = Labyrinth::Timer::GetTime().asMilliseconds();
 	timerStr << Labyrinth::Timer::gameTime;
-	//text.setString(timerStr.str());
-	//stream << std::fixed << std::setprecision(0) << text;
 	scoreString += timerStr.str();
-
-	
-
-	//sf::Text gameOverText("Game Over", font, 150);
-	//gameOverText.setPosition(MainWindow::getWindow().getSize().x / 2 - 600, 100);
 
 	sf::Text scoreText(scoreString, _font, 150);
 	scoreText.setPosition(MainWindow::getWindow().getSize().x / 2 - 235, 450);
@@ -608,13 +595,7 @@ void Level::score_Draw()
 	text.setPosition(MainWindow::getWindow().getSize().x / 2 - 500, 400);
 
 
-	//MainWindow::getWindow().draw(text);
 	MainWindow::getWindow().draw(scoreText);
-	//MainWindow::getWindow().draw(gameOverText);
-
-
-
-	
 }
 
 void Level::setBrightness(bool _brightnees)

@@ -93,20 +93,6 @@ sf::Vector2f Labyrinth::VisibleGameObject::getCenter() {
 	return sf::Vector2f(_sprite.getPosition().x + rect.width / 2, _sprite.getPosition().y + rect.height / 2);
 }
 
-//void VisibleGameObject::Restart() {				//Для обновления игры, переопределяется в дочерних классах
-//
-//}
-
-//void VisibleGameObject::setUnbreakable(bool ans)
-//{
-//
-//}
-//
-//bool VisibleGameObject::getUnbreakable()
-//{
-//	return true;
-//}
-
 void Labyrinth::VisibleGameObject::setFinished(bool res)
 {
 	_finished = res;

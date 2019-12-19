@@ -163,34 +163,10 @@ void Labyrinth::Game::ShowTopScore(std::vector<int> data)
 			if (data[i] == 4) _gameState = Game::Playing;  //4 - BACK button presed (magick number from client)
 		}
 	}
-
-
-	/*switch (result)
-	{
-		case MainMenu::Exit:
-			_gameState = Game::Exiting;
-			break;
-		case MainMenu::Play:
-			_gameState = Game::Playing;
-			Game::reInit();
-			break;
-		case MainMenu::NextLevel: 
-			_selectedLevel = static_cast<SelectedLevel>((_selectedLevel + 1) % LAST);
-			break;
-		case MainMenu::PreviousLevel:
-			if (_selectedLevel == LEVEL_1) _selectedLevel = static_cast<SelectedLevel>(LAST - 1);
-			else _selectedLevel = static_cast<SelectedLevel>(_selectedLevel - 1);
-			break;
-	}*/
 }
 
 void Labyrinth::Game::Init() {
-
-	/*Timer *time1 = new Timer();
-	time1->Load("Labyrinth/font/11583.ttf");
-	_gameObjectManager.Add("timer1", time1);*/
 	Timer::Load("Labyrinth/font/11583.ttf");
-
 }
 
 void Labyrinth::Game::levelInit()

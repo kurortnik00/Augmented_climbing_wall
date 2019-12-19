@@ -122,6 +122,8 @@ void Level_4::Update(sf::Event& event)
 			if (lines[VERTICAL_LINE_1]._startPoint.x <= 0.0 || lines[VERTICAL_LINE_1]._startPoint.x >= 1920.0) lines[VERTICAL_LINE_1]._velocity.x = -lines[VERTICAL_LINE_1]._velocity.x;
 			if (lines[VERTICAL_LINE_2]._startPoint.x <= 0.0 || lines[VERTICAL_LINE_2]._startPoint.x >= 1920.0) lines[VERTICAL_LINE_2]._velocity.x = -lines[VERTICAL_LINE_2]._velocity.x;
 
+
+			//need for easy clickButton
 			/*if (Cliker::getClik(buttons[3]._center, buttons[3]._radius, false))
 			{
 				if (!buttons[3]._unDrowable)

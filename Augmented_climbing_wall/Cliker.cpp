@@ -96,7 +96,7 @@ bool Cliker::Update(sf::Event& event, sf::Vector2f center)
 
 bool Cliker::kinectUpdateActions(int joint_Count, tracking_Type tP, sf::Vector2f center, float radius)
 {
-	kinectApplication.Update(true);
+	kinectApplication.Update(false);
 	for (int i = 0; i < joint_Count; i++) {
 
 		switch (tP)

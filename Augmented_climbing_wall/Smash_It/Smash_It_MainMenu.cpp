@@ -6,7 +6,7 @@ Smash_It::MainMenu::MenuItem::MenuItem(sf::Vector2f position, MenuResult action)
 	:_position(position), text("", font, 110), _action(action)
 {
 	font.loadFromFile("Smash_It/font/18123.ttf");
-	//text.setFillColor(sf::Color(0, 0, 0));
+	text.setFillColor(sf::Color(0, 0, 0));
 	sf::Image image;
 	image.loadFromFile("Smash_It/images/menu/1.png");
 	image.createMaskFromColor(sf::Color(255, 255, 255));
@@ -51,18 +51,8 @@ Smash_It::MainMenu::MenuResult Smash_It::MainMenu::Show(sf::RenderWindow& window
 	playButton.text.setPosition(playButton._center - sf::Vector2f(130, 80));
 	playButton.text.setFillColor(sf::Color(255, 255, 255, 100));
 
-	//Exit menu item coordinates
-	//MenuItem exitButton(sf::Vector2f(1750, -200), Exit);
-
-	/*MenuItem topScore_Button(sf::Vector2f(800, 100), Score_board);
-	std::ostringstream topScore_buttonStr;
-	topScore_buttonStr << "TOP \n list";
-	topScore_Button.text.setString(topScore_buttonStr.str());
-	topScore_Button.text.setPosition(topScore_Button._center - sf::Vector2f(105, 145));*/
-
 
 	_menuItems.push_back(playButton);
-	//_menuItems.push_back(topScore_Button);
 
 	Draw(window);
 	

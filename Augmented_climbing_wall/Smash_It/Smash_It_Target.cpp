@@ -104,10 +104,6 @@ void Smash_It::Target::Draw(sf::RenderWindow & window)
 	
 	window.draw(_shape1);
 	window.draw(_shape2);
-
-	//std::cout << kinectApplication.arms_legs_timeAveraged_DepthPoints(CBodyBasics::LEFT_ARM) << "   " << kinectApplication.arms_legs_timeAveraged_DepthPoints(CBodyBasics::RIGHT_ARM) << "\n";
-	//std::cout << kinectApplication.DepthSkeletonPoints(HANDLEFT) << "   " << kinectApplication.DepthSkeletonPoints(HANDRIGHT) << "\n";
-
 	VisibleGameObject::Draw(window); 
 	
 }

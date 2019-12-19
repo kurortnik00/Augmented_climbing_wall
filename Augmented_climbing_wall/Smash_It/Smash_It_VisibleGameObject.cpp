@@ -27,7 +27,6 @@ void Smash_It::VisibleGameObject::Load(std::string filename)		//Простейшая загру
 
 		_image.createMaskFromColor(sf::Color(255,255,255));
 		_texture.loadFromImage(_image);
-		//_texture.setSmooth(true);
 
 		sf::Sprite sprite;
 		_sprite.setTexture(_texture);

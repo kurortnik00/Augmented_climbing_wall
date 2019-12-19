@@ -16,7 +16,6 @@ Smash_It::Timer::Timer() :
 	Config config;
 	config.loadConfig();
 	maxGameTime = config.maxGameTime;
-	//std::cout << config.maxGameTime;
 }
 
 Smash_It::Timer::~Timer() {

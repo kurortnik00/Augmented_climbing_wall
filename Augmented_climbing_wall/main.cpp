@@ -31,7 +31,7 @@ int main()
 		case(myServer::PLAY):
 			MainWindow::getWindow().setMouseCursorVisible(true);
 			//switch (server->getData()[game])
-			switch (4)
+			switch (2)
 			{
 			case(myServer::SMASH_IT):
 			{

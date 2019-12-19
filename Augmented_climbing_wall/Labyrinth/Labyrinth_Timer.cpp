@@ -73,7 +73,7 @@ void Labyrinth::Timer::reInit() {
 	text.setPosition(900, -30);
 	finished = false;
 	start = false;
-	text.setFillColor(sf::Color(255, 255, 255, 100));
+	text.setFillColor(sf::Color(255, 255, 255));
 }
 
 void Labyrinth::Timer::setBrightness()
