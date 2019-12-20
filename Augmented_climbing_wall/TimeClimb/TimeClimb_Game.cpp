@@ -237,7 +237,7 @@ void TimeClimb::Game::TOP_List_Update(myServer& server)
 			sf::Vector2f center(pos.x + texture.getSize().x / 4, pos.y + texture.getSize().y / 4);
 
 
-			if (Cliker::getClik(center, texture.getSize().x / 4, true))
+			if (Cliker::getClik(center, texture.getSize().x / 4, true, myServer::TIME_CLIMB))
 			{
 				flag = false;
 			}

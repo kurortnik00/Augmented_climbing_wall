@@ -3,6 +3,7 @@
 #include "body_tracker.h"
 #include "Kinect.h"
 #include "mainWindow.h"
+#include "server.h"
 
 class Cliker
 {
@@ -11,11 +12,25 @@ public:
 	//~Cliker();
 	static void Init();
 
-	static bool getClik(sf::Vector2f center, float radius, bool buttonPress);
+	static bool getClik(sf::Vector2f center, float radius, bool buttonPress, myServer::GAMES game);
 	static bool getClik(float x, float y, float height, float width);
 	static BodyTracker &getKinectApplication();
 	static float kinectTranform_X_Cordinates(float x);
 	static float kinectTranform_Y_Cordinates(float y);
+	static sf::Vector2f kinectTranform_Cordinates(sf::Vector2f);
+
+	static void increaseTrashHold(float increaseValue);
+	
+	static sf::Vector2f _sumValue;
+	static sf::Vector2f _multValue;
+	static std::vector<sf::Vector2f> additional_sumValue_SmashIt;
+	static std::vector<sf::Vector2f> additional_sumValue_Labyrinth;
+	static std::vector<sf::Vector2f> additional_sumValue_Aerohokey;
+	static std::vector<sf::Vector2f> additional_multValue_SmashIt;
+	static std::vector<sf::Vector2f> additional_multValue_Labyrinth;
+	static std::vector<sf::Vector2f> additional_multValue_Aerohokey;
+
+
 private:
 
 	bool Update(sf::Event& event, sf::Vector2f center);
@@ -30,7 +45,7 @@ private:
 		allJoints, mainPointAvarage, allJointsTimeAvarage, mainPointTimeAvarage
 	};
 
-	static bool kinectUpdateActions(int joint_Count, tracking_Type tT, sf::Vector2f center, float radius);
+	static bool kinectUpdateActions(int joint_Count, tracking_Type tT, sf::Vector2f center, float radius, myServer::GAMES game);
 	static float _trashHold;				//depth from sensor where interaction starts
 	static BodyTracker kinectApplication;
 	static sf::Vector2f joint_xy;

@@ -244,7 +244,7 @@ void Smash_It::Game::TOP_List_Update(myServer& server)
 			sf::Vector2f center(pos.x + texture.getSize().x * 0.075, pos.y + texture.getSize().y * 0.075);
 
 
-			if (Cliker::getClik(center, texture.getSize().x * 0.2, false))
+			if (Cliker::getClik(center, texture.getSize().x * 0.2, false, myServer::SMASH_IT))
 			{
 				flag = false;
 			}

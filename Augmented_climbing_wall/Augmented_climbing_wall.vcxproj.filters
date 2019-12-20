@@ -255,6 +255,9 @@
     <ClCompile Include="util.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="Colibration.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="myKeyboard.h">
@@ -420,6 +423,9 @@
       <Filter>Файлы заголовков\Territory</Filter>
     </ClInclude>
     <ClInclude Include="util.hpp">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Colibration.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

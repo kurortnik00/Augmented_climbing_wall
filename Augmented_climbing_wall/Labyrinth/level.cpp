@@ -366,7 +366,7 @@ void Level::win_lose_Draw(sf::RenderWindow & renderWindow, std::vector<Line>& li
 	{
 		MainWindow::getWindow().draw(restartButton._sprite);
 
-		if (Cliker::getClik(restartButton._center, restartButton._radius, false))
+		if (Cliker::getClik(restartButton._center, restartButton._radius, false, myServer::LABYRINTH))
 		{
 			reInit_flag = true;
 			renderWindow.clear(sf::Color(0, 0, 0));
@@ -442,7 +442,7 @@ void Level::buttonsUpdate(std::vector<Button>& buttons)
 
 		
 		///TODO aditional radius
-		if (Cliker::getClik(buttons[START_BUTTON]._center, buttons[START_BUTTON]._radius, false))
+		if (Cliker::getClik(buttons[START_BUTTON]._center, buttons[START_BUTTON]._radius, false, myServer::LABYRINTH))
 		{
 			if (!buttons[START_BUTTON]._unDrowable)
 			{
@@ -468,7 +468,7 @@ void Level::buttonsUpdate(std::vector<Button>& buttons)
 
 		for (int i = 0; i < buttons.size(); i++)
 		{
-			if (Cliker::getClik(buttons[i]._center, buttons[i]._radius, false))
+			if (Cliker::getClik(buttons[i]._center, buttons[i]._radius, false, myServer::LABYRINTH))
 			{
 				if (!buttons[i]._unDrowable)
 				{

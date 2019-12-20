@@ -14,9 +14,8 @@ BodyTracker& Cliker::getKinectApplication()
 
 
 //button pressed for action after button clik, if false action after cursor in same position 
-bool Cliker::getClik(sf::Vector2f center, float radius, bool buttonPress)
+bool Cliker::getClik(sf::Vector2f center, float radius, bool buttonPress, myServer::GAMES game)
 {
-
 	sf::Event event;
 	MainWindow::getWindow().pollEvent(event);
 
@@ -32,18 +31,18 @@ bool Cliker::getClik(sf::Vector2f center, float radius, bool buttonPress)
 		{
 		case Cliker::allJoints:
 			joint_Count = JointType_Count;
-			if (kinectUpdateActions(joint_Count, tP, center, radius)) return true;
+			if (kinectUpdateActions(joint_Count, tP, center, radius, game)) return true;
 			break;
 		case Cliker::mainPointAvarage:
 			joint_Count = 4;
-			if (kinectUpdateActions(joint_Count, tP, center, radius)) return true;
+			if (kinectUpdateActions(joint_Count, tP, center, radius, game)) return true;
 			break;
 		case Cliker::allJointsTimeAvarage:
 			joint_Count = JointType_Count;
-			if (kinectUpdateActions(joint_Count, tP, center, radius)) return true;
+			if (kinectUpdateActions(joint_Count, tP, center, radius, game)) return true;
 		case Cliker::mainPointTimeAvarage:
 			joint_Count = 4;
-			if (kinectUpdateActions(joint_Count, tP, center, radius)) return true;
+			if (kinectUpdateActions(joint_Count, tP, center, radius, game)) return true;
 		default:
 			break;
 		}
@@ -94,7 +93,7 @@ bool Cliker::Update(sf::Event& event, sf::Vector2f center)
 
 
 
-bool Cliker::kinectUpdateActions(int joint_Count, tracking_Type tP, sf::Vector2f center, float radius)
+bool Cliker::kinectUpdateActions(int joint_Count, tracking_Type tP, sf::Vector2f center, float radius, myServer::GAMES game)
 {
 	kinectApplication.Update(false);
 	for (int i = 0; i < joint_Count; i++) {
@@ -124,6 +123,26 @@ bool Cliker::kinectUpdateActions(int joint_Count, tracking_Type tP, sf::Vector2f
 		joint_xy.x = kinectTranform_X_Cordinates(joint_xy.x); //translate to pixel
 		joint_xy.y = kinectTranform_Y_Cordinates(joint_xy.y); //same
 
+		//maby TODO add additional multiplaer "additional_mult..."
+		switch (game)
+		{
+		case myServer::SMASH_IT:
+			joint_xy += additional_sumValue_SmashIt[i];
+			break;
+		case myServer::LABYRINTH:
+			joint_xy += additional_sumValue_Labyrinth[i];
+			break;
+		case myServer::AEROHOCKEY:
+			joint_xy += additional_multValue_Aerohokey[i];
+			break;
+		case myServer::TIME_CLIMB:
+			break;
+		case myServer::TERRITORY:
+			break;
+		default:
+			break;
+		}
+
 
 
 		if (joint_z >= _trashHold) {
@@ -139,16 +158,30 @@ bool Cliker::kinectUpdateActions(int joint_Count, tracking_Type tP, sf::Vector2f
 	return false;
 }
 
+sf::Vector2f operator * (sf::Vector2f a, sf::Vector2f b)
+{
+	return sf::Vector2f(a.x * b.x, a.y * b.y);
+}
+sf::Vector2f operator / (sf::Vector2f a, double b)
+{
+	return sf::Vector2f(a.x / b, a.y / b);
+}
+
+sf::Vector2f Cliker::kinectTranform_Cordinates(sf::Vector2f vec)
+{
+	return (vec - _sumValue) * _multValue / 2.4;
+}
+
 float Cliker::kinectTranform_X_Cordinates(float x)
 {
 	//return ((1920 - x * 1920 / 640) - 510) * 4.9 / 2.4;
-	return (x - 510) * 4.9 / 2.4;
+	return (x - _sumValue.x) * _multValue.x / 2.4;
 }
 
 float Cliker::kinectTranform_Y_Cordinates(float y)
 {
 	//return (y * 1200 / 280 - 430) * 4 / 1.4;
-	return (y - 430) * 4 / 1.4;
+	return (y - _sumValue.x) * _multValue.y / 1.4;
 }
 
 float Cliker::dist2(sf::Vector2f const& p1, sf::Vector2f const& p2)
@@ -162,3 +195,12 @@ BodyTracker Cliker::kinectApplication;
 sf::Vector2f Cliker::joint_xy;
 float Cliker::joint_z;
 sf::Clock Cliker::delayClock;
+
+sf::Vector2f Cliker::_sumValue = sf::Vector2f(-510, -430);
+sf::Vector2f Cliker::_multValue = sf::Vector2f(4.9, 4);
+std::vector<sf::Vector2f> Cliker::additional_sumValue_SmashIt = { sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0) };
+std::vector<sf::Vector2f> Cliker::additional_sumValue_Labyrinth = { sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0) };
+std::vector<sf::Vector2f> Cliker::additional_sumValue_Aerohokey = { sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0) };
+std::vector<sf::Vector2f> Cliker::additional_multValue_SmashIt = { sf::Vector2f(1,1), sf::Vector2f(1,1), sf::Vector2f(1,1), sf::Vector2f(1,1) };
+std::vector<sf::Vector2f> Cliker::additional_multValue_Labyrinth = { sf::Vector2f(1,1), sf::Vector2f(1,1), sf::Vector2f(1,1), sf::Vector2f(1,1) };
+std::vector<sf::Vector2f> Cliker::additional_multValue_Aerohokey = { sf::Vector2f(1,1), sf::Vector2f(1,1), sf::Vector2f(1,1), sf::Vector2f(1,1) };
