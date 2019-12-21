@@ -15,6 +15,13 @@ private:
 	static std::vector<float> x_mult_vector;
 	static std::vector<float> y_mult_vector;
 
+	static std::vector<float> x_error;
+	static std::vector<float> y_error;
+
+	static float x_averError;
+	static float y_averError;
+
+
 	static sf::CircleShape shape;
 	static float radius;
 

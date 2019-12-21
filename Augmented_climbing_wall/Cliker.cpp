@@ -183,8 +183,8 @@ sf::Vector2f Cliker::joint_xy;
 float Cliker::joint_z;
 sf::Clock Cliker::delayClock;
 
-sf::Vector2f Cliker::_sumValue = sf::Vector2f(-510, -430);
-sf::Vector2f Cliker::_multValue = sf::Vector2f(4.9, 4);
+sf::Vector2f Cliker::_sumValue = sf::Vector2f(0, 0);
+sf::Vector2f Cliker::_multValue = sf::Vector2f(1, 1);
 std::vector<sf::Vector2f> Cliker::additional_sumValue_SmashIt = { sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0) };
 std::vector<sf::Vector2f> Cliker::additional_sumValue_Labyrinth = { sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0) };
 std::vector<sf::Vector2f> Cliker::additional_sumValue_Aerohokey = { sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(0,0) };
