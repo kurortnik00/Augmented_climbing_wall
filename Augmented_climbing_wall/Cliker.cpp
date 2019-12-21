@@ -158,19 +158,6 @@ bool Cliker::kinectUpdateActions(int joint_Count, tracking_Type tP, sf::Vector2f
 	return false;
 }
 
-sf::Vector2f operator * (sf::Vector2f a, sf::Vector2f b)
-{
-	return sf::Vector2f(a.x * b.x, a.y * b.y);
-}
-sf::Vector2f operator / (sf::Vector2f a, double b)
-{
-	return sf::Vector2f(a.x / b, a.y / b);
-}
-
-sf::Vector2f Cliker::kinectTranform_Cordinates(sf::Vector2f vec)
-{
-	return (vec - _sumValue) * _multValue / 2.4;
-}
 
 float Cliker::kinectTranform_X_Cordinates(float x)
 {

@@ -6,6 +6,7 @@
 #include "territory/Territory_starter.h"
 #include "server.h"
 #include "Cliker.h"
+#include "Colibration.h"
 
 
 int main()
@@ -24,7 +25,7 @@ int main()
 	while (true)
 	{
 		//switch (server->getData()[gameState])
-		switch (1)
+		switch (2)
 		{
 		case(myServer::EXIT):
 			break;
@@ -80,13 +81,15 @@ int main()
 			break;
 		default:
 			break;
-		case(myServer::SCORE_BOARD):
+		case(myServer::AUTO_COLIBRATION):
+			std::cout << "AUTO_COLIBRATION started \n";
+			Colibration::init();
+			Colibration::autoColibration(*server);
 			break;
 		case(myServer::GAME_SELECTION):	
 			MainWindow::getWindow().clear(sf::Color(0, 0, 0));
 			MainWindow::getWindow().setMouseCursorVisible(false);
 			MainWindow::getWindow().display();
-
 			break;
 		}
 		

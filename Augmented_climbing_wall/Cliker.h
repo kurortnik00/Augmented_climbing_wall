@@ -17,7 +17,6 @@ public:
 	static BodyTracker &getKinectApplication();
 	static float kinectTranform_X_Cordinates(float x);
 	static float kinectTranform_Y_Cordinates(float y);
-	static sf::Vector2f kinectTranform_Cordinates(sf::Vector2f);
 
 	static void increaseTrashHold(float increaseValue);
 	
