@@ -29,7 +29,7 @@ namespace Aerohockey
 		bool score_changed, kinectControl;
 		sf::RenderWindow& mWindow;
 		sf::Sprite background;
-		sf::Texture bg_texture;
+		sf::Texture bg_texture, left_hand_texture, right_hand_texture;
 		sf::SoundBuffer scored, hit, wall;
 		sf::Sound scored_sound, hit_sound, wall_sound;
 		sf::Vector2f puck_velocity;

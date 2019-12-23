@@ -5,13 +5,11 @@
 using namespace Territory;
 
 ReadyButton::ReadyButton(sf::Vector2f position, sf::Vector2f size)
-    : position_ (position), size_ (size)
+    : position_(position), size_(size)
 {
-    shape_.setSize(size);
-    shape_.setOrigin(size / 2.f);
-    shape_.setPosition(position);
-    shape_.setFillColor(sf::Color::Transparent);
-    shape_.setOutlineThickness(5);
+    sprite_.setOrigin(size_ / 2.f);
+    sprite_.setPosition(position);
+    sprite_.setColor(sf::Color::Yellow);
 }
 
 
@@ -21,29 +19,35 @@ bool ReadyButton::isActivated()
 }
 
 
-sf::RectangleShape ReadyButton::shape()
+void ReadyButton::setTexture(sf::Texture& texture)
 {
-    return shape_;
+    sprite_.setTexture(texture);
+    sprite_.setScale(size_.x / sprite_.getLocalBounds().width, size_.y / sprite_.getLocalBounds().height);
+}
+
+sf::Sprite& ReadyButton::sprite()
+{
+    return sprite_;
 }
 
 
 void ReadyButton::update(std::vector<Paddle> paddles)
 {
     activated = false;
-    for (int i = 0; i < static_cast<int>(paddles.size()); i++)
+    for (int i = 0; i < paddles.size(); i++)
     {
         sf::Vector2f paddle_position = paddles[i].position();
         activated |= (paddle_position.x >= position_.x - size_.x / 2) &&
-                     (paddle_position.x <= position_.x + size_.x / 2) &&
-                     (paddle_position.y >= position_.y - size_.y / 2) &&
-                     (paddle_position.y <= position_.y + size_.y / 2);
+            (paddle_position.x <= position_.x + size_.x / 2) &&
+            (paddle_position.y >= position_.y - size_.y / 2) &&
+            (paddle_position.y <= position_.y + size_.y / 2);
     }
 
     if (activated)
     {
-        shape_.setOutlineColor(sf::Color::Green);
+        sprite_.setColor(sf::Color::Green);
     }
     else {
-        shape_.setOutlineColor(sf::Color::Red);
+        sprite_.setColor(sf::Color::Yellow);
     }
 }

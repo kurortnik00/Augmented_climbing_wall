@@ -25,7 +25,7 @@ int main()
 	while (true)
 	{
 		//switch (server->getData()[gameState])
-		switch (2)
+		switch (1)
 		{
 		case(myServer::EXIT):
 			break;
@@ -62,6 +62,9 @@ int main()
 			case(myServer::AEROHOCKEY):
 			{
 				std::cout << "AEROHOCKEY started \n";
+
+				// Load config before the game starts
+				Aerohockey::Config::load("Aerohockey/config/Aerohockey_config.txt");
 
 				Aerohockey::Starter aerohockey;
 				aerohockey.start(*server);

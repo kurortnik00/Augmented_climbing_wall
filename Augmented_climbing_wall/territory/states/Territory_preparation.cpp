@@ -32,8 +32,8 @@ void StatePreparation::render()
     {
         world.mWindow.draw(world.right.paddles()[i].shape());
     }
-    world.mWindow.draw(world.left_ready.shape());
-    world.mWindow.draw(world.right_ready.shape());
+    world.mWindow.draw(world.left_ready.sprite());
+    world.mWindow.draw(world.right_ready.sprite());
 
     world.mWindow.display();
 }

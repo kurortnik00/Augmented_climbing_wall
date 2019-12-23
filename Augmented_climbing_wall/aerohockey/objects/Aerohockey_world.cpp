@@ -21,8 +21,10 @@ World::World(float width, float height, float update_time, BodyTracker & kinect,
     , left (Config::paddle_radius, Config::red, update_time, kinect, true, kinectControl)
     , right (Config::paddle_radius, Config::green, update_time, kinect, false, kinectControl)
     , board (&left, &right, Config::game_length)
-    , left_ready (Config::left_ready_button_position, Config::left_ready_button_size)
-    , right_ready (Config::right_ready_button_position, Config::right_ready_button_size)
+    , left_ready (sf::Vector2f(Config::left_ready_button_position_x, Config::left_ready_button_position_y), 
+        sf::Vector2f(Config::left_ready_button_size_x, Config::left_ready_button_size_y))
+    , right_ready (sf::Vector2f(Config::right_ready_button_position_x, Config::right_ready_button_position_y),
+        sf::Vector2f(Config::right_ready_button_size_x, Config::right_ready_button_size_y))
 {
     std::string scored_path = Config::sound_scored_path;
     if (!scored.loadFromFile(scored_path))
@@ -57,17 +59,39 @@ World::World(float width, float height, float update_time, BodyTracker & kinect,
         wall_sound.setBuffer(wall);
     }
 
-    std::string path = Config::texture_background_path;
-    if (!bg_texture.loadFromFile(path))
+    std::string bg_path = Config::texture_background_path;
+    if (!bg_texture.loadFromFile(bg_path))
     {
-        std::cout << "Failed to load texture: " << path << "\n";
+        std::cout << "Failed to load background texture: " << bg_path << "\n";
     }
     else
     {
-        std::cout << "Successfully loaded background texture: " << path << "\n";
+        std::cout << "Successfully loaded background texture: " << bg_path << "\n";
         background.setTexture(bg_texture);
         background.setScale(width_ / background.getLocalBounds().width,
                             height_ / background.getLocalBounds().height);
+    }
+
+    std::string left_hand_path = Config::texture_left_hand_path;
+    if (!left_hand_texture.loadFromFile(left_hand_path))
+    {
+        std::cout << "Failed to load left hand texture: " << left_hand_path << "\n";
+    }
+    else
+    {
+        std::cout << "Successfully loaded left hand texture: " << left_hand_path << "\n";
+        right_ready.setTexture(left_hand_texture);
+    }
+
+    std::string right_hand_path = Config::texture_right_hand_path;
+    if (!right_hand_texture.loadFromFile(right_hand_path))
+    {
+        std::cout << "Failed to load right hand texture: " << right_hand_path << "\n";
+    }
+    else
+    {
+        std::cout << "Successfully loaded right hand texture: " << right_hand_path << "\n";
+        left_ready.setTexture(right_hand_texture);
     }
 
     left_border.setPosition(0.f, 0.f);
@@ -196,11 +220,11 @@ void World::render()
     mWindow.draw(left_border);
     mWindow.draw(right_border);
 
+    board.render(mWindow);
+
     left.render(mWindow);
     right.render(mWindow);
     puck.render(mWindow);
-
-    board.render(mWindow);
 
     mWindow.display();
 }

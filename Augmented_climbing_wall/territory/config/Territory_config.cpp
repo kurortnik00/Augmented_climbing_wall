@@ -14,5 +14,9 @@ namespace Territory
 		// Colors
 		sf::Color red = sf::Color(204, 0, 0);
 		sf::Color green = sf::Color(0, 102, 0);
+
+		// Resources
+		std::string texture_left_hand_path = "territory/media/textures/left_hand.png";
+		std::string texture_right_hand_path = "territory/media/textures/right_hand.png";
 	}
 }

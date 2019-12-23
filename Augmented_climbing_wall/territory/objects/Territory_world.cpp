@@ -48,6 +48,28 @@ World::World(float width, float height, float update_time, BodyTracker & kinect,
 	}
 	map.setTexture(bodyTexture);
 	bodySprite.setTexture(bodyTexture);
+
+    std::string left_hand_path = Config::texture_left_hand_path;
+    if (!left_hand_texture.loadFromFile(left_hand_path))
+    {
+        std::cout << "Failed to load left hand texture: " << left_hand_path << "\n";
+    }
+    else
+    {
+        std::cout << "Successfully loaded left hand texture: " << left_hand_path << "\n";
+        right_ready.setTexture(left_hand_texture);
+    }
+
+    std::string right_hand_path = Config::texture_right_hand_path;
+    if (!right_hand_texture.loadFromFile(right_hand_path))
+    {
+        std::cout << "Failed to load right hand texture: " << right_hand_path << "\n";
+    }
+    else
+    {
+        std::cout << "Successfully loaded right hand texture: " << right_hand_path << "\n";
+        left_ready.setTexture(right_hand_texture);
+    }
 }
 
 

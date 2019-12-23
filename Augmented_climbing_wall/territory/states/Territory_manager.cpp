@@ -62,6 +62,7 @@ void StateManager::update(const float delta)
     if (kinectControl)
     {
         kinect.Update(true);
+        kinect.SimplifyBodyMask();
     }
     current->update(delta);
     //current->log();

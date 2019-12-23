@@ -25,38 +25,45 @@ Scoreboard::Scoreboard(Player * left, Player * right, float gameDuration)
         right_score.setFont(font_);
     }
 
-	left_score_border.setPosition(Config::screen_width / 2 - Config::timer_width / 2 - Config::score_width, 0);
-	//     Config::screen_height - Config::board_height);
+    float top = 0.f;
+    if (!Config::top_position)
+    {
+        top = Config::screen_height - Config::board_height;
+    }
+
+    // Store colors to control transparency later
+    left_color = Config::red;
+    right_color = Config::green;
+    main_color = sf::Color::White;
+
+    left_score_border.setPosition(Config::screen_width / 2 - Config::timer_width / 2 - Config::score_width, top);
     left_score_border.setSize(sf::Vector2f(Config::score_width, Config::board_height));
-    left_score_border.setFillColor(Config::red);
+    left_score_border.setFillColor(left_color);
     left_score_border.setOutlineColor(sf::Color::White);
     left_score_border.setOutlineThickness(-2.f);
 
-	right_score_border.setPosition(Config::screen_width / 2 + Config::timer_width / 2, 0);
-	//    Config::screen_height - Config::board_height);
-
-	right_score_border.setSize(sf::Vector2f(Config::score_width, Config::board_height));
-    right_score_border.setFillColor(Config::green);
+    right_score_border.setPosition(Config::screen_width / 2 + Config::timer_width / 2, top);
+    right_score_border.setSize(sf::Vector2f(Config::score_width, Config::board_height));
+    right_score_border.setFillColor(right_color);
     right_score_border.setOutlineColor(sf::Color::White);
     right_score_border.setOutlineThickness(-2.f);
 
-	time_border.setPosition(Config::screen_width / 2 - Config::timer_width / 2, 0);
-	//     Config::screen_height - Config::board_height);
+    time_border.setPosition(Config::screen_width / 2 - Config::timer_width / 2, top);
     time_border.setSize(sf::Vector2f(Config::timer_width, Config::board_height));
     time_border.setFillColor(sf::Color::Transparent);
-    time_border.setOutlineColor(sf::Color::White);
+    time_border.setOutlineColor(main_color);
     time_border.setOutlineThickness(-2.f);
     
     left_score.setCharacterSize(Config::font_size);
-    left_score.setFillColor(sf::Color::White);
+    left_score.setFillColor(main_color);
     left_score.setString(to_string(left_->score()));
 
     timer_.setCharacterSize(Config::font_size);
-    timer_.setFillColor(sf::Color::White);
+    timer_.setFillColor(main_color);
     timer_.setString(time_line(remainingTime_));
 
     right_score.setCharacterSize(Config::font_size);
-    right_score.setFillColor(sf::Color::White);
+    right_score.setFillColor(main_color);
     right_score.setString(to_string(right_->score()));
 }
 

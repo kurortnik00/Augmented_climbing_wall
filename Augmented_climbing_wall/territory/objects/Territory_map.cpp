@@ -36,7 +36,7 @@ void Map::update(BodyTracker & kinect, bool kinectControl)
 {
 	if (kinectControl)
 	{
-		/*auto& bodyMask = kinect.getBodyMask();
+		auto& bodyMask = kinect.getSimplifiedBodyMask();
 		for (int i = 0; i < bodyMask.size(); i++)
 		{
 			for (int j = 0; j < bodyMask[i].size(); j++)
@@ -48,7 +48,7 @@ void Map::update(BodyTracker & kinect, bool kinectControl)
 					setEnabled(pos.x, pos.y, is_left);
 				}
 			}
-		}*/
+		}
 	}
 }
 

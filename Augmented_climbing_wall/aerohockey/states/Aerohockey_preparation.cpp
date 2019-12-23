@@ -24,16 +24,10 @@ void StatePreparation::render()
 {
     world.mWindow.clear();
 
-    for (int i = 0; i < world.left.n_limbs; i++)
-    {
-        world.mWindow.draw(world.left.paddles()[i].shape());
-    }
-    for (int i = 0; i < world.right.n_limbs; i++)
-    {
-        world.mWindow.draw(world.right.paddles()[i].shape());
-    }
-    world.mWindow.draw(world.left_ready.shape());
-    world.mWindow.draw(world.right_ready.shape());
+    world.left.render(world.mWindow);
+    world.right.render(world.mWindow);
+    world.mWindow.draw(world.left_ready.sprite());
+    world.mWindow.draw(world.right_ready.sprite());
 
     world.mWindow.display();
 }

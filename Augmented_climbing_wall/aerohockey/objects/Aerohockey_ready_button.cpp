@@ -7,11 +7,9 @@ using namespace Aerohockey;
 ReadyButton::ReadyButton(sf::Vector2f position, sf::Vector2f size)
     : position_ (position), size_ (size)
 {
-    shape_.setSize(size);
-    shape_.setOrigin(size / 2.f);
-    shape_.setPosition(position);
-    shape_.setFillColor(sf::Color::Transparent);
-    shape_.setOutlineThickness(5);
+    sprite_.setOrigin(size_ / 2.f);
+    sprite_.setPosition(position);
+    sprite_.setColor(sf::Color::Yellow);
 }
 
 
@@ -21,9 +19,15 @@ bool ReadyButton::isActivated()
 }
 
 
-sf::RectangleShape ReadyButton::shape()
+void ReadyButton::setTexture(sf::Texture& texture)
 {
-    return shape_;
+    sprite_.setTexture(texture);
+    sprite_.setScale(size_.x / sprite_.getLocalBounds().width, size_.y / sprite_.getLocalBounds().height);
+}
+
+sf::Sprite & ReadyButton::sprite()
+{
+    return sprite_;
 }
 
 
@@ -41,9 +45,9 @@ void ReadyButton::update(std::vector<Paddle> paddles)
 
     if (activated)
     {
-        shape_.setOutlineColor(sf::Color::Green);
+        sprite_.setColor(sf::Color::Green);
     }
     else {
-        shape_.setOutlineColor(sf::Color::Red);
+        sprite_.setColor(sf::Color::Yellow);
     }
 }

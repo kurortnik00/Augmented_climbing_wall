@@ -25,5 +25,6 @@ namespace Aerohockey
 		float remainingTime_, gameDuration_;
 		sf::Font font_;
 		sf::Text timer_, left_score, right_score;
+		sf::Color left_color, right_color, main_color;
 	};
 }

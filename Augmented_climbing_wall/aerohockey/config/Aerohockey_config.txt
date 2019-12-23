@@ -1,0 +1,51 @@
+# General
+fps = 120
+# screen_width = MainWindow::SCREEN_WIDTH
+# screen_height = MainWindow::SCREEN_HEIGHT
+kinectControl = 0
+
+# Game settings
+max_score = 5
+game_length = 180
+result_demonstration_time = 5
+
+# Puck
+use_velocity_cap = 1
+max_puck_velocity = 800
+initial_puck_velocity = 400
+# puck_radius = screen_height / 20.f
+trace_capacity = 20
+trace_min_radius = 10
+
+# Paddles
+# paddle_radius = screen_height / 20.f
+
+# Collisions
+use_paddle_velocity = 1
+
+# Ready buttons
+left_ready_button_position_x = 650
+left_ready_button_position_y = 250
+left_ready_button_size_x = 150
+left_ready_button_size_y = 150
+right_ready_button_position_x = 1150
+right_ready_button_position_y = 250
+right_ready_button_size_x = 150
+right_ready_button_size_y = 150
+
+# Scoreboard
+top_position = 1
+font_size = 40
+timer_width = 120
+score_width = 60
+board_height = 60
+
+# Resources
+font_scoreboard_path = aerohockey/media/fonts/DIN.ttf
+sound_scored_path = aerohockey/media/sounds/scored.wav
+sound_hit_path = aerohockey/media/sounds/hit.wav
+sound_wall_path = aerohockey/media/sounds/wall.wav
+texture_background_path = aerohockey/media/textures/background.jpg
+texture_puck_path = aerohockey/media/textures/puck.png
+texture_left_hand_path = aerohockey/media/textures/left_hand.png
+texture_right_hand_path = aerohockey/media/textures/right_hand.png

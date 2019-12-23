@@ -42,16 +42,21 @@ namespace Aerohockey
 												// If false, paddle velocity is 0 during collision processing
 
 		// Ready buttons
-		extern sf::Vector2f left_ready_button_position;		// Position of the left ready button
-		extern sf::Vector2f left_ready_button_size;			// Size of the left ready button
-		extern sf::Vector2f right_ready_button_position;	// Position of the right ready button
-		extern sf::Vector2f right_ready_button_size;		// Size of the right ready button
+		extern float left_ready_button_position_x;			// Position of the left ready button (X-axis)
+		extern float left_ready_button_position_y;			// Position of the left ready button (Y-axis)
+		extern float left_ready_button_size_x;				// Size of the left ready button (X-axis)
+		extern float left_ready_button_size_y;				// Size of the left ready button (Y-axis)
+		extern float right_ready_button_position_x;			// Position of the right ready button (X-axis)
+		extern float right_ready_button_position_y;			// Position of the right ready button (Y-axis)
+		extern float right_ready_button_size_x;				// Size of the right ready button (X-axis)
+		extern float right_ready_button_size_y;				// Size of the right ready button (Y-axis)
 
 		// Scoreboard
-		extern int font_size;					// Font size
+		extern bool top_position;					// If true, then board is at top of the screen, otherwise at bottom
+		extern int font_size;						// Font size
 		extern float timer_width;					// Timer cell width in pixels
 		extern float score_width;					// Score cell width in pixels
-		extern float board_height;				// Scoreboard height in pixels
+		extern float board_height;					// Scoreboard height in pixels
 
 		// Resources
 		extern std::string font_scoreboard_path;	// Path to font for scoreboard
@@ -60,6 +65,11 @@ namespace Aerohockey
 		extern std::string sound_wall_path;			// Path to 'wall' sound
 		extern std::string texture_background_path;	// Path to background texture
 		extern std::string texture_puck_path;		// Path to puck texture
+		extern std::string texture_left_hand_path;	// Path to left hand texture
+		extern std::string texture_right_hand_path;	// Path to right hand texture
+
+		// Loader function
+		void load(std::string path);
 	}
 }
 

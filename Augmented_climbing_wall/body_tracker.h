@@ -81,11 +81,14 @@ public:
     /// Main processing function
     /// </summary>
     void                    Update(bool getMask);
+    void                    SimplifyBodyMask();
 
     byte *					getBodyMask();
+    std::vector<std::vector<int>>& getSimplifiedBodyMask();
 	sf::Uint8*				get_outline_BodyMask();
 	std::vector<sf::Vector2f>* getOutlinePixelVector();
 	sf::Vector2f			getOutlinePixel(int i);
+    sf::Vector2f            GetProjection(const sf::Vector2f point);
     sf::Vector2f            getLimbPointsXY(Limbs::Type limb, bool left);
     float                   getLimbDepthPoints(Limbs::Type limb, bool left);
     sf::Vector2f			getLimbVelocitiesXY(Limbs::Type limb, bool left);
@@ -129,6 +132,7 @@ private:
 
     // Body mask
 	std::vector<sf::Uint8> bodyTexturePixels;
+    std::vector<std::vector<int>> simplifiedBodyMask;
 
 	std::vector<sf::Uint8> bodyTexturePixels_outline;
 
@@ -157,7 +161,6 @@ private:
     /// <returns>point in screen-space</returns>
     sf::Vector2f            BodyToScreen(const CameraSpacePoint& bodyPoint, int width, int height);
 
-    sf::Vector2f            GetProjection(const sf::Vector2f point);
     sf::Vector2f            LimbPointsXY(int i, Limbs::Type limb);
     float                   LimbDepthPoint(int i, Limbs::Type limb);
 

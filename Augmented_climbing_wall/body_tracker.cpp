@@ -23,6 +23,7 @@ BodyTracker::BodyTracker() :
 {
 	bodyTexturePixels.assign(BodyTracker::cDepthWidth * BodyTracker::cDepthHeight * 4, 0);
 	bodyTexturePixels_outline.assign(BodyTracker::cDepthWidth * BodyTracker::cDepthHeight * 4, 0);
+    simplifiedBodyMask.assign(BodyTracker::cDepthWidth, std::vector<int>(BodyTracker::cDepthHeight));
 }
 
 
@@ -135,6 +136,7 @@ void BodyTracker::Update(bool getMask)
 				for (int j = 1; j < BodyTracker::cDepthHeight - 1; j++)
 				{
 					int idx = i * BodyTracker::cDepthHeight + j;
+                    simplifiedBodyMask[i][j] = bodyMask[idx];
 					if (bodyMask[idx] != 255)
 					{
 						if ((bodyMask[idx - 1] != 255) && (bodyMask[idx + 1] != 255))
@@ -586,6 +588,11 @@ sf::Uint8* BodyTracker::getBodyMask()
 	return &bodyTexturePixels[0];
 }
 
+std::vector<std::vector<int>>& BodyTracker::getSimplifiedBodyMask()
+{
+    return simplifiedBodyMask;
+}
+
 sf::Uint8* BodyTracker::get_outline_BodyMask()
 {
 	return &bodyTexturePixels_outline[0];
@@ -617,4 +624,26 @@ sf::Vector2f BodyTracker::getLimbVelocitiesXY(Limbs::Type limb, bool left)
 {
     int idx = (left) ? left_idx : right_idx;
     return limbVelocitiesXY[idx][static_cast<int>(limb)];
+}
+
+void BodyTracker::SimplifyBodyMask()
+{
+    for (int i = 0; i < BodyTracker::cDepthWidth; i++)
+    {
+        for (int j = 0; j < BodyTracker::cDepthHeight; j++)
+        {
+            if (simplifiedBodyMask[i][j] == left_idx)
+            {
+                simplifiedBodyMask[i][j] = 1;
+            }
+            else if (simplifiedBodyMask[i][j] == right_idx)
+            {
+                simplifiedBodyMask[i][j] = 2;
+            }
+            else
+            {
+                simplifiedBodyMask[i][j] = 0;
+            }
+        }
+    }
 }

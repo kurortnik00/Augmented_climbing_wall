@@ -26,7 +26,7 @@ namespace Territory
 		bool score_changed, paused, kinectControl, use_paddle_velocity;
 		sf::RenderWindow& mWindow;
 		sf::Sprite bodySprite;
-		sf::Texture bodyTexture;
+		sf::Texture bodyTexture, left_hand_texture, right_hand_texture;
 		sf::Image bodyImage;
 		Player left, right;
 		Scoreboard board;
