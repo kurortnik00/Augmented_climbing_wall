@@ -166,6 +166,18 @@ void Colibration::autoColibration(myServer& server)
 			text.setPosition(500,300);
 			MainWindow::getWindow().draw(text);
 			flag = false;
+
+			std::ofstream colibrationFile;
+			colibrationFile.open("autoColibration.txt");
+			if (colibrationFile.is_open())
+			{
+				colibrationFile << "sumValue_x = " << std::to_string(Cliker::_sumValue.x) << std::endl;
+				colibrationFile << "sumValue_y = " << std::to_string(Cliker::_sumValue.y) << std::endl;
+				colibrationFile << "multValue_x = " << std::to_string(Cliker::_multValue.x) << std::endl;
+				colibrationFile << "multValue_y = " << std::to_string(Cliker::_multValue.y) << std::endl;
+			}
+			colibrationFile.close();
+
 		}
 			break;
 		default:

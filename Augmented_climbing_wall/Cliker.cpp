@@ -5,7 +5,53 @@ void Cliker::Init()
 {
 	kinectApplication.Run();
 	_trashHold = 1;
- }
+	Cliker::load("autoColibration.txt");
+}
+
+void Cliker::reInit()
+{
+	Cliker::load("autoColibration.txt");
+}
+
+template <typename T>
+void read_param(std::string& line, std::string name, T& value)
+{
+	std::istringstream sin(line.substr(line.find("=") + 1));
+	if (line.find(name) != -1)
+	{
+		sin >> value;
+		std::cout << name << ": " << value << "\n";
+	}
+}
+
+void Cliker::load(std::string path)
+{
+	// Open file if exists
+	std::ifstream input(path);
+	if (input.fail())
+	{
+		std::cout << "Failed to open config file: " << path << "\n";
+		return;
+	}
+
+	std::cout << "Loading config from: " << path << "\n";
+
+	// Read lines
+	std::string line;
+	while (std::getline(input, line))
+	{
+		// Comment lines should start with #
+		if (line[0] == '#')
+		{
+			continue;
+		}
+
+		read_param(line, "sumValue_x", Cliker::_sumValue.x);
+		read_param(line, "sumValue_y", Cliker::_sumValue.y);
+		read_param(line, "multValue_x", Cliker::_multValue.x);
+		read_param(line, "multValue_y", Cliker::_multValue.y);
+	}
+}
 
 BodyTracker& Cliker::getKinectApplication()
 {

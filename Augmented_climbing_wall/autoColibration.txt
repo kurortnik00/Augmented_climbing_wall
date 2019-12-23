@@ -1,0 +1,4 @@
+sumValue_x = 1079.411743
+sumValue_y = 787.692322
+multValue_x = -0.150816
+multValue_y = -0.069138

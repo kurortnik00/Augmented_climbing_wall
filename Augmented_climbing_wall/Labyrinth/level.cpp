@@ -559,7 +559,7 @@ void Level::TOP_List_Update()
 
 	//if (TOP_List.size() > 4) TOP_List.erase(TOP_List.end());
 	float scoreTime = Labyrinth::Timer::gameTime;
-	std::cout << scoreTime;
+	//std::cout << scoreTime;
 	TOP_List.insert(std::make_pair(scoreTime, name));
 	int topScoreCount = 0;
 	for (auto i : TOP_List)

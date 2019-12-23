@@ -4,6 +4,9 @@
 #include "Kinect.h"
 #include "mainWindow.h"
 #include "server.h"
+#include <fstream>
+#include <sstream>
+#include <string>
 
 class Cliker
 {
@@ -11,6 +14,8 @@ public:
 	//Cliker();
 	//~Cliker();
 	static void Init();
+	static void reInit();
+	static void load(std::string path);
 
 	static bool getClik(sf::Vector2f center, float radius, bool buttonPress, myServer::GAMES game);
 	static bool getClik(float x, float y, float height, float width);

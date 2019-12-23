@@ -1,6 +1,8 @@
 #pragma once
 #include "Cliker.h"
 #include "server.h"
+#include <iostream>
+#include <fstream>
 
 class Colibration
 {
@@ -10,6 +12,7 @@ public:
 	static void init();
 
 private:
+
 	static std::vector<float> x_sum_vector;
 	static std::vector<float> y_sum_vector;
 	static std::vector<float> x_mult_vector;

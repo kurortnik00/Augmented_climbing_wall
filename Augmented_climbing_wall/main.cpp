@@ -11,10 +11,10 @@
 
 int main()
 {
-	std::cout << "tyt&";
 	myServer *server = new myServer();
 	//server->InitServer();
 	Cliker::Init();
+	bool flag_auto_colibration_finihed = false;
 
 
 	enum dataType
@@ -25,14 +25,14 @@ int main()
 	while (true)
 	{
 		//switch (server->getData()[gameState])
-		switch (1)
+		switch (2)
 		{
 		case(myServer::EXIT):
 			break;
 		case(myServer::PLAY):
 			MainWindow::getWindow().setMouseCursorVisible(true);
 			//switch (server->getData()[game])
-			switch (2)
+			switch (0)
 			{
 			case(myServer::SMASH_IT):
 			{
@@ -85,14 +85,20 @@ int main()
 		default:
 			break;
 		case(myServer::AUTO_COLIBRATION):
-			std::cout << "AUTO_COLIBRATION started \n";
-			Colibration::init();
-			Colibration::autoColibration(*server);
+			if (!flag_auto_colibration_finihed)
+			{
+				std::cout << "AUTO_COLIBRATION started \n";
+				Colibration::init();
+				Colibration::autoColibration(*server);
+				Cliker::reInit();
+				flag_auto_colibration_finihed = true;
+			}
 			break;
 		case(myServer::GAME_SELECTION):	
 			MainWindow::getWindow().clear(sf::Color(0, 0, 0));
 			MainWindow::getWindow().setMouseCursorVisible(false);
 			MainWindow::getWindow().display();
+			flag_auto_colibration_finihed = false;
 			break;
 		}
 		
