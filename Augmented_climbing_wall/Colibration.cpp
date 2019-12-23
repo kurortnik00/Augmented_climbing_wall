@@ -197,7 +197,7 @@ enum dataType
 
 std::vector<sf::Vector2f> Colibration::additionalValueColibration(std::vector<sf::Vector2f> limbsAditionValues, myServer& server)
 {
-	int button = 0;
+	int button = 4;
 	//server get data about pressed button (choise of action)
 	//button = myServer::getData()...
 
@@ -218,6 +218,8 @@ std::vector<sf::Vector2f> Colibration::additionalValueColibration(std::vector<sf
 		break;
 	case Colibration::y_translation_down:
 		limbsAditionValues[i].y -= 1;
+		break;
+	case Colibration::NOTHING:
 		break;
 	default:
 		break;
@@ -280,6 +282,68 @@ void Colibration::manualAdditionalColibration(myServer& server)
 		colibrationFile << "sumValue_Aerohokey_LEFT_FOOT_y = " << std::to_string(Cliker::additional_sumValue_Aerohokey[(int)Limbs::Type::LEFT_FOOT].y) << std::endl;
 		colibrationFile << "sumValue_Aerohokey_RIGHT_FOOT_x = " << std::to_string(Cliker::additional_sumValue_Aerohokey[(int)Limbs::Type::RIGHT_FOOT].x) << std::endl;
 		colibrationFile << "sumValue_Aerohokey_RIGHT_FOOT_y = " << std::to_string(Cliker::additional_sumValue_Aerohokey[(int)Limbs::Type::RIGHT_FOOT].y) << std::endl;
+	}
+	colibrationFile.close();
+}
+
+void Colibration::manualEquationValuesColibration(myServer &server)
+{
+	while (true)
+	{
+		enum BUTTONS
+		{
+			sumValue_x_up, sumValue_x_down, multValue_x_up, multValue_x_down,
+			sumValue_y_up, sumValue_y_down, multValue_y_up, multValue_y_down
+		};
+		BUTTONS button;
+		button = sumValue_x_up;
+		//button = myServer::get....
+		switch (button)
+		{
+		case sumValue_x_up:
+			Cliker::_sumValue.x += 1;
+			std::cout << "sumValue_x now: " << Cliker::_sumValue.x << std::endl;
+			break;
+		case sumValue_x_down:
+			Cliker::_sumValue.x -= 1;
+			std::cout << "sumValue_x now: " << Cliker::_sumValue.x << std::endl;
+			break;
+		case multValue_x_up:
+			Cliker::_multValue.x += 0.1;
+			std::cout << "multValue_x now: " << Cliker::_multValue.x << std::endl;
+			break;
+		case multValue_x_down:
+			Cliker::_multValue.x -= 0.1;
+			std::cout << "multValue_x now: " << Cliker::_multValue.x << std::endl;
+			break;
+		case sumValue_y_up:
+			Cliker::_sumValue.y += 1;
+			std::cout << "sumValue_y now: " << Cliker::_sumValue.y << std::endl;
+			break;
+		case sumValue_y_down:
+			Cliker::_sumValue.y -= 1;
+			std::cout << "sumValue_y now: " << Cliker::_sumValue.y << std::endl;
+			break;
+		case multValue_y_up:
+			Cliker::_multValue.y += 0.1;
+			std::cout << "multValue_y now: " << Cliker::_multValue.y << std::endl;
+			break;
+		case multValue_y_down:
+			Cliker::_multValue.y -= 0.1;
+			std::cout << "multValue_y now: " << Cliker::_multValue.y << std::endl;
+			break;
+		default:
+			break;
+		}
+	}
+	std::ofstream colibrationFile;
+	colibrationFile.open("autoColibration.txt");
+	if (colibrationFile.is_open())
+	{
+		colibrationFile << "sumValue_x = " << std::to_string(Cliker::_sumValue.x) << std::endl;
+		colibrationFile << "sumValue_y = " << std::to_string(Cliker::_sumValue.y) << std::endl;
+		colibrationFile << "multValue_x = " << std::to_string(Cliker::_multValue.x) << std::endl;
+		colibrationFile << "multValue_y = " << std::to_string(Cliker::_multValue.y) << std::endl;
 	}
 	colibrationFile.close();
 }

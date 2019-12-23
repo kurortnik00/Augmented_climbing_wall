@@ -9,6 +9,7 @@ class Colibration
 public:
 	static void autoColibration();
 	static void manualAdditionalColibration(myServer& server);
+	static void manualEquationValuesColibration(myServer& server);
 	static void init();
 
 private:
@@ -45,6 +46,7 @@ private:
 		x_translation_down,
 		y_translation_up,
 		y_translation_down,
+		NOTHING
 		
 	};
 	static std::vector<sf::Vector2f> additionalValueColibration(std::vector<sf::Vector2f> limbsAditionValues, myServer& server);
