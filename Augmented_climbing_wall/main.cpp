@@ -25,7 +25,7 @@ int main()
 	while (true)
 	{
 		//switch (server->getData()[gameState])
-		switch (2)
+		switch (4)
 		{
 		case(myServer::EXIT):
 			break;
@@ -89,7 +89,7 @@ int main()
 			{
 				std::cout << "AUTO_COLIBRATION started \n";
 				Colibration::init();
-				Colibration::autoColibration(*server);
+				Colibration::autoColibration();
 				Cliker::reInit();
 				flag_auto_colibration_finihed = true;
 			}
@@ -99,6 +99,10 @@ int main()
 			MainWindow::getWindow().setMouseCursorVisible(false);
 			MainWindow::getWindow().display();
 			flag_auto_colibration_finihed = false;
+			break;
+		case(myServer::MANUAL_COLIBRATION):
+			std::cout << "MANUAL_COLIBRATION started \n";
+			Colibration::manualColibration(*server);
 			break;
 		}
 		

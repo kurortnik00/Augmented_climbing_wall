@@ -174,9 +174,6 @@
     <ClCompile Include="body_tracker.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Smash_It\testConfig.cpp">
-      <Filter>Исходные файлы\Smash_It</Filter>
-    </ClCompile>
     <ClCompile Include="Labyrinth\Labyrinth_config.cpp">
       <Filter>Исходные файлы\Labyrinth</Filter>
     </ClCompile>
@@ -257,6 +254,9 @@
     </ClCompile>
     <ClCompile Include="Colibration.cpp">
       <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Smash_It\Smash_It_Config.cpp">
+      <Filter>Исходные файлы\Smash_It</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

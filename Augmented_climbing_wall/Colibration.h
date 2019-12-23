@@ -7,8 +7,8 @@
 class Colibration
 {
 public:
-	static void autoColibration(myServer& server);
-	static void manualColibration(myServer& server, myServer::GAMES game);
+	static void autoColibration();
+	static void manualAdditionalColibration(myServer& server);
 	static void init();
 
 private:
@@ -36,5 +36,17 @@ private:
 	static sf::Clock clock;
 	static sf::Clock vectorClock;
 	static sf::Font font;
+
+	
+
+	enum additionColibrationButtons
+	{
+		x_translation_up,
+		x_translation_down,
+		y_translation_up,
+		y_translation_down,
+		
+	};
+	static std::vector<sf::Vector2f> additionalValueColibration(std::vector<sf::Vector2f> limbsAditionValues, myServer& server);
 };
 

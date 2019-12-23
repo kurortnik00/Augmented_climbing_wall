@@ -6,11 +6,13 @@ void Cliker::Init()
 	kinectApplication.Run();
 	_trashHold = 1;
 	Cliker::load("autoColibration.txt");
+	Cliker::load("manualColibration.txt");
 }
 
 void Cliker::reInit()
 {
 	Cliker::load("autoColibration.txt");
+	Cliker::load("manualColibration.txt");
 }
 
 template <typename T>
@@ -50,6 +52,33 @@ void Cliker::load(std::string path)
 		read_param(line, "sumValue_y", Cliker::_sumValue.y);
 		read_param(line, "multValue_x", Cliker::_multValue.x);
 		read_param(line, "multValue_y", Cliker::_multValue.y);
+
+		read_param(line, "sumValue_SmashIt_LEFT_HAND_x", Cliker::additional_sumValue_SmashIt[(int)Limbs::Type::LEFT_HAND].x);
+		read_param(line, "sumValue_SmashIt_LEFT_HAND_y", Cliker::additional_sumValue_SmashIt[(int)Limbs::Type::LEFT_HAND].y);
+		read_param(line, "sumValue_SmashIt_RIGHT_HAND_x", Cliker::additional_sumValue_SmashIt[(int)Limbs::Type::RIGHT_HAND].x);
+		read_param(line, "sumValue_SmashIt_RIGHT_HAND_y", Cliker::additional_sumValue_SmashIt[(int)Limbs::Type::RIGHT_HAND].y);
+		read_param(line, "sumValue_SmashIt_LEFT_FOOT_x", Cliker::additional_sumValue_SmashIt[(int)Limbs::Type::LEFT_FOOT].x);
+		read_param(line, "sumValue_SmashIt_LEFT_FOOT_y", Cliker::additional_sumValue_SmashIt[(int)Limbs::Type::LEFT_FOOT].y);
+		read_param(line, "sumValue_SmashIt_RIGHT_FOOT_x", Cliker::additional_sumValue_SmashIt[(int)Limbs::Type::RIGHT_FOOT].x);
+		read_param(line, "sumValue_SmashIt_RIGHT_FOOT_y", Cliker::additional_sumValue_SmashIt[(int)Limbs::Type::RIGHT_FOOT].y);
+
+		read_param(line, "sumValue_Labyrinth_LEFT_HAND_x", Cliker::additional_sumValue_Labyrinth[(int)Limbs::Type::LEFT_HAND].x);
+		read_param(line, "sumValue_Labyrinth_LEFT_HAND_y", Cliker::additional_sumValue_Labyrinth[(int)Limbs::Type::LEFT_HAND].y);
+		read_param(line, "sumValue_Labyrinth_RIGHT_HAND_x", Cliker::additional_sumValue_Labyrinth[(int)Limbs::Type::RIGHT_HAND].x);
+		read_param(line, "sumValue_Labyrinth_RIGHT_HAND_y", Cliker::additional_sumValue_Labyrinth[(int)Limbs::Type::RIGHT_HAND].y);
+		read_param(line, "sumValue_Labyrinth_LEFT_FOOT_x", Cliker::additional_sumValue_Labyrinth[(int)Limbs::Type::LEFT_FOOT].x);
+		read_param(line, "sumValue_Labyrinth_LEFT_FOOT_y", Cliker::additional_sumValue_Labyrinth[(int)Limbs::Type::LEFT_FOOT].y);
+		read_param(line, "sumValue_Labyrinth_RIGHT_FOOT_x", Cliker::additional_sumValue_Labyrinth[(int)Limbs::Type::RIGHT_FOOT].x);
+		read_param(line, "sumValue_Labyrinth_RIGHT_FOOT_y", Cliker::additional_sumValue_Labyrinth[(int)Limbs::Type::RIGHT_FOOT].y);
+
+		read_param(line, "sumValue_Aerohokey_LEFT_HAND_x", Cliker::additional_sumValue_Aerohokey[(int)Limbs::Type::LEFT_HAND].x);
+		read_param(line, "sumValue_Aerohokey_LEFT_HAND_y", Cliker::additional_sumValue_Aerohokey[(int)Limbs::Type::LEFT_HAND].y);
+		read_param(line, "sumValue_Aerohokey_RIGHT_HAND_x", Cliker::additional_sumValue_Aerohokey[(int)Limbs::Type::RIGHT_HAND].x);
+		read_param(line, "sumValue_Aerohokey_RIGHT_HAND_y", Cliker::additional_sumValue_Aerohokey[(int)Limbs::Type::RIGHT_HAND].y);
+		read_param(line, "sumValue_Aerohokey_LEFT_FOOT_x", Cliker::additional_sumValue_Aerohokey[(int)Limbs::Type::LEFT_FOOT].x);
+		read_param(line, "sumValue_Aerohokey_LEFT_FOOT_y", Cliker::additional_sumValue_Aerohokey[(int)Limbs::Type::LEFT_FOOT].y);
+		read_param(line, "sumValue_Aerohokey_RIGHT_FOOT_x", Cliker::additional_sumValue_Aerohokey[(int)Limbs::Type::RIGHT_FOOT].x);
+		read_param(line, "sumValue_Aerohokey_RIGHT_FOOT_y", Cliker::additional_sumValue_Aerohokey[(int)Limbs::Type::RIGHT_FOOT].y);
 	}
 }
 

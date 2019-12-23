@@ -9,13 +9,15 @@ void Colibration::init()
 	shape.setOutlineThickness(10);
 	shape.setOutlineColor(sf::Color(250, 150, 100));
 
+	Cliker::_multValue = sf::Vector2f(0, 0);
+
 	
 	font.loadFromFile("Smash_It/font/18123.ttf");
 
 	clock.restart();
 }
 
-void Colibration::autoColibration(myServer& server)
+void Colibration::autoColibration()
 {
 	bool flag = true;
 	while (flag)
@@ -188,9 +190,98 @@ void Colibration::autoColibration(myServer& server)
 	
 }
 
-void Colibration::manualColibration(myServer& server, myServer::GAMES game)
+enum dataType
 {
-	//TODO
+	gameState, game, presedButton, LvL
+};
+
+std::vector<sf::Vector2f> Colibration::additionalValueColibration(std::vector<sf::Vector2f> limbsAditionValues, myServer& server)
+{
+	int button = 0;
+	//server get data about pressed button (choise of action)
+	//button = myServer::getData()...
+
+
+	int i = 0;
+	//server get data about pressed button (choise of limbs)
+	//i = myServer::getData()....
+	switch (button)
+	{
+	case Colibration::x_translation_up:
+		limbsAditionValues[i].x += 0.01;
+		break;
+	case Colibration::x_translation_down:
+		limbsAditionValues[i].x -= 1;
+		break;
+	case Colibration::y_translation_up:
+		limbsAditionValues[i].y += 1;
+		break;
+	case Colibration::y_translation_down:
+		limbsAditionValues[i].y -= 1;
+		break;
+	default:
+		break;
+	}
+	return limbsAditionValues;
+}
+
+void Colibration::manualAdditionalColibration(myServer& server)
+{
+	while (1)
+	{
+		
+		//switch (server.getData()[game])
+		switch(0)
+		{
+		case myServer::SMASH_IT:
+			Cliker::additional_sumValue_SmashIt = additionalValueColibration(Cliker::additional_sumValue_SmashIt, server);
+			break;
+		case myServer::LABYRINTH:
+			Cliker::additional_sumValue_Labyrinth = additionalValueColibration(Cliker::additional_sumValue_Labyrinth, server);
+			break;
+		case myServer::AEROHOCKEY:
+			Cliker::additional_sumValue_Aerohokey = additionalValueColibration(Cliker::additional_sumValue_Aerohokey, server);
+			break;
+		case myServer::TIME_CLIMB:
+			break;
+		case myServer::TERRITORY:
+			break;
+		default:
+			break;
+		}
+	}
+	std::ofstream colibrationFile;
+	colibrationFile.open("manualColibration.txt");
+	if (colibrationFile.is_open())
+	{
+		colibrationFile <<"sumValue_SmashIt_LEFT_HAND_x = " << std::to_string(Cliker::additional_sumValue_SmashIt[(int)Limbs::Type::LEFT_HAND].x) << std::endl;
+		colibrationFile << "sumValue_SmashIt_LEFT_HAND_y = " << std::to_string(Cliker::additional_sumValue_SmashIt[(int)Limbs::Type::LEFT_HAND].y) << std::endl;
+		colibrationFile << "sumValue_SmashIt_RIGHT_HAND_x = " << std::to_string(Cliker::additional_sumValue_SmashIt[(int)Limbs::Type::RIGHT_HAND].x) << std::endl;
+		colibrationFile << "sumValue_SmashIt_RIGHT_HAND_y = " << std::to_string(Cliker::additional_sumValue_SmashIt[(int)Limbs::Type::RIGHT_HAND].y) << std::endl;
+		colibrationFile << "sumValue_SmashIt_LEFT_FOOT_x = " << std::to_string(Cliker::additional_sumValue_SmashIt[(int)Limbs::Type::LEFT_FOOT].x) << std::endl;
+		colibrationFile << "sumValue_SmashIt_LEFT_FOOT_y = " << std::to_string(Cliker::additional_sumValue_SmashIt[(int)Limbs::Type::LEFT_FOOT].y) << std::endl;
+		colibrationFile << "sumValue_SmashIt_RIGHT_FOOT_x = " << std::to_string(Cliker::additional_sumValue_SmashIt[(int)Limbs::Type::RIGHT_FOOT].x) << std::endl;
+		colibrationFile << "sumValue_SmashIt_RIGHT_FOOT_y = " << std::to_string(Cliker::additional_sumValue_SmashIt[(int)Limbs::Type::RIGHT_FOOT].y) << std::endl;
+
+		colibrationFile << "sumValue_Labyrinth_LEFT_HAND_x = " << std::to_string(Cliker::additional_sumValue_Labyrinth[(int)Limbs::Type::LEFT_HAND].x) << std::endl;
+		colibrationFile << "sumValue_Labyrinth_LEFT_HAND_y = " << std::to_string(Cliker::additional_sumValue_Labyrinth[(int)Limbs::Type::LEFT_HAND].y) << std::endl;
+		colibrationFile << "sumValue_Labyrinth_RIGHT_HAND_x = " << std::to_string(Cliker::additional_sumValue_Labyrinth[(int)Limbs::Type::RIGHT_HAND].x) << std::endl;
+		colibrationFile << "sumValue_Labyrinth_RIGHT_HAND_y = " << std::to_string(Cliker::additional_sumValue_Labyrinth[(int)Limbs::Type::RIGHT_HAND].y) << std::endl;
+		colibrationFile << "sumValue_Labyrinth_LEFT_FOOT_x = " << std::to_string(Cliker::additional_sumValue_Labyrinth[(int)Limbs::Type::LEFT_FOOT].x) << std::endl;
+		colibrationFile << "sumValue_Labyrinth_LEFT_FOOT_y = " << std::to_string(Cliker::additional_sumValue_Labyrinth[(int)Limbs::Type::LEFT_FOOT].y) << std::endl;
+		colibrationFile << "sumValue_Labyrinth_RIGHT_FOOT_x = " << std::to_string(Cliker::additional_sumValue_Labyrinth[(int)Limbs::Type::RIGHT_FOOT].x) << std::endl;
+		colibrationFile << "sumValue_Labyrinth_RIGHT_FOOT_y = " << std::to_string(Cliker::additional_sumValue_Labyrinth[(int)Limbs::Type::RIGHT_FOOT].y) << std::endl;
+
+		colibrationFile << "sumValue_Aerohokey_LEFT_HAND_x = " << std::to_string(Cliker::additional_sumValue_Aerohokey[(int)Limbs::Type::LEFT_HAND].x) << std::endl;
+		colibrationFile << "sumValue_Aerohokey_LEFT_HAND_y = " << std::to_string(Cliker::additional_sumValue_Aerohokey[(int)Limbs::Type::LEFT_HAND].y) << std::endl;
+		colibrationFile << "sumValue_Aerohokey_RIGHT_HAND_x = " << std::to_string(Cliker::additional_sumValue_Aerohokey[(int)Limbs::Type::RIGHT_HAND].x) << std::endl;
+		colibrationFile << "sumValue_Aerohokey_RIGHT_HAND_y = " << std::to_string(Cliker::additional_sumValue_Aerohokey[(int)Limbs::Type::RIGHT_HAND].y) << std::endl;
+		colibrationFile << "sumValue_Aerohokey_LEFT_FOOT_x = " << std::to_string(Cliker::additional_sumValue_Aerohokey[(int)Limbs::Type::LEFT_FOOT].x) << std::endl;
+		colibrationFile << "sumValue_Aerohokey_LEFT_FOOT_y = " << std::to_string(Cliker::additional_sumValue_Aerohokey[(int)Limbs::Type::LEFT_FOOT].y) << std::endl;
+		colibrationFile << "sumValue_Aerohokey_RIGHT_FOOT_x = " << std::to_string(Cliker::additional_sumValue_Aerohokey[(int)Limbs::Type::RIGHT_FOOT].x) << std::endl;
+		colibrationFile << "sumValue_Aerohokey_RIGHT_FOOT_y = " << std::to_string(Cliker::additional_sumValue_Aerohokey[(int)Limbs::Type::RIGHT_FOOT].y) << std::endl;
+	}
+	colibrationFile.close();
 }
 
 Colibration::colibrationCorners Colibration::corner = Colibration::colibrationCorners::LEFT_TOP;

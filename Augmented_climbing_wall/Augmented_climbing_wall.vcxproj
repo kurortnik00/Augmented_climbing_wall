@@ -165,7 +165,7 @@
     <ClCompile Include="Smash_It\Smash_It_Target.cpp" />
     <ClCompile Include="Smash_It\Smash_It_Timer.cpp" />
     <ClCompile Include="Smash_It\Smash_It_VisibleGameObject.cpp" />
-    <ClCompile Include="Smash_It\testConfig.cpp" />
+    <ClCompile Include="Smash_It\Smash_It_Config.cpp" />
     <ClCompile Include="territory\config\Territory_config.cpp" />
     <ClCompile Include="territory\objects\Territory_board.cpp" />
     <ClCompile Include="territory\objects\Territory_map.cpp" />

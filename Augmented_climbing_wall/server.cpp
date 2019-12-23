@@ -5,8 +5,9 @@ masege format from client:
 1st byte - the menu state contains one of this integers:
 	0 - exit	(not used)
 	1 - game preporations
-	3 - show scoreBoard
+	3 - autocolibration
 	4 - ready to play
+	5 - manualCOlibration
 2nd byte - the current game:
 	0 - Smash_It
 	//	1 - Time_Climb
