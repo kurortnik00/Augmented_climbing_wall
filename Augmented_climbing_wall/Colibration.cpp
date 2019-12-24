@@ -344,6 +344,7 @@ void Colibration::manualEquationValuesColibration(myServer &server)
 		colibrationFile << "sumValue_y = " << std::to_string(Cliker::_sumValue.y) << std::endl;
 		colibrationFile << "multValue_x = " << std::to_string(Cliker::_multValue.x) << std::endl;
 		colibrationFile << "multValue_y = " << std::to_string(Cliker::_multValue.y) << std::endl;
+		colibrationFile << "trashHold = " << std::to_string(Cliker::_trashHold) << std::endl;
 	}
 	colibrationFile.close();
 }
@@ -352,7 +353,7 @@ void Colibration::manualEquationValuesColibration(myServer &server)
 void Colibration::drawColibrationShapes(myServer::GAMES game)
 {
 	//add flag to undraw if debag is off
-	if (true)
+	if (_debagFlag)
 		return;
 
 	for (int i = 0; i < (int)Limbs::Type::Count; i++)
@@ -388,6 +389,17 @@ void Colibration::drawColibrationShapes(myServer::GAMES game)
 		_shape1.setPosition(xy);
 		MainWindow::getWindow().draw(_shape1);
 	}	
+}
+
+void Colibration::setDebagFlag(bool flag, myServer& server)
+{
+	_debagFlag = flag;
+}
+
+void Colibration::setTrashHold(myServer& server)
+{
+	if (true) Cliker::_trashHold += 1;
+	if (true) Cliker::_trashHold -= 1;
 }
 
 Colibration::colibrationCorners Colibration::corner = Colibration::colibrationCorners::LEFT_TOP;

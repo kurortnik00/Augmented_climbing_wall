@@ -394,7 +394,7 @@ void Level::drawLines(sf::RenderWindow & renderWindow, std::vector<Line>& lines)
 
 
 	//kinect joints shapes
-	if (true)
+	if (Colibration::_debagFlag)
 	{
 		for (int i = 0; i < JointType_Count; i++)
 		{

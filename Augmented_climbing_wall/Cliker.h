@@ -27,6 +27,7 @@ public:
 	
 	static sf::Vector2f _sumValue;
 	static sf::Vector2f _multValue;
+	static float _trashHold;
 	static std::vector<sf::Vector2f> additional_sumValue_SmashIt;
 	static std::vector<sf::Vector2f> additional_sumValue_Labyrinth;
 	static std::vector<sf::Vector2f> additional_sumValue_Aerohokey;
@@ -50,7 +51,7 @@ private:
 	};
 
 	static bool kinectUpdateActions(int joint_Count, tracking_Type tT, sf::Vector2f center, float radius, myServer::GAMES game);
-	static float _trashHold;				//depth from sensor where interaction starts
+					//depth from sensor where interaction starts
 	static BodyTracker kinectApplication;
 	static sf::Vector2f joint_xy;
 	static float joint_z;

@@ -13,7 +13,6 @@ public:
 	static void drawColibrationShapes(myServer::GAMES game);
 	static void init();
 
-	static float _trashHold;
 	static float _debagFlag;
 
 private:
@@ -54,5 +53,8 @@ private:
 		
 	};
 	static std::vector<sf::Vector2f> additionalValueColibration(std::vector<sf::Vector2f> limbsAditionValues, myServer& server);
+	static void setDebagFlag(bool flag, myServer& server);
+	static void setTrashHold(myServer& server);
+
 };
 
