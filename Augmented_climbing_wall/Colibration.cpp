@@ -352,7 +352,7 @@ void Colibration::manualEquationValuesColibration(myServer &server)
 void Colibration::drawColibrationShapes(myServer::GAMES game)
 {
 	//add flag to undraw if debag is off
-	if (false)
+	if (true)
 		return;
 
 	for (int i = 0; i < (int)Limbs::Type::Count; i++)

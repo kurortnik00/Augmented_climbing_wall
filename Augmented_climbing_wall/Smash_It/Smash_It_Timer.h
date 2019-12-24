@@ -1,7 +1,7 @@
 #pragma once
 #include "../stdafx.h"
 #include "Smash_It_VisibleGameObject.h"
-#include "testConfig.h"
+#include "Smash_It_Config.h"
 
 namespace Smash_It
 {

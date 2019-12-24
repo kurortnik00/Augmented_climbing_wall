@@ -7,10 +7,9 @@ Smash_It::Game::Game(sf::RenderWindow &window)
 {
 	Smash_It::Game::_gameState = Uninitialized;
 
-	Config config;
-	config.loadConfig();
-	Smash_It::Game::targetCount = config.smashIt_targets;				//max targets = 14 if you wana more change Init()
-	Smash_It::Game::_font = config.font;
+	Config::loadConfig("Smash_It/Smash_It_config.txt");
+	Smash_It::Game::targetCount = Config::smashIt_targets;				//max targets = 14 if you wana more change Init()
+	Smash_It::Game::_font = Config::font;
 
 
 	Smash_It::Game::TOP_List = { {6, "ASd"} , {5, "zzz"} , {1, "qq"} , {4, "44"} };
@@ -207,11 +206,11 @@ void Smash_It::Game::TOP_List_Update(myServer& server)
 		
 		_mainWindow.clear(sf::Color(0, 0, 0));
 
-		sf::Text gameOverText("Game Over", font, 150);
-		gameOverText.setPosition(_mainWindow.getSize().x / 2 - 600, 100);
+		sf::Text gameOverText("Game Over", font, Config::game_over_text_size);
+		gameOverText.setPosition(Config::game_over_text_pos);
 
-		sf::Text scoreText(scoreString, font, 150);
-		scoreText.setPosition(_mainWindow.getSize().x / 2 - 600, 250);
+		sf::Text scoreText(scoreString, font, Config::game_over_score_size);
+		scoreText.setPosition(Config::game_over_score_pos);
 
 		sf::Text text(name, font, 150);
 		text.setPosition(_mainWindow.getSize().x / 2 - 500, 400);
@@ -238,13 +237,13 @@ void Smash_It::Game::TOP_List_Update(myServer& server)
 			texture.loadFromImage(image);
 			sf::Sprite sprite;
 			sprite.setTexture(texture);
-			sprite.setScale(0.15, 0.15);
-			sf::Vector2f pos(700, 200);
+			sprite.setScale(Config::restart_scale, Config::restart_scale);
+			sf::Vector2f pos(Config::restart_pos);
 			sprite.setPosition(pos);
-			sf::Vector2f center(pos.x + texture.getSize().x * 0.075, pos.y + texture.getSize().y * 0.075);
+			sf::Vector2f center(pos.x + texture.getSize().x * Config::restart_scale * Config::restart_scale, pos.y + texture.getSize().y * Config::restart_scale * Config::restart_scale);
 
 
-			if (Cliker::getClik(center, texture.getSize().x * 0.2, false, myServer::SMASH_IT))
+			if (Cliker::getClik(center, texture.getSize().x * Config::restart_itarationRadius_scale, false, myServer::SMASH_IT))
 			{
 				flag = false;
 			}

@@ -1,0 +1,17 @@
+smashIt_targets = 7
+font = Smash_It/font/11583.ttf
+maxGameTime = 10
+
+game_over_text_pos_x = 360
+game_over_text_pos_y = 100
+game_over_text_size = 150
+game_over_score_pos_x = 360
+game_over_score_pos_y = 250
+game_over_score_size = 150
+restart_pos_x = 
+restart_pos_y = 
+restart_scale = 0.15
+restart_itarationRadius_scale = 0.2
+targets_vel_x = 1.5
+targets_vel_y = 2
+targets_itaractionRadius = 90

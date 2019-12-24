@@ -4,7 +4,7 @@
 
 
 Smash_It::Target::Target()
-	:constVelocity(1.5, 2)
+	:constVelocity(Smash_It::Config::targets_vel)
 {
 	Load("Smash_It/images/balloon_green.png");
 	assert(IsLoaded());
@@ -56,7 +56,7 @@ void Smash_It::Target::setClickState(bool ans)
 void Smash_It::Target::Update(sf::Event& event) {
 
 	
-	if (Cliker::getClik(VisibleGameObject::getCenter(), 90, false, myServer::SMASH_IT))
+	if (Cliker::getClik(VisibleGameObject::getCenter(), Config::targets_itaractionRadius, false, myServer::SMASH_IT))
 	{
 		if (!animationStart)
 		{

@@ -13,6 +13,9 @@ public:
 	static void drawColibrationShapes(myServer::GAMES game);
 	static void init();
 
+	static float _trashHold;
+	static float _debagFlag;
+
 private:
 
 	static std::vector<float> x_sum_vector;

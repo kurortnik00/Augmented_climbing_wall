@@ -162,6 +162,9 @@ void Labyrinth::Config::loadConfig() {
 			sin >> Config::level4_timeToSwithOff_blinkLine;
 		else if (line.find("level4_vel") != -1)
 			sin >> Config::level4_vel;
+		else if (line.find("level4_move_Button2Triger_x") != -1)
+			sin >> Config::level4_move_Button2Triger_x;
+
 
 		else if (line.find("level5_vel_x") != -1)
 			sin >> Config::level5_vel.x;
@@ -191,7 +194,12 @@ void Labyrinth::Config::loadConfig() {
 			sin >> Config::level5_anglVel;
 
 
-	
+		else if (line.find("level_restartButton_x") != -1)
+			sin >> Config::level_restartButton.x;
+		else if (line.find("level_rastartButton_y") != -1)
+			sin >> Config::level_restartButton.y;
+		else if (line.find("level_restartButton_scale") != -1)
+			sin >> Config::level_restartButton_scale;	
 	}
 }
 

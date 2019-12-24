@@ -5,8 +5,8 @@ level1_line1_angl = 90
 level1_startButton_x = 100
 level1_startButton_y = 300
 level1_startButton_radius = 80
-level1_winButton_x = 800
-level1_winButton_y = 200
+level1_winButton_x = 1400
+level1_winButton_y = 800
 level1_winButton_radius = 63
 
 level2_line1_pos_x = 580
@@ -20,8 +20,8 @@ level2_line2_angl = 330
 level2_startButton_x = 100
 level2_startButton_y = 800
 level2_startButton_radius = 80
-level2_winButton_x = 800
-level2_winButton_y = 200
+level2_winButton_x = 1700
+level2_winButton_y = 50
 level2_winButton_radius = 63
 
 level3_line1_pos_x = 600
@@ -76,6 +76,7 @@ level4_timeToSwithOn_blinkLine = 2500
 level4_timeToSwithOff_blinkLine = 4500
 level4_anglVel = 0.2
 level4_vel = 3
+level4_move_Button2Triger_x = 200
 
 level5_vel_x = 0.7
 level5_vel_y = 0
@@ -90,4 +91,5 @@ level5_winButton_x = 1500
 level5_winButton_y = 200
 level5_winButton_radius = 63
 level5_angVel = 0.1
+
 

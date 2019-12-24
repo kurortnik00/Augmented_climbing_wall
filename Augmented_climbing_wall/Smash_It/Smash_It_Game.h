@@ -9,7 +9,7 @@
 #include "../server.h"
 #include "../Cliker.h"
 #include "../Colibration.h"
-#include "testConfig.h"
+#include "Smash_It_Config.h"
 #include <random>
 #include <iomanip>
 #include <sstream>

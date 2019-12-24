@@ -172,15 +172,14 @@ Level::Line::Line(sf::Vector2f startPoint, float angl, float length)
 
 
 	circleRadius = 40;
-	circleShape1.setFillColor(sf::Color(0, 0, 0));
 	circleShape1.setRadius(circleRadius);
-	circleShape1.setFillColor(sf::Color(2, 188, 255, 100));
+	circleShape1.setFillColor(sf::Color(2, 188, 255));
 	circleShape1.setPosition(sf::Vector2f(_endPoint));
 	circleShape1.setOrigin(circleRadius - 8, circleRadius+8);
 
-	circleShape2.setFillColor(sf::Color(0, 0, 0));
+
 	circleShape2.setRadius(circleRadius);
-	circleShape2.setFillColor(sf::Color(2, 188, 255, 100));
+	circleShape2.setFillColor(sf::Color(2, 188, 255));
 	circleShape2.setPosition(sf::Vector2f(_startPoint));
 	circleShape2.setOrigin(circleRadius, circleRadius-8);
 }
@@ -194,7 +193,7 @@ Level::Button::Button(sf::Vector2f position, float radius, std::string filename,
 	_sprite.setTexture(_texture);
 	_sprite.setTextureRect(textureRect);
 	_sprite.setPosition(_position);
-	_sprite.setColor(sf::Color(255, 255, 255, 100));
+	_sprite.setColor(sf::Color(255, 255, 255));
 
 
 	_center = sf::Vector2f(_position.x + _radius, _position.y + _radius);
@@ -220,7 +219,7 @@ void Level::setSpritesArr(Line& line, sf::Texture texture)
 		line.sprite.setTexture(texture);
 		line.sprite.setPosition(line._startPoint);		//init the start position of all sprites
 		line.sprite.setScale(line.size.x / 210, 1);	
-		line.sprite.setColor(sf::Color(255, 255, 255, 100));
+		line.sprite.setColor(sf::Color(255, 255, 255));
 }
 
 

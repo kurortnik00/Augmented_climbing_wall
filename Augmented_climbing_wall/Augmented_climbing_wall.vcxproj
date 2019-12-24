@@ -224,7 +224,7 @@
     <ClInclude Include="Smash_It\Smash_It_Target.h" />
     <ClInclude Include="Smash_It\Smash_It_Timer.h" />
     <ClInclude Include="Smash_It\Smash_It_VisibleGameObject.h" />
-    <ClInclude Include="Smash_It\testConfig.h" />
+    <ClInclude Include="Smash_It\Smash_It_Config.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="territory\config\Territory_config.hpp" />
     <ClInclude Include="territory\objects\Territory_board.hpp" />

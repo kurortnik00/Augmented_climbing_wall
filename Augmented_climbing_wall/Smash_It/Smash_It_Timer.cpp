@@ -13,9 +13,8 @@ Smash_It::Timer::Timer() :
 	finished = false;
 	finishedTime = 0;
 
-	Config config;
-	config.loadConfig();
-	maxGameTime = config.maxGameTime;
+	
+	maxGameTime = Config::maxGameTime;
 }
 
 Smash_It::Timer::~Timer() {

@@ -1,2 +1,0 @@
-kinectControl = 0 (false)
-smashIt_targets = 66

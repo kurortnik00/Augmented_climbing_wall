@@ -1,3 +1,0 @@
-smashIt_targets = 7
-font = Smash_It/font/11583.ttf
-maxGameTime = 10

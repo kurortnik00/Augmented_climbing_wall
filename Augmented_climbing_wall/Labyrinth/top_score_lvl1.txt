@@ -1,13 +1,14 @@
 0.320000 3.448000ffffffff
 0.590000 0.873000
 0.610000 ff
-0.621000 0.593000
+0.620000 0.593000
 0.830000 0.551000ffffffffffffffff
 0.870000 
 0.920000 2.405000ffffffffffff
 0.950000 1.600000ffffffffffffffffff
 1.220000 2.717000ffffffffffffffffffffff
 1.260000 ffff
+1.646000 
 1.840000 ffffffffffffffffffff
 1.930000 ffffffffffffffffffffffffffffff
 2.370000 0.326000ffffff

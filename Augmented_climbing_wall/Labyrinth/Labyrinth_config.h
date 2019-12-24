@@ -77,6 +77,7 @@ namespace Labyrinth
 		float	level4_timeToSwithOff_blinkLine;
 		float level4_anglVel;
 		float	level4_vel;
+		float level4_move_Button2Triger_x;
 
 		sf::Vector2f level5_vel;
 		float	level5_radius;
@@ -87,6 +88,10 @@ namespace Labyrinth
 		sf::Vector2f level5_winButton;
 		float level5_winButton_radius;
 		float level5_anglVel;
+
+
+		sf::Vector2f level_restartButton;
+		float level_restartButton_scale;
 
 	};
 }

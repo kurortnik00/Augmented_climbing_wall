@@ -148,12 +148,25 @@ void CircleLvL::Update(sf::Event& event) {
 		//canculate and Update the iteraction with the plaer
 		//responsible of losing state
 		//win check in "winButton"
+	
 		if (!VisibleGameObject::getKinectControll()) {
-			if ((dist2(sf::Vector2f(sf::Mouse::getPosition(MainWindow::getWindow()).x, sf::Mouse::getPosition(MainWindow::getWindow()).y), _center) > _radius*_radius))
+			if ((dist2(sf::Vector2f(sf::Mouse::getPosition(MainWindow::getWindow()).x, sf::Mouse::getPosition(MainWindow::getWindow()).y), _center - sf::Vector2f(25,25)) > _radius* _radius * 1.3))
 			{
 				Level::lose(sf::Vector2f(sf::Mouse::getPosition(MainWindow::getWindow()).x, sf::Mouse::getPosition(MainWindow::getWindow()).y));
 			}
-			
+		}
+		else
+		{
+			for (int i = 0; i < 4; i++)
+			{
+				float x = Cliker::kinectTranform_X_Cordinates(Cliker::getKinectApplication().getLimbPointsXY(static_cast<Limbs::Type>(i), true).x);
+				float y = Cliker::kinectTranform_X_Cordinates(Cliker::getKinectApplication().getLimbPointsXY(static_cast<Limbs::Type>(i), true).y);
+
+				if (dist2(sf::Vector2f(x, y), _center - sf::Vector2f(25, 25)) > _radius* _radius * 1.3)
+				{
+					Level::lose(sf::Vector2f(x, y));
+				}
+			}
 		}
 		
 	}

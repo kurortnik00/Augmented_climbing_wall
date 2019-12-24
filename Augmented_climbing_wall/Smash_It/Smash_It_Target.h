@@ -7,6 +7,7 @@
 #include "Kinect.h"
 #include "../Cliker.h"
 #include "../Colibration.h"
+#include "Smash_It_Config.h"
 
 namespace Smash_It
 {
