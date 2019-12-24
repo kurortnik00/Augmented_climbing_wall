@@ -64,7 +64,6 @@ void BodyTracker::Update(bool getMask)
     }
     IBodyFrame* pBodyFrame = NULL;
     IBodyIndexFrame* pBodyIndexFrame = NULL;
-	IFrameDescription* pBodyIndexFrameDescription = NULL;
 
     HRESULT hr = m_pBodyFrameReader->AcquireLatestFrame(&pBodyFrame);
 
@@ -101,24 +100,7 @@ void BodyTracker::Update(bool getMask)
 			bool logDescription = false;
 			if (logDescription)
 			{
-				int width, height;
-				unsigned bytesPerPixel, lengthInPixels;
-				float diagonalFieldOfView, horizontalFieldOfView, verticalFieldOfView;
-
-				pBodyIndexFrame->get_FrameDescription(&pBodyIndexFrameDescription);
-				pBodyIndexFrameDescription->get_BytesPerPixel(&bytesPerPixel);
-				pBodyIndexFrameDescription->get_DiagonalFieldOfView(&diagonalFieldOfView);
-				pBodyIndexFrameDescription->get_HorizontalFieldOfView(&horizontalFieldOfView);
-				pBodyIndexFrameDescription->get_VerticalFieldOfView(&verticalFieldOfView);
-				pBodyIndexFrameDescription->get_Width(&width);
-				pBodyIndexFrameDescription->get_Height(&height);
-				pBodyIndexFrameDescription->get_LengthInPixels(&lengthInPixels);
-
-				/*LOG(INFO) << "------ BODY INDEX FRAME DESCRIPTION -----";
-				LOG(INFO) << "Frame size: " << width << " x " << height;
-				LOG(INFO) << "Field of view (degrees): horizontal - " << horizontalFieldOfView
-
-				LOG(INFO) << "------ END BODY INDEX FRAME DESCRIPTION -----";*/
+                logBodyIndexFrameDescription(pBodyIndexFrame);
 
 				logDescription = false;
 			}
@@ -126,8 +108,6 @@ void BodyTracker::Update(bool getMask)
 			byte* buffer;
 			unsigned capacity;
 			pBodyIndexFrame->AccessUnderlyingBuffer(&capacity, &buffer);
-
-			//LOG(INFO) << "UPDATE BODY MASK";
 
 			const byte* bodyMask = const_cast<const byte*>(buffer);
 			outlinePixelVector.erase(outlinePixelVector.begin(), outlinePixelVector.end());
@@ -191,7 +171,7 @@ HRESULT BodyTracker::InitializeDefaultSensor()
     hr = GetDefaultKinectSensor(&m_pKinectSensor);
     if (FAILED(hr))
     {
-       // LOG(INFO) << "No ready Kinect found!";
+        std::cout << "No ready Kinect found!";
         return E_FAIL;
     }
 
@@ -285,9 +265,6 @@ void BodyTracker::ProcessBody(INT64 nTime, int nBodyCount, IBody** ppBodies)
                             limbVelocitiesXY[i][j] = (limbPointsXY[i][j] - newPointXY) / delta;
                             limbPointsXY[i][j] = newPointXY;
                             limbDepthPoint[i][j] = LimbDepthPoint(i, static_cast<Limbs::Type>(j));
-                            
-                           // LOG(INFO) << "Limb " << j << " velocity: (x: " << limbVelocitiesXY[i][j].x
-                            //    << ", y:" << limbVelocitiesXY[i][j].y << ")";
                         }
                     }
 
@@ -446,7 +423,6 @@ sf::Vector2f BodyTracker::getAllJoints_timeAveraged_PointsXY(int limb, /*tempora
 	}
 
 	return timeAveraged_Point[limb];
-
 }
 
 
@@ -646,4 +622,28 @@ void BodyTracker::SimplifyBodyMask()
             }
         }
     }
+}
+
+void BodyTracker::logBodyIndexFrameDescription(IBodyIndexFrame * pBodyIndexFrame)
+{
+    IFrameDescription* pBodyIndexFrameDescription = NULL;
+
+    int width, height;
+    unsigned bytesPerPixel, lengthInPixels;
+    float diagonalFieldOfView, horizontalFieldOfView, verticalFieldOfView;
+
+    pBodyIndexFrame->get_FrameDescription(&pBodyIndexFrameDescription);
+    pBodyIndexFrameDescription->get_BytesPerPixel(&bytesPerPixel);
+    pBodyIndexFrameDescription->get_DiagonalFieldOfView(&diagonalFieldOfView);
+    pBodyIndexFrameDescription->get_HorizontalFieldOfView(&horizontalFieldOfView);
+    pBodyIndexFrameDescription->get_VerticalFieldOfView(&verticalFieldOfView);
+    pBodyIndexFrameDescription->get_Width(&width);
+    pBodyIndexFrameDescription->get_Height(&height);
+    pBodyIndexFrameDescription->get_LengthInPixels(&lengthInPixels);
+
+    /*LOG(INFO) << "------ BODY INDEX FRAME DESCRIPTION -----";
+    LOG(INFO) << "Frame size: " << width << " x " << height;
+    LOG(INFO) << "Field of view (degrees): horizontal - " << horizontalFieldOfView
+
+    LOG(INFO) << "------ END BODY INDEX FRAME DESCRIPTION -----";*/
 }

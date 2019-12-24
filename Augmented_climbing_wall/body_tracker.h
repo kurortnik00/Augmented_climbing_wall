@@ -74,8 +74,6 @@ public:
     /// <param name="hInstance"></param>
     /// <param name="nCmdShow"></param>
     void                    Run();
-    sf::Vector2f            getJointPointsXY(Joints::Type i, bool left);
-    float                   getJointDepthPoint(Joints::Type i, bool left);
 
     /// <summary>
     /// Main processing function
@@ -89,6 +87,8 @@ public:
 	std::vector<sf::Vector2f>* getOutlinePixelVector();
 	sf::Vector2f			getOutlinePixel(int i);
     sf::Vector2f            GetProjection(const sf::Vector2f point);
+    sf::Vector2f            getJointPointsXY(Joints::Type i, bool left);
+    float                   getJointDepthPoint(Joints::Type i, bool left);
     sf::Vector2f            getLimbPointsXY(Limbs::Type limb, bool left);
     float                   getLimbDepthPoints(Limbs::Type limb, bool left);
     sf::Vector2f			getLimbVelocitiesXY(Limbs::Type limb, bool left);
@@ -163,7 +163,7 @@ private:
 
     sf::Vector2f            LimbPointsXY(int i, Limbs::Type limb);
     float                   LimbDepthPoint(int i, Limbs::Type limb);
-
+    void                    logBodyIndexFrameDescription(IBodyIndexFrame * pBodyIndexFrame);
 
 	struct JointPoints_buffer
 	{
