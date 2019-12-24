@@ -10,6 +10,7 @@ public:
 	static void autoColibration();
 	static void manualAdditionalColibration(myServer& server);
 	static void manualEquationValuesColibration(myServer& server);
+	static void drawColibrationShapes(myServer::GAMES game);
 	static void init();
 
 private:

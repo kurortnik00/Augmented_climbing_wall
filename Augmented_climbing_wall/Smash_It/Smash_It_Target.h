@@ -6,6 +6,7 @@
 //#include "../BodyBasics.h"
 #include "Kinect.h"
 #include "../Cliker.h"
+#include "../Colibration.h"
 
 namespace Smash_It
 {
@@ -23,6 +24,7 @@ namespace Smash_It
 		void reInit();
 		int getRandomNumber(int min, int max);
 		void Draw(sf::RenderWindow & window);
+		
 
 
 	private:

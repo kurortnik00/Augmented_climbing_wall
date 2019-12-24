@@ -395,29 +395,32 @@ void Level::drawLines(sf::RenderWindow & renderWindow, std::vector<Line>& lines)
 
 
 	//kinect joints shapes
-	for (int i = 0; i < JointType_Count; i++)
+	if (true)
 	{
-		sf::CircleShape _shape1;
-		
-		_shape1.setFillColor(sf::Color(0, 0, 0));
-		_shape1.setRadius(additionalRadius(i));
-		_shape1.setOutlineThickness(10);
-		_shape1.setOutlineColor(sf::Color(250, 50, 100));
-		float x = Cliker::kinectTranform_X_Cordinates(Cliker::getKinectApplication().getAllJoints_timeAveraged_PointsXY(i, 0).x);
-		float y = Cliker::kinectTranform_Y_Cordinates(Cliker::getKinectApplication().getAllJoints_timeAveraged_PointsXY(i, 0).y);
-		_shape1.setPosition(sf::Vector2f(x, y) - sf::Vector2f(additionalRadius(i), additionalRadius(i)));
+		for (int i = 0; i < JointType_Count; i++)
+		{
+			sf::CircleShape _shape1;
 
-		shape_Vec.push_back(_shape1);
+			_shape1.setFillColor(sf::Color(0, 0, 0));
+			_shape1.setRadius(additionalRadius(i));
+			_shape1.setOutlineThickness(10);
+			_shape1.setOutlineColor(sf::Color(250, 50, 100));
+			float x = Cliker::kinectTranform_X_Cordinates(Cliker::getKinectApplication().getAllJoints_timeAveraged_PointsXY(i, 0).x);
+			float y = Cliker::kinectTranform_Y_Cordinates(Cliker::getKinectApplication().getAllJoints_timeAveraged_PointsXY(i, 0).y);
+			_shape1.setPosition(sf::Vector2f(x, y) - sf::Vector2f(additionalRadius(i), additionalRadius(i)));
 
+			shape_Vec.push_back(_shape1);
+
+		}
+		for (auto& i : shape_Vec)
+		{
+			renderWindow.draw(i);
+		}
+		shape_Vec.clear();
 	}
+	
 
-	for (auto& i : shape_Vec)
-	{
-		renderWindow.draw(i);
-	}
-
-
-	shape_Vec.clear();
+	Colibration::drawColibrationShapes(myServer::LABYRINTH);
 }
 
 void Level::drawButtons(sf::RenderWindow & renderWindow, std::vector<Button>& buttons)

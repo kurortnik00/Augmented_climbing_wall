@@ -1,9 +1,9 @@
-sumValue_SmashIt_LEFT_HAND_x = 696.368164
+sumValue_SmashIt_LEFT_HAND_x = 196.368164
 sumValue_SmashIt_LEFT_HAND_y = 0.000000
 sumValue_SmashIt_RIGHT_HAND_x = 0.000000
 sumValue_SmashIt_RIGHT_HAND_y = 0.000000
-sumValue_SmashIt_LEFT_FOOT_x = 0.000000
-sumValue_SmashIt_LEFT_FOOT_y = 0.000000
+sumValue_SmashIt_LEFT_FOOT_x = 400.000000
+sumValue_SmashIt_LEFT_FOOT_y = 200.000000
 sumValue_SmashIt_RIGHT_FOOT_x = 0.000000
 sumValue_SmashIt_RIGHT_FOOT_y = 0.000000
 sumValue_Labyrinth_LEFT_HAND_x = 0.000000

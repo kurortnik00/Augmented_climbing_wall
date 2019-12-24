@@ -3,6 +3,7 @@
 #include <list>
 #include <sstream>
 #include "../server.h"
+#include "../Colibration.h"
 namespace Smash_It
 {
 	class MainMenu

@@ -348,6 +348,48 @@ void Colibration::manualEquationValuesColibration(myServer &server)
 	colibrationFile.close();
 }
 
+
+void Colibration::drawColibrationShapes(myServer::GAMES game)
+{
+	//add flag to undraw if debag is off
+	if (false)
+		return;
+
+	for (int i = 0; i < (int)Limbs::Type::Count; i++)
+	{
+		sf::Vector2f xy = sf::Vector2f(Cliker::kinectTranform_X_Cordinates(Cliker::getKinectApplication().getLimbPointsXY(static_cast<Limbs::Type>(i), true).x)
+									 , Cliker::kinectTranform_Y_Cordinates(Cliker::getKinectApplication().getLimbPointsXY(static_cast<Limbs::Type>(i), true).y));
+
+
+		switch (game)
+		{
+		case myServer::SMASH_IT:
+			xy += Cliker::additional_sumValue_SmashIt[i];
+			break;
+		case myServer::LABYRINTH:
+			xy += Cliker::additional_sumValue_Labyrinth[i];
+			break;
+		case myServer::AEROHOCKEY:
+			xy += Cliker::additional_multValue_Aerohokey[i];
+			break;
+		case myServer::TIME_CLIMB:
+			break;
+		case myServer::TERRITORY:
+			break;
+		default:
+			break;
+		}
+		sf::CircleShape _shape1;
+		float _radius = 30;
+		_shape1.setFillColor(sf::Color(250, 50, 100));
+		_shape1.setRadius(_radius);
+
+		
+		_shape1.setPosition(xy);
+		MainWindow::getWindow().draw(_shape1);
+	}	
+}
+
 Colibration::colibrationCorners Colibration::corner = Colibration::colibrationCorners::LEFT_TOP;
 sf::CircleShape Colibration::shape;
 sf::Clock Colibration::clock;

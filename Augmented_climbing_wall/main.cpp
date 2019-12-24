@@ -25,7 +25,7 @@ int main()
 	while (true)
 	{
 		//switch (server->getData()[gameState])
-		switch (4)
+		switch (1)
 		{
 		case(myServer::EXIT):
 			break;

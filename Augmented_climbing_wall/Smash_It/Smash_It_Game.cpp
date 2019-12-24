@@ -220,8 +220,8 @@ void Smash_It::Game::TOP_List_Update(myServer& server)
 		_mainWindow.draw(text);
 		_mainWindow.draw(scoreText);
 		_mainWindow.draw(gameOverText);
-		
 
+		Colibration::drawColibrationShapes(myServer::SMASH_IT);
 
 		std::vector<int> data = getClientData(server);
 		for (int i = 2; i < data.size(); i += 5)
