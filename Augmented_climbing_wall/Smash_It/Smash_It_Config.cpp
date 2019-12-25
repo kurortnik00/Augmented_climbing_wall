@@ -41,7 +41,7 @@ void Smash_It::Config::loadConfig(std::string path)
 		read_param(line, "maxGameTime", Config::maxGameTime);
 
 
-		read_param(line, "mgame_over_text_pos_x", Config::game_over_text_pos.x);
+		read_param(line, "game_over_text_pos_x", Config::game_over_text_pos.x);
 		read_param(line, "game_over_text_pos_y", Config::game_over_text_pos.y);
 		read_param(line, "game_over_text_size", Config::game_over_text_size);
 		read_param(line, "game_over_score_pos_x", Config::game_over_score_pos.x);

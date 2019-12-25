@@ -350,7 +350,7 @@ void Colibration::manualEquationValuesColibration(myServer &server)
 void Colibration::drawColibrationShapes(myServer::GAMES game)
 {
 	//add flag to undraw if debag is off
-	if (_debagFlag)
+	if (!_debagFlag)
 		return;
 
 	for (int i = 0; i < (int)Limbs::Type::Count; i++)
@@ -413,3 +413,4 @@ std::vector<float> Colibration::x_error;
 std::vector<float> Colibration::y_error;
 float Colibration::x_averError = 0;
 float Colibration::y_averError = 0;
+bool Colibration::_debagFlag = false;

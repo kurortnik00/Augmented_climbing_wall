@@ -13,7 +13,7 @@ public:
 	static void drawColibrationShapes(myServer::GAMES game);
 	static void init();
 
-	static float _debagFlag;
+	static bool _debagFlag;
 
 private:
 

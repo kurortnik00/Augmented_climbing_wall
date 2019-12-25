@@ -52,7 +52,7 @@ void Cliker::load(std::string path)
 		read_param(line, "sumValue_y", Cliker::_sumValue.y);
 		read_param(line, "multValue_x", Cliker::_multValue.x);
 		read_param(line, "multValue_y", Cliker::_multValue.y);
-		read_param(line, "trashHold", Cliker::_trashHold)
+		read_param(line, "trashHold", Cliker::_trashHold);
 
 		read_param(line, "sumValue_SmashIt_LEFT_HAND_x", Cliker::additional_sumValue_SmashIt[(int)Limbs::Type::LEFT_HAND].x);
 		read_param(line, "sumValue_SmashIt_LEFT_HAND_y", Cliker::additional_sumValue_SmashIt[(int)Limbs::Type::LEFT_HAND].y);
