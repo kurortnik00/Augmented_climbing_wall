@@ -36,3 +36,10 @@ sf::Vector2f get_initial_velocity()
 	
 	return sf::Vector2f(cos(PI * angle / 180), sin(PI * angle / 180)) * Aerohockey::Config::initial_puck_velocity;
 }
+
+void align_center(sf::Text& text, sf::RectangleShape& border)
+{
+	text.setOrigin(text.getLocalBounds().width / 2, text.getLocalBounds().height / 2);
+	text.setPosition(border.getPosition().x + border.getSize().x / 2, 
+		border.getPosition().y + border.getSize().y / 4);
+}

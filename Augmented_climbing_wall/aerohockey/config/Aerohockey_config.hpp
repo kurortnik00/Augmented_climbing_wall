@@ -19,7 +19,11 @@ namespace Aerohockey
 		extern unsigned max_score;				// Scoring max_score times ends the game
 		extern float game_length;				// Game length (in seconds)
 		extern float game_start_delay;			// Delay for players to prepare
+
+		// Result view settings
 		extern float result_demonstration_time; // Result demonstration time after game ends (in seconds)
+		extern float result_border_velocity;	// Velocity of the border of rectangles in result view
+		extern float result_sign_delay;			// Little delay before sign appears
 
 		// Colors
 		extern sf::Color red;					// Color of the left player
@@ -59,6 +63,7 @@ namespace Aerohockey
 		extern float board_height;					// Scoreboard height in pixels
 
 		// Resources
+		extern std::string font_result_path;		// Path to font for results
 		extern std::string font_scoreboard_path;	// Path to font for scoreboard
 		extern std::string sound_scored_path;		// Path to 'scored' sound
 		extern std::string sound_hit_path;			// Path to 'hit' sound

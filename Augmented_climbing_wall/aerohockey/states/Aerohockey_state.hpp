@@ -71,7 +71,9 @@ namespace Aerohockey
 		StateResult(States::Type type, World& world) : State(type, world) { }
 
 		~StateResult() { }
+		void update(const float delta) override;
 		void render() override;
+		void reset() override;
 		States::Type switchTo() override;
 	};
 

@@ -26,6 +26,8 @@ void StatePreparation::render()
 
     world.left.render(world.mWindow);
     world.right.render(world.mWindow);
+    world.mWindow.draw(world.left_border);
+    world.mWindow.draw(world.right_border);
     world.mWindow.draw(world.left_ready.sprite());
     world.mWindow.draw(world.right_ready.sprite());
 

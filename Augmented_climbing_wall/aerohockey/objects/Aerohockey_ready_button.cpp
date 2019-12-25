@@ -22,7 +22,8 @@ bool ReadyButton::isActivated()
 void ReadyButton::setTexture(sf::Texture& texture)
 {
     sprite_.setTexture(texture);
-    sprite_.setScale(size_.x / sprite_.getLocalBounds().width, size_.y / sprite_.getLocalBounds().height);
+    sprite_.setOrigin(texture.getSize().x / 2, texture.getSize().y / 2);
+    sprite_.setScale(size_.x / texture.getSize().x, size_.y / texture.getSize().y);
 }
 
 sf::Sprite & ReadyButton::sprite()

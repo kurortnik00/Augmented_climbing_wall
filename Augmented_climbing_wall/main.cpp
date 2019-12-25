@@ -22,6 +22,9 @@ int main()
 		gameState, game, presedButton, LvL
 	};
 
+	// Load aerohockey config once
+	Aerohockey::Config::load("Aerohockey/config/Aerohockey_config.txt");
+
 	while (true)
 	{
 		//switch (server->getData()[gameState])
@@ -32,7 +35,7 @@ int main()
 		case(myServer::PLAY):
 			MainWindow::getWindow().setMouseCursorVisible(true);
 			//switch (server->getData()[game])
-			switch (0)
+			switch (2)
 			{
 			case(myServer::SMASH_IT):
 			{
@@ -62,9 +65,6 @@ int main()
 			case(myServer::AEROHOCKEY):
 			{
 				std::cout << "AEROHOCKEY started \n";
-
-				// Load config before the game starts
-				Aerohockey::Config::load("Aerohockey/config/Aerohockey_config.txt");
 
 				Aerohockey::Starter aerohockey;
 				aerohockey.start(*server);

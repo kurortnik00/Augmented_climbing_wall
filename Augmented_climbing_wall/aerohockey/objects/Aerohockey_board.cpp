@@ -4,6 +4,7 @@
 #include <string>
 
 #include "Aerohockey_board.hpp"
+#include "../../util.hpp"
 
 using namespace std;
 using namespace Aerohockey;
@@ -39,20 +40,20 @@ Scoreboard::Scoreboard(Player * left, Player * right, float gameDuration)
     left_score_border.setPosition(Config::screen_width / 2 - Config::timer_width / 2 - Config::score_width, top);
     left_score_border.setSize(sf::Vector2f(Config::score_width, Config::board_height));
     left_score_border.setFillColor(left_color);
-    left_score_border.setOutlineColor(sf::Color::White);
-    left_score_border.setOutlineThickness(-2.f);
+    left_score_border.setOutlineColor(main_color);
+    left_score_border.setOutlineThickness(-10.f);
 
     right_score_border.setPosition(Config::screen_width / 2 + Config::timer_width / 2, top);
     right_score_border.setSize(sf::Vector2f(Config::score_width, Config::board_height));
     right_score_border.setFillColor(right_color);
-    right_score_border.setOutlineColor(sf::Color::White);
-    right_score_border.setOutlineThickness(-2.f);
+    right_score_border.setOutlineColor(main_color);
+    right_score_border.setOutlineThickness(-10.f);
 
-    time_border.setPosition(Config::screen_width / 2 - Config::timer_width / 2, top);
-    time_border.setSize(sf::Vector2f(Config::timer_width, Config::board_height));
+    time_border.setPosition(Config::screen_width / 2 - Config::timer_width / 2 - 10.f, top);
+    time_border.setSize(sf::Vector2f(Config::timer_width + 20.f, Config::board_height));
     time_border.setFillColor(sf::Color::Transparent);
     time_border.setOutlineColor(main_color);
-    time_border.setOutlineThickness(-2.f);
+    time_border.setOutlineThickness(-10.f);
     
     left_score.setCharacterSize(Config::font_size);
     left_score.setFillColor(main_color);
@@ -74,13 +75,6 @@ string Scoreboard::time_line(float seconds)
     sprintf(t_, "%02d:%02d", mins, secs);
 
     return t_;
-}
-
-void Scoreboard::align_center(sf::Text& text, sf::RectangleShape& border)
-{
-    text.setOrigin(text.getLocalBounds().width / 2, text.getLocalBounds().height / 2);
-    text.setPosition(border.getPosition().x + border.getSize().x / 2, 
-        border.getPosition().y + border.getSize().y / 2);
 }
 
 void Scoreboard::update(float delta, bool& score_changed)

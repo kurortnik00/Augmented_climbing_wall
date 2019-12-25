@@ -9,21 +9,23 @@
 using namespace std;
 using namespace Aerohockey;
 
-World::World(float width, float height, float update_time, BodyTracker & kinect, bool kinectControl)
+World::World(float width, float height, float update_time, BodyTracker& kinect, bool kinectControl)
     : width_(width)
     , height_(height)
     , score_changed(false)
-    , kinectControl (kinectControl)
-    , puck_velocity (get_initial_velocity())
-    , update_time (update_time)
+    , kinectControl(kinectControl)
+    , puck_velocity(get_initial_velocity())
+    , update_time(update_time)
+    , result_border_position(width_ / 2.f)
+    , result_border_velocity(Config::result_border_velocity)
     , mWindow(MainWindow::getWindow())
-    , puck (Config::puck_radius, sf::Color::White, sf::Vector2f(width / 2, height / 2), puck_velocity)
-    , left (Config::paddle_radius, Config::red, update_time, kinect, true, kinectControl)
-    , right (Config::paddle_radius, Config::green, update_time, kinect, false, kinectControl)
-    , board (&left, &right, Config::game_length)
-    , left_ready (sf::Vector2f(Config::left_ready_button_position_x, Config::left_ready_button_position_y), 
+    , puck(Config::puck_radius, sf::Color::White, sf::Vector2f(width / 2, height / 2), puck_velocity)
+    , left(Config::paddle_radius, Config::red, update_time, kinect, true, kinectControl)
+    , right(Config::paddle_radius, Config::green, update_time, kinect, false, kinectControl)
+    , board(&left, &right, Config::game_length)
+    , left_ready(sf::Vector2f(Config::left_ready_button_position_x, Config::left_ready_button_position_y),
         sf::Vector2f(Config::left_ready_button_size_x, Config::left_ready_button_size_y))
-    , right_ready (sf::Vector2f(Config::right_ready_button_position_x, Config::right_ready_button_position_y),
+    , right_ready(sf::Vector2f(Config::right_ready_button_position_x, Config::right_ready_button_position_y),
         sf::Vector2f(Config::right_ready_button_size_x, Config::right_ready_button_size_y))
 {
     std::string scored_path = Config::sound_scored_path;
@@ -69,7 +71,7 @@ World::World(float width, float height, float update_time, BodyTracker & kinect,
         std::cout << "Successfully loaded background texture: " << bg_path << "\n";
         background.setTexture(bg_texture);
         background.setScale(width_ / background.getLocalBounds().width,
-                            height_ / background.getLocalBounds().height);
+            height_ / background.getLocalBounds().height);
     }
 
     std::string left_hand_path = Config::texture_left_hand_path;
@@ -94,6 +96,19 @@ World::World(float width, float height, float update_time, BodyTracker & kinect,
         left_ready.setTexture(right_hand_texture);
     }
 
+    std::string result_font_path = Config::font_result_path;
+    if (!result_font.loadFromFile(result_font_path))
+    {
+        std::cout << "Failed to load result font: " << result_font_path << "\n";
+    }
+    else
+    {
+        std::cout << "Successfully loaded right hand texture: " << right_hand_path << "\n";
+        left_score.setFont(result_font);
+        right_score.setFont(result_font);
+        sign.setFont(result_font);
+    }
+
     left_border.setPosition(0.f, 0.f);
     left_border.setSize(sf::Vector2f(width_ / 2, height_));
     left_border.setFillColor(sf::Color::Transparent);
@@ -105,8 +120,24 @@ World::World(float width, float height, float update_time, BodyTracker & kinect,
     right_border.setOutlineColor(sf::Color(102, 214, 92, 200));
     right_border.setFillColor(sf::Color::Transparent);
     right_border.setOutlineThickness(-10.f);
-}
 
+    left_result_rect.setFillColor(Config::red);
+    left_result_rect.setPosition(0, 0);
+    left_result_rect.setSize(sf::Vector2f(result_border_position, height_));
+
+    right_result_rect.setFillColor(Config::green);
+    right_result_rect.setPosition(result_border_position, 0);
+    right_result_rect.setSize(sf::Vector2f(width_ - result_border_position, height_));
+
+    left_score.setFillColor(sf::Color::White);
+    left_score.setCharacterSize(400);
+
+    right_score.setFillColor(sf::Color::White);
+    right_score.setCharacterSize(400);
+
+    sign.setFillColor(sf::Color::White);
+    sign.setCharacterSize(400);
+}
 
 void World::processEvents()
 {
@@ -236,4 +267,6 @@ void World::reset()
     right.reset();
     puck.reset(sf::Vector2f(width_ / 2, height_ / 2), get_initial_velocity());
     board.reset();
+
+    result_border_position = width_ / 2;
 }

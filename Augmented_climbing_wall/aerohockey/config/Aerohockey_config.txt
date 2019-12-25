@@ -7,7 +7,11 @@ kinectControl = 0
 # Game settings
 max_score = 5
 game_length = 180
+
+# Result view settings
 result_demonstration_time = 5
+result_border_velocity = 400
+result_sign_delay = 2
 
 # Puck
 use_velocity_cap = 1
@@ -24,23 +28,24 @@ trace_min_radius = 10
 use_paddle_velocity = 1
 
 # Ready buttons
-left_ready_button_position_x = 650
+left_ready_button_position_x = 800
 left_ready_button_position_y = 250
 left_ready_button_size_x = 150
 left_ready_button_size_y = 150
-right_ready_button_position_x = 1150
+right_ready_button_position_x = 1120
 right_ready_button_position_y = 250
 right_ready_button_size_x = 150
 right_ready_button_size_y = 150
 
 # Scoreboard
 top_position = 1
-font_size = 40
-timer_width = 120
-score_width = 60
-board_height = 60
+font_size = 60
+timer_width = 180
+score_width = 90
+board_height = 90
 
 # Resources
+font_result_path = aerohockey/media/fonts/DINPro-Black.ttf
 font_scoreboard_path = aerohockey/media/fonts/DIN.ttf
 sound_scored_path = aerohockey/media/sounds/scored.wav
 sound_hit_path = aerohockey/media/sounds/hit.wav

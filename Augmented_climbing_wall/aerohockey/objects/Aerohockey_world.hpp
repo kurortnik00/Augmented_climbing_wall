@@ -25,14 +25,17 @@ namespace Aerohockey
 		void update();
 
 		int width_, height_;
-		float update_time;
+		float update_time, result_border_position, result_border_velocity;
 		bool score_changed, kinectControl;
 		sf::RenderWindow& mWindow;
 		sf::Sprite background;
 		sf::Texture bg_texture, left_hand_texture, right_hand_texture;
+		sf::RectangleShape left_result_rect, right_result_rect;
 		sf::SoundBuffer scored, hit, wall;
 		sf::Sound scored_sound, hit_sound, wall_sound;
 		sf::Vector2f puck_velocity;
+		sf::Font result_font;
+		sf::Text left_score, right_score, sign;
 		Puck puck;
 		Player left, right;
 		Scoreboard board;

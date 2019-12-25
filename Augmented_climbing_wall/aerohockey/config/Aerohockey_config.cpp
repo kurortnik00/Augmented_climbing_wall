@@ -11,8 +11,8 @@ namespace Aerohockey
 	{
 		// General
 		float fps = 120.f;
-		float screen_width = 1366.f; // MainWindow::SCREEN_WIDTH;
-		float screen_height = 768.f; // MainWindow::SCREEN_HEIGHT;
+		float screen_width = MainWindow::SCREEN_WIDTH;
+		float screen_height = MainWindow::SCREEN_HEIGHT;
 		bool kinectControl = false;
 		sf::Uint32 window_mode = sf::Style::Fullscreen;
 
@@ -20,7 +20,11 @@ namespace Aerohockey
 		unsigned max_score = 5;
 		float game_length = 180.f;
 		float game_start_delay = 2.f;
-		float result_demonstration_time = 5.f;
+
+		// Result view settings
+		float result_demonstration_time = 7.f;
+		float result_border_velocity = 400.f;
+		float result_sign_delay = 2.f;
 
 		// Colors
 		sf::Color red = sf::Color(204, 0, 0);
@@ -53,12 +57,13 @@ namespace Aerohockey
 
 		// Scoreboard
 		bool top_position = true;
-		int font_size = 40;
-		float timer_width = 120.f;
-		float score_width = 60.f;
-		float board_height = 60.f;
+		int font_size = 60;
+		float timer_width = 180.f;
+		float score_width = 90.f;
+		float board_height = 90.f;
 
 		// Resources
+		std::string font_result_path = "aerohockey/media/fonts/DINPro-Black.ttf";
 		std::string font_scoreboard_path = "aerohockey/media/fonts/DIN.ttf";
 		std::string sound_scored_path = "aerohockey/media/sounds/scored.wav";
 		std::string sound_hit_path = "aerohockey/media/sounds/hit.wav";
