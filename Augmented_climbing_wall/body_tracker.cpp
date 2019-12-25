@@ -21,9 +21,9 @@ BodyTracker::BodyTracker() :
     m_pBodyFrameReader(NULL),
     m_pBodyIndexFrameReader(NULL)
 {
-	bodyTexturePixels.assign(BodyTracker::cDepthWidth * BodyTracker::cDepthHeight * 4, 0);
+	/*bodyTexturePixels.assign(BodyTracker::cDepthWidth * BodyTracker::cDepthHeight * 4, 0);
 	bodyTexturePixels_outline.assign(BodyTracker::cDepthWidth * BodyTracker::cDepthHeight * 4, 0);
-    simplifiedBodyMask.assign(BodyTracker::cDepthWidth, std::vector<int>(BodyTracker::cDepthHeight));
+    simplifiedBodyMask.assign(BodyTracker::cDepthWidth, std::vector<int>(BodyTracker::cDepthHeight));*/
 }
 
 
@@ -105,57 +105,57 @@ void BodyTracker::Update(bool getMask)
 				logDescription = false;
 			}
 
-			byte* buffer;
-			unsigned capacity;
-			pBodyIndexFrame->AccessUnderlyingBuffer(&capacity, &buffer);
+			//byte* buffer;
+			//unsigned capacity;
+			//pBodyIndexFrame->AccessUnderlyingBuffer(&capacity, &buffer);
 
-			const byte* bodyMask = const_cast<const byte*>(buffer);
-			outlinePixelVector.erase(outlinePixelVector.begin(), outlinePixelVector.end());
-			for (int i = 0; i < BodyTracker::cDepthWidth; i++)
-			{
-				for (int j = 1; j < BodyTracker::cDepthHeight - 1; j++)
-				{
-					int idx = i * BodyTracker::cDepthHeight + j;
-                    simplifiedBodyMask[i][j] = bodyMask[idx];
-					if (bodyMask[idx] != 255)
-					{
-						if ((bodyMask[idx - 1] != 255) && (bodyMask[idx + 1] != 255))
-						{
-							/*if (foundBody)
-							{
-								LOG(INFO) « "FOUND BODY";
-								foundBody = false;
-							}*/
-							bodyTexturePixels[idx * 4] = 0;
-							bodyTexturePixels[idx * 4 + 1] = 0;
-							bodyTexturePixels[idx * 4 + 2] = 0;
-							bodyTexturePixels[idx * 4 + 3] = 255;
+			//const byte* bodyMask = const_cast<const byte*>(buffer);
+			//outlinePixelVector.erase(outlinePixelVector.begin(), outlinePixelVector.end());
+			//for (int i = 0; i < BodyTracker::cDepthWidth; i++)
+			//{
+			//	for (int j = 1; j < BodyTracker::cDepthHeight - 1; j++)
+			//	{
+			//		int idx = i * BodyTracker::cDepthHeight + j;
+   //                 simplifiedBodyMask[i][j] = bodyMask[idx];
+			//		if (bodyMask[idx] != 255)
+			//		{
+			//			if ((bodyMask[idx - 1] != 255) && (bodyMask[idx + 1] != 255))
+			//			{
+			//				/*if (foundBody)
+			//				{
+			//					LOG(INFO) « "FOUND BODY";
+			//					foundBody = false;
+			//				}*/
+			//				bodyTexturePixels[idx * 4] = 0;
+			//				bodyTexturePixels[idx * 4 + 1] = 0;
+			//				bodyTexturePixels[idx * 4 + 2] = 0;
+			//				bodyTexturePixels[idx * 4 + 3] = 255;
 
-						}
-						else
-						{
-							sf::Uint8 value = (bodyMask[idx] + 1) * 30;
-							bodyTexturePixels[idx * 4] = value;
-							bodyTexturePixels[idx * 4 + 1] = value;
-							bodyTexturePixels[idx * 4 + 2] = value;
-							bodyTexturePixels[idx * 4 + 3] = 255;
+			//			}
+			//			else
+			//			{
+			//				sf::Uint8 value = (bodyMask[idx] + 1) * 30;
+			//				bodyTexturePixels[idx * 4] = value;
+			//				bodyTexturePixels[idx * 4 + 1] = value;
+			//				bodyTexturePixels[idx * 4 + 2] = value;
+			//				bodyTexturePixels[idx * 4 + 3] = 255;
 
-							//TODO 
-							//not work 
-							outlinePixelVector.push_back(sf::Vector2f(j, i));  ///shoud make vector with outlinePixels, and use them in itaraction with buttons and game objects 
+			//				//TODO 
+			//				//not work 
+			//				outlinePixelVector.push_back(sf::Vector2f(j, i));  ///shoud make vector with outlinePixels, and use them in itaraction with buttons and game objects 
 
-						}
-					}
+			//			}
+			//		}
 
-					else
-					{
-						bodyTexturePixels[idx * 4] = 0;
-						bodyTexturePixels[idx * 4 + 1] = 0;
-						bodyTexturePixels[idx * 4 + 2] = 0;
-						bodyTexturePixels[idx * 4 + 3] = 255;
-					}
-				}
-			}
+			//		else
+			//		{
+			//			bodyTexturePixels[idx * 4] = 0;
+			//			bodyTexturePixels[idx * 4 + 1] = 0;
+			//			bodyTexturePixels[idx * 4 + 2] = 0;
+			//			bodyTexturePixels[idx * 4 + 3] = 255;
+			//		}
+			//	}
+			//}
 		}
 	}
 
@@ -604,7 +604,7 @@ sf::Vector2f BodyTracker::getLimbVelocitiesXY(Limbs::Type limb, bool left)
 
 void BodyTracker::SimplifyBodyMask()
 {
-    for (int i = 0; i < BodyTracker::cDepthWidth; i++)
+    /*for (int i = 0; i < BodyTracker::cDepthWidth; i++)
     {
         for (int j = 0; j < BodyTracker::cDepthHeight; j++)
         {
@@ -621,7 +621,7 @@ void BodyTracker::SimplifyBodyMask()
                 simplifiedBodyMask[i][j] = 0;
             }
         }
-    }
+    }*/
 }
 
 void BodyTracker::logBodyIndexFrameDescription(IBodyIndexFrame * pBodyIndexFrame)
