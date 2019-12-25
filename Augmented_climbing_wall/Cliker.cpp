@@ -166,31 +166,28 @@ bool Cliker::Update(sf::Event& event, sf::Vector2f center)
 	return true;
 }
 
-
-
-
 bool Cliker::kinectUpdateActions(int joint_Count, tracking_Type tP, sf::Vector2f center, float radius, myServer::GAMES game)
 {
 	kinectApplication.Update(false);
 	for (int i = 0; i < joint_Count; i++) {
-
+		int body_id = kinectApplication.getSingleBodyId();
 		switch (tP)
 		{
 		case Cliker::allJoints:
-			joint_xy = sf::Vector2f(kinectApplication.getJointPointsXY(static_cast<Joints::Type>(i), true).x, kinectApplication.getJointPointsXY(static_cast<Joints::Type>(i), true).y);
-			joint_z = kinectApplication.getJointDepthPoint(static_cast<Joints::Type>(i), true);
+			joint_xy = kinectApplication.getJointPointsXY(static_cast<Joints::Type>(i), body_id);
+			joint_z = kinectApplication.getJointDepthPoint(static_cast<Joints::Type>(i), body_id);
 			break;
 		case Cliker::mainPointAvarage:
-			joint_xy = kinectApplication.getLimbPointsXY(static_cast<Limbs::Type>(i), true);
-			joint_z = kinectApplication.getLimbDepthPoints(static_cast<Limbs::Type>(i), true);
+			joint_xy = kinectApplication.getLimbPointsXY(static_cast<Limbs::Type>(i), body_id);
+			joint_z = kinectApplication.getLimbDepthPoints(static_cast<Limbs::Type>(i), body_id);
 			break;
 		case Cliker::allJointsTimeAvarage:
-			joint_xy = kinectApplication.getAllJoints_timeAveraged_PointsXY(i, true);
-			joint_z = kinectApplication.getAllJoints_timeAveraged_DepthPoints(i, true);
+			joint_xy = kinectApplication.getAllJoints_timeAveraged_PointsXY(i, body_id);
+			joint_z = kinectApplication.getAllJoints_timeAveraged_DepthPoints(i, body_id);
 			break;
 		case Cliker::mainPointTimeAvarage:
-			joint_xy = kinectApplication.get_arms_legs_timeAveraged_PointsXY(i, 0);
-			joint_z = kinectApplication.get_arms_legs_timeAveraged_DepthPoints(i, 0);
+			joint_xy = kinectApplication.get_arms_legs_timeAveraged_PointsXY(i, body_id);
+			joint_z = kinectApplication.get_arms_legs_timeAveraged_DepthPoints(i, body_id);
 		default:
 			break;
 		}
@@ -250,6 +247,11 @@ float Cliker::kinectTranform_Y_Cordinates(float y)
 float Cliker::dist2(sf::Vector2f const& p1, sf::Vector2f const& p2)
 {
 	return (p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y) * (p1.y - p2.y);
+}
+
+float Cliker::getTrashHold()
+{
+	return _trashHold;
 }
 
 bool Cliker::_kinectControl = false;

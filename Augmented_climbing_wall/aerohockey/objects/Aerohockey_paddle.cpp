@@ -1,4 +1,5 @@
 #include "Aerohockey_paddle.hpp"
+#include "../../Cliker.h"
 
 #define SCALE_FACTOR 0.70711f
 
@@ -61,13 +62,14 @@ void Paddle::update (BodyTracker & kinect, const Limbs::Type type, bool left, bo
 {
     if (kinectControl)
     {
-        float z = kinect.getLimbDepthPoints(type, left);
+        int body_id = kinect.getBodyId(left);
+        float z = kinect.get_arms_legs_timeAveraged_DepthPoints(static_cast<int>(type), body_id);
 
         sf::Vector2f position(0.f, 0.f), velocity(0.f, 0.f);
-        if (z > 1)
+        if (z > Cliker::getTrashHold())
         {
-            position = kinect.getLimbPointsXY(type, left);
-            velocity = kinect.getLimbVelocitiesXY(type, left);
+            position = kinect.get_arms_legs_timeAveraged_PointsXY(static_cast<int>(type), body_id);
+            velocity = kinect.get_arms_legs_timeAveraged_VelocitiesXY(type, body_id);
         }
         position_ = position;
         current_velocity_ = velocity;

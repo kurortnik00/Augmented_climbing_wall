@@ -71,8 +71,6 @@ public:
     /// <summary>
     /// Creates the main window and begins processing
     /// </summary>
-    /// <param name="hInstance"></param>
-    /// <param name="nCmdShow"></param>
     void                    Run();
 
     /// <summary>
@@ -81,21 +79,32 @@ public:
     void                    Update(bool getMask);
     void                    SimplifyBodyMask();
 
+    /// <summary>
+    /// Get body ID for left and right players in single-player mode
+    /// <summary>
+    int                     getSingleBodyId();
+
+    /// <summary>
+    /// Get body ID for left and right players in two-player mode
+    /// <summary>
+    int                     getBodyId(bool left);
+
     byte *					getBodyMask();
     std::vector<std::vector<int>>& getSimplifiedBodyMask();
 	sf::Uint8*				get_outline_BodyMask();
 	std::vector<sf::Vector2f>* getOutlinePixelVector();
 	sf::Vector2f			getOutlinePixel(int i);
     sf::Vector2f            GetProjection(const sf::Vector2f point);
-    sf::Vector2f            getJointPointsXY(Joints::Type i, bool left);
-    float                   getJointDepthPoint(Joints::Type i, bool left);
-    sf::Vector2f            getLimbPointsXY(Limbs::Type limb, bool left);
-    float                   getLimbDepthPoints(Limbs::Type limb, bool left);
-    sf::Vector2f			getLimbVelocitiesXY(Limbs::Type limb, bool left);
-	sf::Vector2f			getAllJoints_timeAveraged_PointsXY(int limb, int body);
-	float					getAllJoints_timeAveraged_DepthPoints(int limb, int body);
-	sf::Vector2f			get_arms_legs_timeAveraged_PointsXY(int limb, int body);
-	float					get_arms_legs_timeAveraged_DepthPoints(int limb, int body);
+    sf::Vector2f            getJointPointsXY(Joints::Type joint, int body_id);
+    float                   getJointDepthPoint(Joints::Type i, int body_id);
+    sf::Vector2f            getLimbPointsXY(Limbs::Type limb, int body_id);
+    float                   getLimbDepthPoints(Limbs::Type limb, int body_id);
+    sf::Vector2f			getLimbVelocitiesXY(Limbs::Type limb, int body_id);
+    sf::Vector2f            getAllJoints_timeAveraged_PointsXY(int limb, int body_id);
+    float                   getAllJoints_timeAveraged_DepthPoints(int limb, int body_id);
+    sf::Vector2f            get_arms_legs_timeAveraged_PointsXY(int limb, int body_id);
+    float                   get_arms_legs_timeAveraged_DepthPoints(int limb, int body_id);
+    sf::Vector2f            get_arms_legs_timeAveraged_VelocitiesXY(Limbs::Type limb, int body_id);
 
 private:
     // Timestamp of previous frame
@@ -121,11 +130,23 @@ private:
     float limbDepthPoint[BODY_COUNT][static_cast<int>(Limbs::Type::Count)];
     sf::Vector2f limbVelocitiesXY[BODY_COUNT][static_cast<int>(Limbs::Type::Count)];
 
-    // Mass center of all bodies
+    // Time averaged joint positions for all bodies
+    sf::Vector2f trackPointsXY_timeAveraged[BODY_COUNT][JointType_Count];
+    float trackDepthPoint_timeAveraged[BODY_COUNT][JointType_Count];
+
+    // Time averaged limb positions and velocities for all bodies
+    sf::Vector2f limbPointsXY_timeAveraged[BODY_COUNT][static_cast<int>(Limbs::Type::Count)];
+    float limbDepthPoint_timeAveraged[BODY_COUNT][static_cast<int>(Limbs::Type::Count)];
+    sf::Vector2f limbVelocitiesXY_timeAveraged[BODY_COUNT][static_cast<int>(Limbs::Type::Count)];
+
+    // Mass center of all bodies in XY plane
     sf::Vector2f massCenter[BODY_COUNT];
 
     // Body indices for left and right player
     int left_idx, right_idx;
+
+    // Body status
+    bool isTracked[BODY_COUNT];
 
     // Time delta in seconds between current and previous frames
     float delta;
@@ -163,11 +184,15 @@ private:
 
     sf::Vector2f            LimbPointsXY(int i, Limbs::Type limb);
     float                   LimbDepthPoint(int i, Limbs::Type limb);
+    void                    calcAllJoints_timeAveraged_PointsXY(int body_id);
+    void                    calcAllJoints_timeAveraged_DepthPoints(int body_id);
+    void                    calc_arms_legs_timeAveraged_PointsXY(int body_id);
+    void                    calc_arms_legs_timeAveraged_DepthPoints(int body_id);
     void                    logBodyIndexFrameDescription(IBodyIndexFrame * pBodyIndexFrame);
 
 	struct JointPoints_buffer
 	{
-		sf::Vector2f  joints[JointType_Count];
+		sf::Vector2f joints[JointType_Count];
 	};
 	std::vector<JointPoints_buffer> buffer;
 
@@ -180,18 +205,15 @@ private:
 	struct JointPoints_Depthbuffer
 	{
 		float jointsDepth[JointType_Count];
-
 	};
 	std::vector<JointPoints_Depthbuffer> depthBuffer;
 
 	struct LimbsPoints_Depthbuffer
 	{
-
 		float limbsDepth[static_cast<int>(Limbs::Type::Count)];
 	};
 	std::vector<LimbsPoints_Depthbuffer> limbs_depthBuffer;
 	
-
     std::unordered_map<Limbs::Type, std::vector<Joints::Type>> limbJoints = {
         {Limbs::Type::LEFT_HAND, {Joints::Type::HANDLEFT, Joints::Type::WRISTLEFT, 
                                   Joints::Type::HANDTIPLEFT, Joints::Type::THUMBLEFT}},

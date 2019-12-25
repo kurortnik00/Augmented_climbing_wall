@@ -23,6 +23,7 @@ public:
 	static float kinectTranform_X_Cordinates(float x);
 	static float kinectTranform_Y_Cordinates(float y);
 
+	static float getTrashHold();
 	static void increaseTrashHold(float increaseValue);
 	
 	static sf::Vector2f _sumValue;

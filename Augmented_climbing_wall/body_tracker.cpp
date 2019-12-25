@@ -240,6 +240,7 @@ void BodyTracker::ProcessBody(INT64 nTime, int nBodyCount, IBody** ppBodies)
                 BOOLEAN bTracked = false;
                 hr = pBody->get_IsTracked(&bTracked);
 
+                isTracked[i] = bTracked;
                 if (bTracked)
                 {
                     nTrackedBodies++;
@@ -258,6 +259,8 @@ void BodyTracker::ProcessBody(INT64 nTime, int nBodyCount, IBody** ppBodies)
                             massCenter[i] = massCenter[i] + trackPointsXY[i][j];
                         }
                         massCenter[i] = massCenter[i] / static_cast<float>(_countof(joints));
+                        calcAllJoints_timeAveraged_PointsXY(i);
+                        calcAllJoints_timeAveraged_DepthPoints(i);
 
                         for (int j = 0; j < static_cast<int>(Limbs::Type::Count); ++j)
                         {
@@ -266,6 +269,8 @@ void BodyTracker::ProcessBody(INT64 nTime, int nBodyCount, IBody** ppBodies)
                             limbPointsXY[i][j] = newPointXY;
                             limbDepthPoint[i][j] = LimbDepthPoint(i, static_cast<Limbs::Type>(j));
                         }
+                        calc_arms_legs_timeAveraged_PointsXY(i);
+                        calc_arms_legs_timeAveraged_DepthPoints(i);
                     }
 
                     if ((left_idx == -1) || (massCenter[i].x < massCenter[left_idx].x))
@@ -284,9 +289,6 @@ void BodyTracker::ProcessBody(INT64 nTime, int nBodyCount, IBody** ppBodies)
         {
             right_idx = -1;
         }
-
-      //  LOG(INFO) << "Tracked bodies: n = " << nTrackedBodies
-       //           << " - (left: " << left_idx << ", right:" << right_idx << ")";
     }
 }
 
@@ -303,58 +305,30 @@ sf::Vector2f BodyTracker::BodyToScreen(const CameraSpacePoint& bodyPoint, int wi
     return sf::Vector2f(screenPointX, screenPointY);
 }
 
-
-sf::Vector2f BodyTracker::getJointPointsXY(Joints::Type joint, bool left)
+int BodyTracker::getSingleBodyId()
 {
-    int idx = (left) ? left_idx : right_idx;
-
-    sf::Vector2f point;
-    if (idx == -1)
-    {
-        point = sf::Vector2f(0, 0);
-    }
-    else
-    {
-        point = trackPointsXY[idx][static_cast<int>(joint)];
-    }
-
-   // LOG(INFO) << "Joint " << static_cast<int>(joint) << " for player " << (left) << " - "
-    //    << idx << "- (x: " << point.x << ", y:" << point.y << ")\n";
-
-    return point;
+    return left_idx;
 }
 
-float BodyTracker::getJointDepthPoint(Joints::Type joint, bool left)
+int BodyTracker::getBodyId(bool left)
 {
-    int idx = (left) ? left_idx : right_idx;
-    if (idx == -1)
-    {
-        return 0.f;
-    }
-    return trackDepthPoint[idx][static_cast<int>(joint)];
+    return (left) ? left_idx : right_idx;
 }
 
 sf::Vector2f BodyTracker::LimbPointsXY(int i, Limbs::Type limb)
 {
     sf::Vector2f point(0.f, 0.f);
-
-    if (i == -1)
+    if (i < 0)
     {
-        return sf::Vector2f(0, 0);
+        return point;
     }
-
-   // LOG(INFO) << "Limb " << static_cast<int>(limb) << " for player " << i << " - joints:";
 
     auto joints = limbJoints[limb];
     for (int j = 0; j < joints.size(); j++)
     {
-       // LOG(INFO) << static_cast<int>(joints[j]);
         point += trackPointsXY[i][static_cast<int>(joints[j])];
     }
     point /= static_cast<float>(joints.size());
-
-  //  LOG(INFO) << "Limb position: (x: " << point.x << ", y:" << point.y << ")\n";
-
     return point;
 }
 
@@ -362,37 +336,28 @@ float BodyTracker::LimbDepthPoint(int i, Limbs::Type limb)
 {
     float point = 0.f;
 
-    if (i == -1)
+    if (i < 0)
     {
-        return 0.f;
+        return point;
     }
-
-   // LOG(INFO) << "Limb " << static_cast<int>(limb) << " for player " << i << " - joints:";
 
     auto joints = limbJoints[limb];
     for (int j = 0; j < joints.size(); j++)
     {
-       // LOG(INFO) << static_cast<int>(joints[j]);
         point += trackDepthPoint[i][static_cast<int>(joints[j])];
     }
     point /= static_cast<float>(joints.size());
 
-   // LOG(INFO) << "Limb position: " << point;
-
     return point;
 }
 
-
-
-sf::Vector2f BodyTracker::getAllJoints_timeAveraged_PointsXY(int limb, /*temporary solution*/int bodyy)
+void BodyTracker::calcAllJoints_timeAveraged_PointsXY(int body_id)
 {
-	int body = left_idx;/*temporary solution*/
-	sf::Vector2f timeAveraged_Point[JointType_Count];
 	JointPoints_buffer jointPoints;
 
 	for (int i = 0; i < JointType_Count; i++)
 	{
-		jointPoints.joints[i] = trackPointsXY[body][i];
+		jointPoints.joints[i] = trackPointsXY[body_id][i];
 	}
 
 	buffer.push_back(jointPoints);
@@ -404,36 +369,28 @@ sf::Vector2f BodyTracker::getAllJoints_timeAveraged_PointsXY(int limb, /*tempora
 		{
 			if (flag == 0)
 			{
-
-				timeAveraged_Point[j].x = i.joints[j].x;
-				timeAveraged_Point[j].y = i.joints[j].y;
+				trackPointsXY_timeAveraged[body_id][j] = i.joints[j];
 			}
 			else
 			{
-				timeAveraged_Point[j].x += i.joints[j].x;
-				timeAveraged_Point[j].y += i.joints[j].y;
+                trackPointsXY_timeAveraged[body_id][j] += i.joints[j];
 			}
 		}
 		flag = 1;
 	}
 	for (int j = 0; j < JointType_Count; j++)
 	{
-		timeAveraged_Point[j].x = timeAveraged_Point[j].x / buffer.size();
-		timeAveraged_Point[j].y = timeAveraged_Point[j].y / buffer.size();
+        trackPointsXY_timeAveraged[body_id][j] /= static_cast<float>(buffer.size());
 	}
-
-	return timeAveraged_Point[limb];
 }
 
 
-float BodyTracker::getAllJoints_timeAveraged_DepthPoints(int limb, /*temporary solution*/int bodyy)
+void BodyTracker::calcAllJoints_timeAveraged_DepthPoints(int body_id)
 {
-	int body = left_idx;/*temporary solution*/
-	float timeAveraged_DepthPoint[JointType_Count];
 	JointPoints_Depthbuffer jointDepthPoints;
 	for (int i = 0; i < JointType_Count; i++)
 	{
-		jointDepthPoints.jointsDepth[i] = trackDepthPoint[body][i];
+		jointDepthPoints.jointsDepth[i] = trackDepthPoint[body_id][i];
 	}
 	depthBuffer.push_back(jointDepthPoints);
 	if (depthBuffer.size() > 5) depthBuffer.erase(depthBuffer.begin());
@@ -445,37 +402,33 @@ float BodyTracker::getAllJoints_timeAveraged_DepthPoints(int limb, /*temporary s
 			if (flag == 0)
 			{
 
-				timeAveraged_DepthPoint[j] = i.jointsDepth[j];
+				trackDepthPoint_timeAveraged[body_id][j] = i.jointsDepth[j];
 			}
 			else
 			{
-				timeAveraged_DepthPoint[j] += i.jointsDepth[j];
+				trackDepthPoint_timeAveraged[body_id][j] += i.jointsDepth[j];
 			}
 		}
 		flag = 1;
 	}
 	for (int j = 0; j < JointType_Count; j++)
 	{
-		timeAveraged_DepthPoint[j] = timeAveraged_DepthPoint[j] / depthBuffer.size();
+		trackDepthPoint_timeAveraged[body_id][j] /= static_cast<float>(depthBuffer.size());
 	}
-
-	return timeAveraged_DepthPoint[limb];
 }
 
-
-
-
-
-
-sf::Vector2f BodyTracker::get_arms_legs_timeAveraged_PointsXY(int limb, /*temporary solution*/int bodyy)
+void BodyTracker::calc_arms_legs_timeAveraged_PointsXY(int body_id)
 {
-	int body = left_idx;/*temporary solution*/
-	sf::Vector2f timeAveraged_Point[static_cast<int>(Limbs::Type::Count)];
+	sf::Vector2f previous_timeAveraged_Point[static_cast<int>(Limbs::Type::Count)];
+    for (int i = 0; i < static_cast<int>(Limbs::Type::Count); i++)
+    {
+        previous_timeAveraged_Point[i] = limbPointsXY_timeAveraged[body_id][i];
+    }
 
 	LimbsPoints_buffer limbPoints;
 	for (int i = 0; i < static_cast<int>(Limbs::Type::Count); i++)
 	{
-		limbPoints.limbs[i] = LimbPointsXY(body, static_cast<Limbs::Type>(i));
+		limbPoints.limbs[i] = limbPointsXY[body_id][static_cast<int>(i)];
 	}
 
 	limbs_buffer.push_back(limbPoints);
@@ -487,40 +440,30 @@ sf::Vector2f BodyTracker::get_arms_legs_timeAveraged_PointsXY(int limb, /*tempor
 		{
 			if (flag == 0)
 			{
-
-				timeAveraged_Point[j].x = i.limbs[j].x;
-				timeAveraged_Point[j].y = i.limbs[j].y;
+				limbPointsXY_timeAveraged[body_id][j] = i.limbs[j];
 			}
 			else
 			{
-				timeAveraged_Point[j].x += i.limbs[j].x;
-				timeAveraged_Point[j].y += i.limbs[j].y;
+                limbPointsXY_timeAveraged[body_id][j] += i.limbs[j];
 			}
 		}
 		flag = 1;
 	}
 	for (int j = 0; j < static_cast<int>(Limbs::Type::Count); j++)
 	{
-		timeAveraged_Point[j].x = timeAveraged_Point[j].x / limbs_buffer.size();
-		timeAveraged_Point[j].y = timeAveraged_Point[j].y / limbs_buffer.size();
+        limbPointsXY_timeAveraged[body_id][j] /= static_cast<float>(limbs_buffer.size());
+        limbVelocitiesXY_timeAveraged[body_id][j] = (limbPointsXY_timeAveraged[body_id][j] - previous_timeAveraged_Point[j]) / delta;
 	}
-
-	return timeAveraged_Point[limb];
-
 }
 
-
-
-float BodyTracker::get_arms_legs_timeAveraged_DepthPoints(int limb, /*temporary solution*/int bodyy)
+void BodyTracker::calc_arms_legs_timeAveraged_DepthPoints(int body_id)
 {
-
-	int body = left_idx; //temporary solution
 	float timeAveraged_DepthPoint[static_cast<int>(Limbs::Type::Count)];
 
 	LimbsPoints_Depthbuffer limbsDepthPoints;
 	for (int i = 0; i < static_cast<int>(Limbs::Type::Count); i++)
 	{
-		limbsDepthPoints.limbsDepth[i] = LimbDepthPoint(body, static_cast<Limbs::Type>(i));
+		limbsDepthPoints.limbsDepth[i] = limbDepthPoint[body_id][static_cast<int>(i)];
 	}
 	limbs_depthBuffer.push_back(limbsDepthPoints);
 	if (limbs_depthBuffer.size() > 2000) limbs_depthBuffer.erase(limbs_depthBuffer.begin());
@@ -531,23 +474,20 @@ float BodyTracker::get_arms_legs_timeAveraged_DepthPoints(int limb, /*temporary 
 		{
 			if (flag == 0)
 			{
-				timeAveraged_DepthPoint[j] = i.limbsDepth[j];
+				limbDepthPoint_timeAveraged[body_id][j] = i.limbsDepth[j];
 			}
 			else
 			{
-				timeAveraged_DepthPoint[j] += i.limbsDepth[j];
+                limbDepthPoint_timeAveraged[body_id][j] += i.limbsDepth[j];
 			}
 		}
 		flag = 1;
 	}
 	for (int j = 0; j < static_cast<int>(Limbs::Type::Count); j++)
 	{
-		timeAveraged_DepthPoint[j] = timeAveraged_DepthPoint[j] / limbs_depthBuffer.size();
+        limbDepthPoint_timeAveraged[body_id][j] /= static_cast<float>(limbs_depthBuffer.size());
 	}
-
-	return timeAveraged_DepthPoint[limb];
 }
-
 
 sf::Vector2f BodyTracker::GetProjection (const sf::Vector2f point)
 {
@@ -584,22 +524,94 @@ sf::Vector2f BodyTracker::getOutlinePixel(int i)
 	return outlinePixelVector[i];
 }
 
-sf::Vector2f BodyTracker::getLimbPointsXY(Limbs::Type limb, bool left)
+sf::Vector2f BodyTracker::getJointPointsXY(Joints::Type joint, int body_id)
 {
-    int idx = (left) ? left_idx : right_idx;
-    return limbPointsXY[idx][static_cast<int>(limb)];
+    if (body_id < 0)
+    {
+        return sf::Vector2f(0.f, 0.f);
+    }
+    return trackPointsXY[body_id][static_cast<int>(joint)];
 }
 
-float BodyTracker::getLimbDepthPoints(Limbs::Type limb, bool left)
+float BodyTracker::getJointDepthPoint(Joints::Type joint, int body_id)
 {
-    int idx = (left) ? left_idx : right_idx;
-    return limbDepthPoint[idx][static_cast<int>(limb)];
+    if (body_id < 0)
+    {
+        return 0.f;
+    }
+    return trackDepthPoint[body_id][static_cast<int>(joint)];
 }
 
-sf::Vector2f BodyTracker::getLimbVelocitiesXY(Limbs::Type limb, bool left)
+sf::Vector2f BodyTracker::getLimbPointsXY(Limbs::Type limb, int body_id)
 {
-    int idx = (left) ? left_idx : right_idx;
-    return limbVelocitiesXY[idx][static_cast<int>(limb)];
+    if (body_id < 0)
+    {
+        return sf::Vector2f(0.f, 0.f);
+    }
+    return limbPointsXY[body_id][static_cast<int>(limb)];
+}
+
+float BodyTracker::getLimbDepthPoints(Limbs::Type limb, int body_id)
+{
+    if (body_id < 0)
+    {
+        return 0.f;
+    }
+    return limbDepthPoint[body_id][static_cast<int>(limb)];
+}
+
+sf::Vector2f BodyTracker::getLimbVelocitiesXY(Limbs::Type limb, int body_id)
+{
+    if (body_id < 0)
+    {
+        return sf::Vector2f(0.f, 0.f);
+    }
+    return limbVelocitiesXY[body_id][static_cast<int>(limb)];
+}
+
+sf::Vector2f BodyTracker::getAllJoints_timeAveraged_PointsXY(int joint, int body_id)
+{
+    if (body_id < 0)
+    {
+        return sf::Vector2f(0.f, 0.f);
+    }
+    return trackPointsXY_timeAveraged[body_id][joint];
+}
+
+float BodyTracker::getAllJoints_timeAveraged_DepthPoints(int joint, int body_id)
+{
+    if (body_id < 0)
+    {
+        return 0.f;
+    }
+    return trackDepthPoint_timeAveraged[body_id][joint];
+}
+
+sf::Vector2f BodyTracker::get_arms_legs_timeAveraged_PointsXY(int limb, int body_id)
+{
+    if (body_id < 0)
+    {
+        return sf::Vector2f(0.f, 0.f);
+    }
+    return limbPointsXY_timeAveraged[body_id][limb];
+}
+
+float BodyTracker::get_arms_legs_timeAveraged_DepthPoints(int limb, int body_id)
+{
+    if (body_id < 0)
+    {
+        return 0.f;
+    }
+    return limbDepthPoint_timeAveraged[body_id][limb];
+}
+
+sf::Vector2f BodyTracker::get_arms_legs_timeAveraged_VelocitiesXY(Limbs::Type limb, int body_id)
+{
+    if (body_id < 0)
+    {
+        return sf::Vector2f(0.f, 0.f);
+    }
+    return limbVelocitiesXY_timeAveraged[body_id][static_cast<int>(limb)];
 }
 
 void BodyTracker::SimplifyBodyMask()
