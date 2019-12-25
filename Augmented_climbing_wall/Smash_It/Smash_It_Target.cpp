@@ -56,7 +56,7 @@ void Smash_It::Target::setClickState(bool ans)
 void Smash_It::Target::Update(sf::Event& event) {
 
 	
-	if (Cliker::getClik(VisibleGameObject::getCenter(), Config::targets_itaractionRadius, false, myServer::SMASH_IT))
+	if (Cliker::getClik(VisibleGameObject::getCenter(), Config::targets_itaractionRadius, false, myServer::SMASH_IT, Modes::Type::AllBodies))
 	{
 		if (!animationStart)
 		{

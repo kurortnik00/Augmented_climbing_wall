@@ -221,7 +221,7 @@ Smash_It::MainMenu::MenuResult  Smash_It::MainMenu::GetMenuResponse(sf::RenderWi
 			}
 		}
 		//it works while we have start button first in _menuItems
-		if (Cliker::getClik(_menuItems.begin()->_center, _menuItems.begin()->_radius, true, myServer::SMASH_IT)) //event here are useles, THIS function do not atact with mouse clikes
+		if (Cliker::getClik(_menuItems.begin()->_center, _menuItems.begin()->_radius, true, myServer::SMASH_IT, Modes::Type::AllBodies)) //event here are useles, THIS function do not atact with mouse clikes
 		{
 			return Play;
 		}

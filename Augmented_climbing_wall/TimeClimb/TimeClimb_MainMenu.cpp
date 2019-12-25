@@ -226,7 +226,7 @@ TimeClimb::MainMenu::MenuResult  TimeClimb::MainMenu::GetMenuResponse(sf::Render
 
 
 		//it works while we have start button first in _menuItems
-		if (Cliker::getClik(_menuItems.begin()->_center, _menuItems.begin()->_radius, true, myServer::TIME_CLIMB)) //event here are useles, THIS function do not atact with mouse clikes
+		if (Cliker::getClik(_menuItems.begin()->_center, _menuItems.begin()->_radius, true, myServer::TIME_CLIMB, Modes::Type::SingleBody)) //event here are useles, THIS function do not atact with mouse clikes
 		{
 			return Play;
 		}

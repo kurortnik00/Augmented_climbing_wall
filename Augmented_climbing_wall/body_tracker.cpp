@@ -315,6 +315,15 @@ int BodyTracker::getBodyId(bool left)
     return (left) ? left_idx : right_idx;
 }
 
+bool BodyTracker::isBodyTracked(int i)
+{
+    if ((i < 0) || (i >= BODY_COUNT))
+    {
+        return false;
+    }
+    return isTracked[i];
+}
+
 sf::Vector2f BodyTracker::LimbPointsXY(int i, Limbs::Type limb)
 {
     sf::Vector2f point(0.f, 0.f);

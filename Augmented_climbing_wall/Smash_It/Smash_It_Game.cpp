@@ -243,7 +243,7 @@ void Smash_It::Game::TOP_List_Update(myServer& server)
 			sf::Vector2f center(pos.x + texture.getSize().x * Config::restart_scale * Config::restart_scale, pos.y + texture.getSize().y * Config::restart_scale * Config::restart_scale);
 
 
-			if (Cliker::getClik(center, texture.getSize().x * Config::restart_itarationRadius_scale, false, myServer::SMASH_IT))
+			if (Cliker::getClik(center, texture.getSize().x * Config::restart_itarationRadius_scale, false, myServer::SMASH_IT, Modes::Type::AllBodies))
 			{
 				flag = false;
 			}

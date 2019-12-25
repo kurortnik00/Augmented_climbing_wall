@@ -89,6 +89,8 @@ public:
     /// <summary>
     int                     getBodyId(bool left);
 
+    bool                    isBodyTracked(int i);
+
     byte *					getBodyMask();
     std::vector<std::vector<int>>& getSimplifiedBodyMask();
 	sf::Uint8*				get_outline_BodyMask();

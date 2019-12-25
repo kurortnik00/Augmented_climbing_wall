@@ -124,7 +124,7 @@ void Level_4::Update(sf::Event& event)
 
 
 			//need for easy clickButton
-			if (Cliker::getClik(buttons[3]._center - sf::Vector2f(config.level4_move_Button2Triger_x,0), buttons[3]._radius, false, myServer::LABYRINTH))
+			if (Cliker::getClik(buttons[3]._center - sf::Vector2f(config.level4_move_Button2Triger_x,0), buttons[3]._radius, false, myServer::LABYRINTH, Modes::Type::SingleBody))
 			{
 				if (!buttons[3]._unDrowable)
 				{

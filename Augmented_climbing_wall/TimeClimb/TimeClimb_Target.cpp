@@ -69,7 +69,7 @@ void TimeClimb::Target::Update(sf::Event& event) {
 	Cliker::getKinectApplication().Update(true);
 	bodyTexture.update(Cliker::getKinectApplication().getBodyMask());
 
-	if (Cliker::getClik(VisibleGameObject::getCenter(), 90, false, myServer::TIME_CLIMB) && !hasClicked)
+	if (Cliker::getClik(VisibleGameObject::getCenter(), 90, false, myServer::TIME_CLIMB, Modes::Type::SingleBody) && !hasClicked)
 	{
 
 		hasClicked = true;

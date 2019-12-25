@@ -90,7 +90,7 @@ BodyTracker& Cliker::getKinectApplication()
 
 
 //button pressed for action after button clik, if false action after cursor in same position 
-bool Cliker::getClik(sf::Vector2f center, float radius, bool buttonPress, myServer::GAMES game)
+bool Cliker::getClik(sf::Vector2f center, float radius, bool buttonPress, myServer::GAMES game, Modes::Type mode)
 {
 	sf::Event event;
 	MainWindow::getWindow().pollEvent(event);
@@ -107,18 +107,18 @@ bool Cliker::getClik(sf::Vector2f center, float radius, bool buttonPress, myServ
 		{
 		case Cliker::allJoints:
 			joint_Count = JointType_Count;
-			if (kinectUpdateActions(joint_Count, tP, center, radius, game)) return true;
+			if (kinectUpdateActions(joint_Count, tP, center, radius, game, mode)) return true;
 			break;
 		case Cliker::mainPointAvarage:
 			joint_Count = 4;
-			if (kinectUpdateActions(joint_Count, tP, center, radius, game)) return true;
+			if (kinectUpdateActions(joint_Count, tP, center, radius, game, mode)) return true;
 			break;
 		case Cliker::allJointsTimeAvarage:
 			joint_Count = JointType_Count;
-			if (kinectUpdateActions(joint_Count, tP, center, radius, game)) return true;
+			if (kinectUpdateActions(joint_Count, tP, center, radius, game, mode)) return true;
 		case Cliker::mainPointTimeAvarage:
 			joint_Count = 4;
-			if (kinectUpdateActions(joint_Count, tP, center, radius, game)) return true;
+			if (kinectUpdateActions(joint_Count, tP, center, radius, game, mode)) return true;
 		default:
 			break;
 		}
@@ -166,11 +166,38 @@ bool Cliker::Update(sf::Event& event, sf::Vector2f center)
 	return true;
 }
 
-bool Cliker::kinectUpdateActions(int joint_Count, tracking_Type tP, sf::Vector2f center, float radius, myServer::GAMES game)
+bool Cliker::kinectUpdateActions(int joint_Count, tracking_Type tP, sf::Vector2f center, float radius, myServer::GAMES game, Modes::Type mode)
 {
 	kinectApplication.Update(false);
-	for (int i = 0; i < joint_Count; i++) {
+
+	if (mode == Modes::Type::SingleBody)
+	{
 		int body_id = kinectApplication.getSingleBodyId();
+		return getClickForBody(body_id, joint_Count, tP, center, radius, game);
+	}
+	else if (mode == Modes::Type::AllBodies)
+	{
+		bool result = false;
+		for (int i = 0; i < BODY_COUNT; i++)
+		{
+			if (kinectApplication.isBodyTracked(i))
+			{
+				result |= getClickForBody(i, joint_Count, tP, center, radius, game);
+			}
+		}
+		return result;
+	}
+	else
+	{
+		// Unsupported mode
+		return false;
+	}
+}
+
+
+bool Cliker::getClickForBody(int body_id, int joint_Count, tracking_Type tP, sf::Vector2f center, float radius, myServer::GAMES game)
+{
+	for (int i = 0; i < joint_Count; i++) {
 		switch (tP)
 		{
 		case Cliker::allJoints:
@@ -221,7 +248,7 @@ bool Cliker::kinectUpdateActions(int joint_Count, tracking_Type tP, sf::Vector2f
 		if (joint_z >= _trashHold) {
 			if (delayClock.getElapsedTime().asMilliseconds() > 0) {						//need instad (event.type == sf::Event::MouseButtonPressed) to avoid mass click to target
 				if ((dist2(center, joint_xy) < radius * radius))
-				{	
+				{
 					delayClock.restart();
 					return true;
 				}
@@ -230,7 +257,6 @@ bool Cliker::kinectUpdateActions(int joint_Count, tracking_Type tP, sf::Vector2f
 	}
 	return false;
 }
-
 
 float Cliker::kinectTranform_X_Cordinates(float x)
 {

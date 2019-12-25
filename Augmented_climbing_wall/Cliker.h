@@ -8,6 +8,16 @@
 #include <sstream>
 #include <string>
 
+namespace Modes
+{
+	enum class Type
+	{
+		SingleBody,
+		TwoBodies,
+		AllBodies
+	};
+}
+
 class Cliker
 {
 public:
@@ -17,7 +27,7 @@ public:
 	static void reInit();
 	static void load(std::string path);
 
-	static bool getClik(sf::Vector2f center, float radius, bool buttonPress, myServer::GAMES game);
+	static bool getClik(sf::Vector2f center, float radius, bool buttonPress, myServer::GAMES game, Modes::Type mode);
 	static bool getClik(float x, float y, float height, float width);
 	static BodyTracker &getKinectApplication();
 	static float kinectTranform_X_Cordinates(float x);
@@ -51,8 +61,9 @@ private:
 		allJoints, mainPointAvarage, allJointsTimeAvarage, mainPointTimeAvarage
 	};
 
-	static bool kinectUpdateActions(int joint_Count, tracking_Type tT, sf::Vector2f center, float radius, myServer::GAMES game);
+	static bool kinectUpdateActions(int joint_Count, tracking_Type tT, sf::Vector2f center, float radius, myServer::GAMES game, Modes::Type mode);
 					//depth from sensor where interaction starts
+	static bool getClickForBody(int body_id, int joint_Count, tracking_Type tP, sf::Vector2f center, float radius, myServer::GAMES game);
 	static BodyTracker kinectApplication;
 	static sf::Vector2f joint_xy;
 	static float joint_z;
