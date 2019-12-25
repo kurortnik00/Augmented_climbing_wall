@@ -268,10 +268,11 @@ void Level::linesUpdate(std::vector<Line>& lines)
 		}
 		else
 		{  //NOT TESTED
+			int body_id = Cliker::getKinectApplication().getSingleBodyId();
 			for (int i = 0; i < JointType_Count; i++) {
 				for (int j = 0; j < lines.size(); j++) {
-					sf::Vector2f joint_xy = sf::Vector2f(Cliker::getKinectApplication().getAllJoints_timeAveraged_PointsXY(i,0).x, Cliker::getKinectApplication().getAllJoints_timeAveraged_PointsXY(i, 0).y);
-					float joint_z = Cliker::getKinectApplication().getAllJoints_timeAveraged_DepthPoints(i, 0);
+					sf::Vector2f joint_xy = Cliker::getKinectApplication().getAllJoints_timeAveraged_PointsXY(i, body_id);
+					float joint_z = Cliker::getKinectApplication().getAllJoints_timeAveraged_DepthPoints(i, body_id);
 
 					joint_xy.x = Cliker::kinectTranform_X_Cordinates(joint_xy.x); //translate to pixel
 					joint_xy.y = Cliker::kinectTranform_Y_Cordinates(joint_xy.y);//same
@@ -396,6 +397,7 @@ void Level::drawLines(sf::RenderWindow & renderWindow, std::vector<Line>& lines)
 	//kinect joints shapes
 	if (Colibration::_debagFlag)
 	{
+		int body_id = Cliker::getKinectApplication().getSingleBodyId();
 		for (int i = 0; i < JointType_Count; i++)
 		{
 			sf::CircleShape _shape1;
@@ -404,8 +406,8 @@ void Level::drawLines(sf::RenderWindow & renderWindow, std::vector<Line>& lines)
 			_shape1.setRadius(additionalRadius(i));
 			_shape1.setOutlineThickness(10);
 			_shape1.setOutlineColor(sf::Color(250, 50, 100));
-			float x = Cliker::kinectTranform_X_Cordinates(Cliker::getKinectApplication().getAllJoints_timeAveraged_PointsXY(i, 0).x);
-			float y = Cliker::kinectTranform_Y_Cordinates(Cliker::getKinectApplication().getAllJoints_timeAveraged_PointsXY(i, 0).y);
+			float x = Cliker::kinectTranform_X_Cordinates(Cliker::getKinectApplication().getAllJoints_timeAveraged_PointsXY(i, body_id).x);
+			float y = Cliker::kinectTranform_Y_Cordinates(Cliker::getKinectApplication().getAllJoints_timeAveraged_PointsXY(i, body_id).y);
 			_shape1.setPosition(sf::Vector2f(x, y) - sf::Vector2f(additionalRadius(i), additionalRadius(i)));
 
 			shape_Vec.push_back(_shape1);
