@@ -102,8 +102,8 @@ int main()
 			break;
 		case(myServer::MANUAL_COLIBRATION):
 			std::cout << "MANUAL_COLIBRATION started \n";
-			if (true) Colibration::manualAdditionalColibration(*server);
-			if (false) Colibration::manualEquationValuesColibration(*server);
+			if (server->getData()[2] == 0) Colibration::manualAdditionalColibration(*server);
+			if (server->getData()[2] == 1) Colibration::manualEquationValuesColibration(*server);
 			break;
 		}
 		

@@ -295,10 +295,7 @@ void Colibration::manualEquationValuesColibration(myServer &server)
 			sumValue_x_up, sumValue_x_down, multValue_x_up, multValue_x_down,
 			sumValue_y_up, sumValue_y_down, multValue_y_up, multValue_y_down
 		};
-		BUTTONS button;
-		button = sumValue_x_up;
-		//button = myServer::get....
-		switch (button)
+		switch (server.getData()[0])
 		{
 		case sumValue_x_up:
 			Cliker::_sumValue.x += 1;
